@@ -60,6 +60,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.labelHighscore = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.labelLevelName = new System.Windows.Forms.Label();
             this.labelLevel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -311,17 +312,27 @@
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
+            // labelLevelName
+            // 
+            this.labelLevelName.AutoSize = true;
+            this.labelLevelName.BackColor = System.Drawing.Color.Transparent;
+            this.labelLevelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLevelName.Location = new System.Drawing.Point(791, 114);
+            this.labelLevelName.Name = "labelLevelName";
+            this.labelLevelName.Size = new System.Drawing.Size(125, 46);
+            this.labelLevelName.TabIndex = 12;
+            this.labelLevelName.Text = "Level:";
+            // 
             // labelLevel
             // 
             this.labelLevel.AutoSize = true;
-            this.labelLevel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.labelLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLevel.Location = new System.Drawing.Point(332, 329);
+            this.labelLevel.BackColor = System.Drawing.Color.Transparent;
+            this.labelLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLevel.Location = new System.Drawing.Point(1066, 114);
             this.labelLevel.Name = "labelLevel";
-            this.labelLevel.Size = new System.Drawing.Size(553, 217);
-            this.labelLevel.TabIndex = 12;
-            this.labelLevel.Text = "Level";
-            this.labelLevel.Visible = false;
+            this.labelLevel.Size = new System.Drawing.Size(42, 46);
+            this.labelLevel.TabIndex = 13;
+            this.labelLevel.Text = "1";
             // 
             // Form1
             // 
@@ -329,6 +340,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1306, 822);
             this.Controls.Add(this.labelLevel);
+            this.Controls.Add(this.labelLevelName);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labelHighscore);
             this.Controls.Add(this.label3);
@@ -389,6 +401,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label labelHighscore;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label labelLevelName;
         private System.Windows.Forms.Label labelLevel;
     }
 }

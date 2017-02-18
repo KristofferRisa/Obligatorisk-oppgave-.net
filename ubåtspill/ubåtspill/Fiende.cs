@@ -2,22 +2,24 @@
 
 namespace ubåtspill
 {
-    public class Fi
+    public class Fiende
     {
-        public Fi()
+        public Fiende()
         {
             //lager en ny tilfeldig Y verdi for utbåt
             var random = new Random();
-            var newY = random.Next(0, 250);
 
-            X = 0;
+            var newY = random.Next(0, 250);           
             Y = newY;
+
+            var newX = random.Next(-500, 0);
+            X = newX;
 
             isActive = true;
 
             //lager ny tilfeldig point
-            points = random.Next(10,40);
-            Length = points;
+            Length = random.Next(10,40);
+            Points = 100-Length;
             Height = 20;
         }
 
@@ -28,7 +30,7 @@ namespace ubåtspill
 
         public int X { get; private set; }
         public int Y { get; private set; }
-        public int points { get; private set; }
+        public int Points { get; private set; }
         public bool isActive { get; set; }
         public int Length { get; private set; }
         public int Height { get; private set; }

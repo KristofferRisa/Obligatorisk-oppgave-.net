@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
@@ -11,12 +13,13 @@ namespace ubåtspill
     {
         //Spill brett er 1300 x 600 (X = 1300, Y = 600)
         #region private fields
-        private List<Fi> _fiender = new List<Fi>();
+        private List<Fiende> _fiender = new List<Fiende>();
         private Ubåt _ubåt;
         private Torpedo _torpedo;
         private int _score;
         private int _life;
         private int _level;
+        private bool _gameOver;
 
         #endregion
 
@@ -29,27 +32,45 @@ namespace ubåtspill
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            _gameOver = false;
             _ubåt = new Ubåt();
             _torpedo = new Torpedo();
-            _fiender.Add(new Fi());
+            
             timerBåter.Start();
             _life = 3;
             _level = 1;
         }
-
-        private void avsluttToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            timerBåter.Stop();
-            Application.Exit();
-        }
         
-        private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            timerBåter.Stop();
-        }
-
         private void timerBåter_Tick(object sender, EventArgs e)
         {
+            if(_fiender.Count < _level + 3)
+            {
+                _fiender.Add(new Fiende());
+            }
+            else
+            {
+                //sjekk om noen av fiendene er i live
+                if (_fiender.All(x => x.isActive == false)) UpLevel();
+            }
+
+
+            if (_gameOver)
+            {
+                Pause();
+                HighscoreForm form = new HighscoreForm(_score);
+                this.Hide();
+                form.ShowDialog();
+                this.ShowDialog();
+
+                //TODO: This doesn't work!
+                if (MessageBox.Show("Game over", "Game over", MessageBoxButtons.OK, MessageBoxIcon.Stop) == DialogResult.OK)
+                {
+                    //TODO: Add save highscore
+                    labelHighscore.Text = _score.ToString();
+                    Restart();
+                }
+            }
+
             foreach (var fi in _fiender)
             {
                 if (fi.isActive)
@@ -57,6 +78,7 @@ namespace ubåtspill
                     fi.Move();
                 }
             }
+
             Refresh();
         }
 
@@ -119,7 +141,7 @@ namespace ubåtspill
             Reset();
 
             _fiender.Clear();
-            _fiender.Add(new Fi());
+            _fiender.Add(new Fiende());
             
             labelPoengSum.Text = "0";
 
@@ -127,10 +149,20 @@ namespace ubåtspill
             life2.Visible = true;
 
             _life = 3;
+            if (!timerTorpedo.Enabled)
+            {
+                timerTorpedo.Start();
+            }
+            if (!timerBåter.Enabled)
+            {
+                timerBåter.Start();
+            }
         }
 
         private void Reset()
         {
+            _gameOver = false;
+            _level = 1;
             _torpedo = new Torpedo();
             timerTorpedo.Interval = 15;
             powerBar.Value = 0;
@@ -180,97 +212,83 @@ namespace ubåtspill
             }
         }
 
-        private void SjekkLevel()
-        {
-            if (_fiender.Count > (_level+3))
-            {
-                UpLevel();
-            }
-        }
-
         private void UpLevel()
         {
             _level++;
             Pause();
 
-            labelLevel.Text = $"Level {_level}";
-            labelLevel.Visible = true;
+            labelLevel.Text = $"{_level}";
+            Wait(1000);
 
-            Thread.Sleep(100);
+            labelLevelName.Text = "STARTING IN 3";
+            Wait(1000);
 
-            labelLevel.Text = "STARTING IN 3";
+            labelLevelName.Text = "STARTING IN 2";
+            Wait(1000);
 
-            Thread.Sleep(100);
+            labelLevelName.Text = "STARTING IN 1";
+            Wait(1000);
 
-            labelLevel.Text = "STARTING IN 2";
-
-            Thread.Sleep(100);
-
-            labelLevel.Text = "STARTING IN 1";
-
-            Thread.Sleep(100);
-
-            labelLevel.Visible = false;
+            labelLevelName.Text = "Level:";
 
             Restart();
         }
 
+       
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
 
-            //Løkke for å loope gjennom alle fiender
-            foreach (var fi in _fiender)
+            if (_gameOver == false)
             {
-                // TREFF!!
-                if (fi.isHit(_torpedo))
+                //Løkke for å loope gjennom alle fiender
+                foreach (var fi in _fiender)
                 {
-                    Reset();
-                    //TODO: Verifiser denne
-                    _score += fi.points;
-                    labelPoengSum.Text = _score.ToString();
-                    fi.isActive = false;
-                    
-                    return;
-                }
-
-                //Fi is out of bounce
-                if (fi.X > pictureBox1.Width && fi.isActive)
-                {
-                    if (_life > 1)
+                    // TREFF!!
+                    if (fi.isHit(_torpedo))
                     {
-                        _life--;
+                        Reset();
+                        //TODO: Verifiser denne
+                        _score += fi.Points;
+                        labelPoengSum.Text = _score.ToString();
                         fi.isActive = false;
-                        if (_life == 2) life3.Visible = false;
-                        if (_life == 1) life2.Visible = false;
+
+                        return;
                     }
-                    else
+
+                    //Fiende is out of bounce
+                    if (fi.X > pictureBox1.Width && fi.isActive)
                     {
-                        Pause();
-                        if (MessageBox.Show("Game over", "Game over", MessageBoxButtons.OK, MessageBoxIcon.Stop) == DialogResult.OK)
+                        if (_life > 1)
                         {
-                            //TODO: Add save highscore
-                            labelHighscore.Text = _score.ToString();
-                            Restart();
+                            _life--;
+                            fi.isActive = false;
+                            if (_life == 2) life3.Visible = false;
+                            if (_life == 1) life2.Visible = false;
+                        }
+                        else
+                        {
+                            _gameOver = true;
+                            break;
                         }
                     }
-                }
 
-                //tegner fi
-                if (fi.isActive)
-                {
-                    Brush b1 = new SolidBrush(Color.AliceBlue);
-                    g.FillEllipse(b1, fi.X, fi.Y, fi.Length, fi.Height);
+                    //tegner fi
+                    if (fi.isActive)
+                    {
+                        Brush b1 = new SolidBrush(Color.AliceBlue);
+                        g.FillEllipse(b1, fi.X, fi.Y, fi.Length, fi.Height);
+                    }
                 }
+                
             }
-
+            
             //torpedo is out of bounce
             if (_torpedo.Y < 0)
             {
                 Reset();
             }
-
-
+            
             //Tegner ubåt
             if (_ubåt != null)
             {
@@ -291,5 +309,39 @@ namespace ubåtspill
             labelX.Text = e.X.ToString();
             labelY.Text = e.Y.ToString();
         }
+
+        #region menu buttons
+
+        private void avsluttToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timerBåter.Stop();
+            Application.Exit();
+        }
+
+        private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timerBåter.Stop();
+        }
+
+
+        #endregion
+
+        #region helper methods
+
+        private static void Wait(int millisecondsToWait)
+        {
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            while (true)
+            {
+                //some other processing to do possible
+                if (stopwatch.ElapsedMilliseconds >= millisecondsToWait)
+                {
+                    break;
+                }
+            }
+        }
+
+
+        #endregion
     }
 }
