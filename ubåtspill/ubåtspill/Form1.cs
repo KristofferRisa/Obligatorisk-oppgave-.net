@@ -6,10 +6,11 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
+using ubåtspill.Properties;
 
 namespace ubåtspill
 {
-    public partial class Form1 : Form
+    public partial class Spill : Form
     {
         //Spill brett er 1300 x 600 (X = 1300, Y = 600)
         #region private fields
@@ -24,7 +25,7 @@ namespace ubåtspill
         #endregion
 
         #region ctor
-        public Form1()
+        public Spill()
         {
             InitializeComponent();
         }
@@ -40,34 +41,47 @@ namespace ubåtspill
             _life = 3;
             _level = 1;
         }
-        
+
+        private void timerTorpedo_Tick(object sender, EventArgs e)
+        {
+            if (_torpedo != null && _torpedo.isActive)
+            {
+                _torpedo.Move();
+            }
+            else
+            {
+                if (powerBar.Value != 100)
+                {
+                    powerBar.PerformStep();
+                    timerTorpedo.Interval--;
+                    Console.WriteLine($@"Torpedo interval = {timerTorpedo.Interval}");
+                }
+            }
+        }
+
         private void timerBåter_Tick(object sender, EventArgs e)
         {
-            if(_fiender.Count < _level + 3)
+            if(_fiender.Count() < _level + 3)
             {
                 _fiender.Add(new Fiende());
             }
             else
             {
                 //sjekk om noen av fiendene er i live
-                if (_fiender.All(x => x.isActive == false)) UpLevel();
+                if (_fiender.All(x => x.isActive == false)) NewLevel();
             }
 
 
             if (_gameOver)
             {
-                Pause();
-                HighscoreForm form = new HighscoreForm(_score);
-                this.Hide();
-                form.ShowDialog();
-                this.ShowDialog();
+                ShowHighscoreForm(true);
 
                 //TODO: This doesn't work!
                 if (MessageBox.Show("Game over", "Game over", MessageBoxButtons.OK, MessageBoxIcon.Stop) == DialogResult.OK)
                 {
                     //TODO: Add save highscore
                     labelHighscore.Text = _score.ToString();
-                    Restart();
+                    ResetGame();
                 }
             }
 
@@ -124,7 +138,7 @@ namespace ubåtspill
                             , MessageBoxButtons.OKCancel
                             ,MessageBoxIcon.Information) == DialogResult.OK)
                         {
-                            Restart();
+                            NewGame();
                         }
                         UnPause();
                         break;
@@ -136,35 +150,23 @@ namespace ubåtspill
             }
         }
 
-        private void Restart()
+        private void ResetGame()
         {
-            Reset();
+            ResetLife();
+            _gameOver = false;
 
-            _fiender.Clear();
-            _fiender.Add(new Fiende());
-            
-            labelPoengSum.Text = "0";
+            _level = 1;
+            labelLevel.Text = $@"{_level}";
+            Refresh();
 
-            life3.Visible = true;
-            life2.Visible = true;
-
-            _life = 3;
-            if (!timerTorpedo.Enabled)
-            {
-                timerTorpedo.Start();
-            }
-            if (!timerBåter.Enabled)
-            {
-                timerBåter.Start();
-            }
+            ResetTorpedo();
         }
 
-        private void Reset()
+        private void ResetTorpedo()
         {
-            _gameOver = false;
-            _level = 1;
             _torpedo = new Torpedo();
             timerTorpedo.Interval = 15;
+
             powerBar.Value = 0;
             timerTorpedo.Stop();
         }
@@ -184,22 +186,7 @@ namespace ubåtspill
             }
         }
 
-        private void timerTorpedo_Tick(object sender, EventArgs e)
-        {
-            if(_torpedo != null && _torpedo.isActive)
-            {
-                _torpedo.Move();
-            }
-            else
-            {
-                if(powerBar.Value != 100)
-                {
-                    powerBar.PerformStep();
-                    timerTorpedo.Interval--;
-                    Console.WriteLine($"Torpedo interval = {timerTorpedo.Interval}");
-                }
-            }
-        }
+       
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
@@ -212,29 +199,61 @@ namespace ubåtspill
             }
         }
 
-        private void UpLevel()
+        private void NewGame()
+        {
+            ResetGame();
+        }
+
+        private void NewLevel()
         {
             _level++;
             Pause();
 
-            labelLevel.Text = $"{_level}";
+            labelStatus.Text = $@"Ny level!";
+            Refresh();
             Wait(1000);
 
-            labelLevelName.Text = "STARTING IN 3";
+            labelLevel.Text = $@"{_level}";
+            Refresh();
             Wait(1000);
 
-            labelLevelName.Text = "STARTING IN 2";
+            labelStatus.Text = @"starter om 3";
+            Refresh();
             Wait(1000);
 
-            labelLevelName.Text = "STARTING IN 1";
+            labelStatus.Text = @"starter om 2";
+            Refresh();
             Wait(1000);
 
-            labelLevelName.Text = "Level:";
+            labelStatus.Text = Resources.NewLevel_starter_om_1;
+            Refresh();
+            Wait(1000);
 
-            Restart();
+            labelStatus.Text = "";
+            Refresh();
+
+            ResetLife();
+
+            ResetTorpedo();
+
+            UnPause();
+
         }
 
-       
+        private void ResetLife()
+        {
+            _fiender = new List<Fiende>();
+
+            life3.Visible = true;
+            life2.Visible = true;
+
+            _life = 3;
+
+            timerBåter.Start();
+            
+        }
+
+
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -247,7 +266,7 @@ namespace ubåtspill
                     // TREFF!!
                     if (fi.isHit(_torpedo))
                     {
-                        Reset();
+                        ResetTorpedo();
                         //TODO: Verifiser denne
                         _score += fi.Points;
                         labelPoengSum.Text = _score.ToString();
@@ -286,7 +305,7 @@ namespace ubåtspill
             //torpedo is out of bounce
             if (_torpedo.Y < 0)
             {
-                Reset();
+                ResetTorpedo();
             }
             
             //Tegner ubåt
@@ -343,5 +362,23 @@ namespace ubåtspill
 
 
         #endregion
+
+        private void halOfFameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowHighscoreForm(true);
+            var result = MessageBox.Show("Fortsette spill?", "Fortsette", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if(result == DialogResult.Yes) UnPause();
+        }
+
+        private void ShowHighscoreForm(bool active)
+        {
+            Pause();
+            HighscoreForm form = new HighscoreForm(_score,active);
+            this.Hide();
+            form.ShowDialog();
+            this.ShowDialog();
+        }
+        
     }
 }

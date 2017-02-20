@@ -1,6 +1,6 @@
 ﻿namespace ubåtspill
 {
-    partial class Form1
+    partial class Spill
     {
         /// <summary>
         /// Required designer variable.
@@ -37,7 +37,6 @@
             this.hentSpillToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.avsluttToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resultaterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.top10ListeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.halOfFameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.omToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tipsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,6 +61,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelLevelName = new System.Windows.Forms.Label();
             this.labelLevel = new System.Windows.Forms.Label();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -127,23 +127,17 @@
             // resultaterToolStripMenuItem
             // 
             this.resultaterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.top10ListeToolStripMenuItem,
             this.halOfFameToolStripMenuItem});
             this.resultaterToolStripMenuItem.Name = "resultaterToolStripMenuItem";
             this.resultaterToolStripMenuItem.Size = new System.Drawing.Size(132, 36);
             this.resultaterToolStripMenuItem.Text = "Resultater";
-            // 
-            // top10ListeToolStripMenuItem
-            // 
-            this.top10ListeToolStripMenuItem.Name = "top10ListeToolStripMenuItem";
-            this.top10ListeToolStripMenuItem.Size = new System.Drawing.Size(245, 38);
-            this.top10ListeToolStripMenuItem.Text = "Top 10 liste";
             // 
             // halOfFameToolStripMenuItem
             // 
             this.halOfFameToolStripMenuItem.Name = "halOfFameToolStripMenuItem";
             this.halOfFameToolStripMenuItem.Size = new System.Drawing.Size(245, 38);
             this.halOfFameToolStripMenuItem.Text = "Hall of fame";
+            this.halOfFameToolStripMenuItem.Click += new System.EventHandler(this.halOfFameToolStripMenuItem_Click);
             // 
             // omToolStripMenuItem
             // 
@@ -334,11 +328,23 @@
             this.labelLevel.TabIndex = 13;
             this.labelLevel.Text = "1";
             // 
-            // Form1
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.BackColor = System.Drawing.Color.Transparent;
+            this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStatus.ForeColor = System.Drawing.Color.Red;
+            this.labelStatus.Location = new System.Drawing.Point(371, 68);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(0, 46);
+            this.labelStatus.TabIndex = 14;
+            // 
+            // Spill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1306, 822);
+            this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.labelLevel);
             this.Controls.Add(this.labelLevelName);
             this.Controls.Add(this.pictureBox1);
@@ -352,9 +358,11 @@
             this.Controls.Add(this.labelPoeng);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Ubåt";
+            this.ShowIcon = false;
+            this.Text = "Spill";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
@@ -378,7 +386,6 @@
         private System.Windows.Forms.ToolStripMenuItem hentSpillToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem avsluttToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resultaterToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem top10ListeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem halOfFameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem omToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tipsToolStripMenuItem;
@@ -403,6 +410,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label labelLevelName;
         private System.Windows.Forms.Label labelLevel;
+        private System.Windows.Forms.Label labelStatus;
     }
 }
 

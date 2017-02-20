@@ -16,7 +16,7 @@ namespace ubåtspill
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Uåbt());
+            Application.Run(new Spill());
         }
     }
 }

@@ -12,7 +12,7 @@ namespace ubåtspill
 {
     public partial class HighscoreForm : Form
     {
-        private int _score;
+        private readonly int _score;
         private string _name;
         private List<Highscore> _data;
 
@@ -27,6 +27,11 @@ namespace ubåtspill
             labelPoengsum.Visible = active;
             labelDinPoengSum.Visible = active;
             
+            HentHighscore();
+        }
+
+        private void HentHighscore()
+        {
             //Henter data fra disk dersom det finnes, hvis ikke lages en tom data liste
             try
             {
@@ -38,6 +43,7 @@ namespace ubåtspill
                 throw;
             }
 
+            //Maps data til riktig label
             if (_data.Count > 1)
             {
                 labelFirst.Text = _data.OrderByDescending(x => x.Score).First().ToString();
@@ -50,9 +56,33 @@ namespace ubåtspill
             {
                 labelSecond.Text = _data.OrderByDescending(x => x.Score).Skip(2).First().ToString();
             }
-            if (_data.Count >= 3)
+            if (_data.Count >= 4)
             {
-                labelSecond.Text = _data.OrderByDescending(x => x.Score).Skip(2).First().ToString();
+                labelSecond.Text = _data.OrderByDescending(x => x.Score).Skip(3).First().ToString();
+            }
+            if (_data.Count >= 5)
+            {
+                labelSecond.Text = _data.OrderByDescending(x => x.Score).Skip(4).First().ToString();
+            }
+            if (_data.Count >= 6)
+            {
+                labelSecond.Text = _data.OrderByDescending(x => x.Score).Skip(5).First().ToString();
+            }
+            if (_data.Count >= 7)
+            {
+                labelSecond.Text = _data.OrderByDescending(x => x.Score).Skip(6).First().ToString();
+            }
+            if (_data.Count >= 8)
+            {
+                labelSecond.Text = _data.OrderByDescending(x => x.Score).Skip(7).First().ToString();
+            }
+            if (_data.Count >= 9)
+            {
+                labelSecond.Text = _data.OrderByDescending(x => x.Score).Skip(8).First().ToString();
+            }
+            if (_data.Count >= 10)
+            {
+                labelSecond.Text = _data.OrderByDescending(x => x.Score).Skip(9).First().ToString();
             }
         }
 
@@ -67,7 +97,10 @@ namespace ubåtspill
             }
             else
             {
-                MessageBox.Show("Mangler brukernavn","Lagre poeng",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show(@"Mangler brukernavn"
+                    ,@"Lagre poeng"
+                    ,MessageBoxButtons.OK
+                    ,MessageBoxIcon.Warning);
             }
         }
 
