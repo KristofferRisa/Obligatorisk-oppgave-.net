@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace ubåtspill
@@ -17,21 +14,19 @@ namespace ubåtspill
         /// <para>Object type must have a parameterless constructor.</para>
         /// </summary>
         /// <typeparam name="T">The type of object being written to the file.</typeparam>
-        /// <param name="objectToWrite">The object instance to write to the file.</param>
-        /// <param name="append">If false the file will be overwritten if it already exists. If true the contents will be appended to the file.</param>
-        public static void WriteToXmlFile<T>(T objectToWrite, bool append = false) where T : new()
+        /// <param name="data">The object instance to write to the file.</param>
+        public static void SkrivXmlFile<T>(T data) where T : new()
         {
             TextWriter writer = null;
             try
             {
                 var serializer = new XmlSerializer(typeof(T));
-                writer = new StreamWriter(FilePath, append);
-                serializer.Serialize(writer, objectToWrite);
+                writer = new StreamWriter(FilePath, false);
+                serializer.Serialize(writer, data);
             }
             finally
             {
-                if (writer != null)
-                    writer.Close();
+                writer?.Close();
             }
         }
 
@@ -46,7 +41,7 @@ namespace ubåtspill
             if (!File.Exists(FilePath))
             {
                 var data = new List<Highscore>();
-                WriteToXmlFile(data);
+                SkrivXmlFile(data);
             }
 
             TextReader reader = null;
@@ -58,8 +53,7 @@ namespace ubåtspill
             }
             finally
             {
-                if (reader != null)
-                    reader.Close();
+                reader?.Close();
             }
         }
 
@@ -67,13 +61,21 @@ namespace ubåtspill
         {
             get
             {
-                //string path = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)).FullName;
-                //if (Environment.OSVersion.Version.Major >= 6)
-                //{
-                //    path = Directory.GetParent(path).ToString();
-                //}
-                //return path;
-                return "c:\\temp\\data.xml";
+                //string path = Directory.
+                //    GetParent(Environment.
+                //    GetFolderPath(Environment.SpecialFolder.ApplicationData)).;
+                string mappe = Path.Combine(Environment.GetFolderPath(
+                    Environment.SpecialFolder.ApplicationData), "ubåt");
+
+                string filbane =  $@"{mappe}\data.xml";
+                
+                //Lager mappe om den ikke finnes fra før
+                if(!Directory.Exists(mappe))
+                {
+                    Directory.CreateDirectory(mappe);
+                }
+
+                return filbane;
             }
         }
     }
