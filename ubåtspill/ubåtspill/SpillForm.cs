@@ -82,7 +82,7 @@ namespace ubåtspill
                             , MessageBoxButtons.OKCancel
                             ,MessageBoxIcon.Information) == DialogResult.OK)
                         {
-                            NewGame();
+                            NyttSpill();
                         }
                         UnPause();
                         break;
@@ -115,24 +115,24 @@ namespace ubåtspill
                 foreach (var fi in _fiender)
                 {
                     // TREFF!!
-                    if (fi.isHit(_torpedo))
+                    if (fi.IsHit(_torpedo))
                     {
                         ResetTorpedo();
                         //TODO: Verifiser denne
                         _score += fi.Points;
                         labelPoengSum.Text = _score.ToString();
-                        fi.isActive = false;
+                        fi.IsActive = false;
 
                         return;
                     }
 
                     //Fiende is out of bounce
-                    if (fi.X > pictureBox1.Width && fi.isActive)
+                    if (fi.X > pictureBox1.Width && fi.IsActive)
                     {
                         if (_life > 1)
                         {
                             _life--;
-                            fi.isActive = false;
+                            fi.IsActive = false;
                             if (_life == 2) life3.Visible = false;
                             if (_life == 1) life2.Visible = false;
                         }
@@ -144,7 +144,7 @@ namespace ubåtspill
                     }
 
                     //tegner fi
-                    if (fi.isActive)
+                    if (fi.IsActive)
                     {
                         Brush b1 = new SolidBrush(Color.AliceBlue);
                         g.FillEllipse(b1, fi.X, fi.Y, fi.Length, fi.Height);
@@ -187,14 +187,15 @@ namespace ubåtspill
             if (_torpedo != null && _torpedo.isActive)
             {
                 _torpedo.Move();
+                Refresh();
             }
             else
             {
                 if (powerBar.Value != 100)
                 {
                     powerBar.PerformStep();
-                    timerTorpedo.Interval--;
-                    Console.WriteLine($@"Torpedo interval = {timerTorpedo.Interval}");
+                    //timerTorpedo.Interval--;
+                    //Console.WriteLine($@"Torpedo interval = {timerTorpedo.Interval}");
                 }
             }
         }
@@ -208,7 +209,7 @@ namespace ubåtspill
             else
             {
                 //sjekk om noen av fiendene er i live
-                if (_fiender.All(x => x.isActive == false)) NewLevel();
+                if (_fiender.All(x => x.IsActive == false)) NyttLevel();
             }
 
 
@@ -235,7 +236,7 @@ namespace ubåtspill
 
             foreach (var fi in _fiender)
             {
-                if (fi.isActive)
+                if (fi.IsActive)
                 {
                     fi.Move();
                 }
@@ -258,7 +259,7 @@ namespace ubåtspill
 
         private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            timerBåter.Stop();
+            Pause();
         }
 
         private void halOfFameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -334,14 +335,21 @@ namespace ubåtspill
             }
         }
 
-        private void NewGame()
+        private void NyttSpill()
         {
             ResetGame();
         }
 
-        private void NewLevel()
+        private void NyttLevel()
         {
             _level++;
+
+            //Setter opp farten på fiender hver andre gangs
+            if (timerBåter.Interval > 1 && _level % 2 == 0)
+            {
+                timerBåter.Interval--;
+            }
+
             Pause();
 
             labelStatus.Text = $@"Ny level!";
@@ -387,8 +395,29 @@ namespace ubåtspill
             timerBåter.Start();
 
         }
-        
+
         #endregion
-        
+
+        private void nyttSpillToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NyttSpill();
+        }
+
+        private void lagreSpillToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UnPause();
+        }
+
+        private void tipsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HjelpForm help = new HjelpForm();
+            help.Show();
+        }
+
+        private void omToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            OmForm om = new OmForm();
+            om.Show();
+        }
     }
 }

@@ -67,7 +67,7 @@ namespace ubåtspill
             }
 
             //Maps data til riktig label
-            if (_data.Count > 1)
+            if (_data.Count >= 1)
             {
                 labelScore1.Text = _data.OrderByDescending(x => x.Score).First().ToString();
             }

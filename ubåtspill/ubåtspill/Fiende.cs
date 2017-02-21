@@ -15,7 +15,7 @@ namespace ubåtspill
             var newX = random.Next(-500, 0);
             X = newX;
 
-            isActive = true;
+            IsActive = true;
 
             //lager ny tilfeldig point
             Length = random.Next(10,40);
@@ -31,11 +31,11 @@ namespace ubåtspill
         public int X { get; private set; }
         public int Y { get; private set; }
         public int Points { get; private set; }
-        public bool isActive { get; set; }
+        public bool IsActive { get; set; }
         public int Length { get; private set; }
         public int Height { get; private set; }
 
-        internal bool isHit(Torpedo torpedo)
+        internal bool IsHit(Torpedo torpedo)
         {
             if(torpedo.X == 0)
             {

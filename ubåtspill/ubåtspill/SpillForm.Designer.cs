@@ -34,7 +34,6 @@
             this.nyttSpillToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lagreSpillToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hentSpillToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.avsluttToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resultaterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.halOfFameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,7 +75,7 @@
             this.omToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1306, 40);
+            this.menuStrip1.Size = new System.Drawing.Size(1306, 42);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -86,41 +85,36 @@
             this.nyttSpillToolStripMenuItem,
             this.pauseToolStripMenuItem,
             this.lagreSpillToolStripMenuItem,
-            this.hentSpillToolStripMenuItem,
             this.avsluttToolStripMenuItem});
             this.filToolStripMenuItem.Name = "filToolStripMenuItem";
-            this.filToolStripMenuItem.Size = new System.Drawing.Size(51, 36);
+            this.filToolStripMenuItem.Size = new System.Drawing.Size(51, 38);
             this.filToolStripMenuItem.Text = "Fil";
             // 
             // nyttSpillToolStripMenuItem
             // 
             this.nyttSpillToolStripMenuItem.Name = "nyttSpillToolStripMenuItem";
-            this.nyttSpillToolStripMenuItem.Size = new System.Drawing.Size(224, 38);
+            this.nyttSpillToolStripMenuItem.Size = new System.Drawing.Size(244, 38);
             this.nyttSpillToolStripMenuItem.Text = "Nytt spill";
+            this.nyttSpillToolStripMenuItem.Click += new System.EventHandler(this.nyttSpillToolStripMenuItem_Click);
             // 
             // pauseToolStripMenuItem
             // 
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(224, 38);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(244, 38);
             this.pauseToolStripMenuItem.Text = "Pause spill";
             this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
             // 
             // lagreSpillToolStripMenuItem
             // 
             this.lagreSpillToolStripMenuItem.Name = "lagreSpillToolStripMenuItem";
-            this.lagreSpillToolStripMenuItem.Size = new System.Drawing.Size(224, 38);
-            this.lagreSpillToolStripMenuItem.Text = "Lagre spill";
-            // 
-            // hentSpillToolStripMenuItem
-            // 
-            this.hentSpillToolStripMenuItem.Name = "hentSpillToolStripMenuItem";
-            this.hentSpillToolStripMenuItem.Size = new System.Drawing.Size(224, 38);
-            this.hentSpillToolStripMenuItem.Text = "Hent spill";
+            this.lagreSpillToolStripMenuItem.Size = new System.Drawing.Size(244, 38);
+            this.lagreSpillToolStripMenuItem.Text = "Fortsett spill";
+            this.lagreSpillToolStripMenuItem.Click += new System.EventHandler(this.lagreSpillToolStripMenuItem_Click);
             // 
             // avsluttToolStripMenuItem
             // 
             this.avsluttToolStripMenuItem.Name = "avsluttToolStripMenuItem";
-            this.avsluttToolStripMenuItem.Size = new System.Drawing.Size(224, 38);
+            this.avsluttToolStripMenuItem.Size = new System.Drawing.Size(244, 38);
             this.avsluttToolStripMenuItem.Text = "Avslutt";
             this.avsluttToolStripMenuItem.Click += new System.EventHandler(this.avsluttToolStripMenuItem_Click);
             // 
@@ -129,7 +123,7 @@
             this.resultaterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.halOfFameToolStripMenuItem});
             this.resultaterToolStripMenuItem.Name = "resultaterToolStripMenuItem";
-            this.resultaterToolStripMenuItem.Size = new System.Drawing.Size(132, 36);
+            this.resultaterToolStripMenuItem.Size = new System.Drawing.Size(132, 38);
             this.resultaterToolStripMenuItem.Text = "Resultater";
             // 
             // halOfFameToolStripMenuItem
@@ -145,24 +139,26 @@
             this.tipsToolStripMenuItem,
             this.omToolStripMenuItem1});
             this.omToolStripMenuItem.Name = "omToolStripMenuItem";
-            this.omToolStripMenuItem.Size = new System.Drawing.Size(83, 36);
+            this.omToolStripMenuItem.Size = new System.Drawing.Size(83, 38);
             this.omToolStripMenuItem.Text = "Hjelp";
             // 
             // tipsToolStripMenuItem
             // 
             this.tipsToolStripMenuItem.Name = "tipsToolStripMenuItem";
-            this.tipsToolStripMenuItem.Size = new System.Drawing.Size(157, 38);
-            this.tipsToolStripMenuItem.Text = "Tips";
+            this.tipsToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
+            this.tipsToolStripMenuItem.Text = "Hjelp";
+            this.tipsToolStripMenuItem.Click += new System.EventHandler(this.tipsToolStripMenuItem_Click);
             // 
             // omToolStripMenuItem1
             // 
             this.omToolStripMenuItem1.Name = "omToolStripMenuItem1";
-            this.omToolStripMenuItem1.Size = new System.Drawing.Size(157, 38);
+            this.omToolStripMenuItem1.Size = new System.Drawing.Size(268, 38);
             this.omToolStripMenuItem1.Text = "Om";
+            this.omToolStripMenuItem1.Click += new System.EventHandler(this.omToolStripMenuItem1_Click);
             // 
             // timerBåter
             // 
-            this.timerBåter.Interval = 1;
+            this.timerBåter.Interval = 25;
             this.timerBåter.Tick += new System.EventHandler(this.timerBåter_Tick);
             // 
             // statusStrip1
@@ -218,7 +214,7 @@
             // 
             // timerTorpedo
             // 
-            this.timerTorpedo.Interval = 15;
+            this.timerTorpedo.Interval = 1;
             this.timerTorpedo.Tick += new System.EventHandler(this.timerTorpedo_Tick);
             // 
             // labelPoeng
@@ -334,7 +330,7 @@
             this.labelStatus.BackColor = System.Drawing.Color.Transparent;
             this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelStatus.ForeColor = System.Drawing.Color.Red;
-            this.labelStatus.Location = new System.Drawing.Point(371, 68);
+            this.labelStatus.Location = new System.Drawing.Point(600, 400);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(0, 46);
             this.labelStatus.TabIndex = 14;
@@ -358,11 +354,12 @@
             this.Controls.Add(this.labelPoeng);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Ubåt";
+            this.Name = "Spill";
             this.ShowIcon = false;
-            this.Text = "Spill";
+            this.Text = "Ubåt spill";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
@@ -383,7 +380,6 @@
         private System.Windows.Forms.ToolStripMenuItem nyttSpillToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pauseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lagreSpillToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hentSpillToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem avsluttToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resultaterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem halOfFameToolStripMenuItem;

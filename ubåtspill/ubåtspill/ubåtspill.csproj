@@ -45,6 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HjelpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HjelpForm.Designer.cs">
+      <DependentUpon>HjelpForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OmForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OmForm.Designer.cs">
+      <DependentUpon>OmForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SpillForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +76,12 @@
     <Compile Include="Torpedo.cs" />
     <Compile Include="Fiende.cs" />
     <Compile Include="Ubåt.cs" />
+    <EmbeddedResource Include="HjelpForm.resx">
+      <DependentUpon>HjelpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OmForm.resx">
+      <DependentUpon>OmForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SpillForm.resx">
       <DependentUpon>SpillForm.cs</DependentUpon>
     </EmbeddedResource>
