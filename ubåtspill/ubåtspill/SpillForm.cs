@@ -18,6 +18,7 @@ namespace ubåtspill
         private int _life;
         private int _level;
         private bool _gameOver;
+        private int _labelStatusTicker;
 
         #endregion
 
@@ -118,7 +119,10 @@ namespace ubåtspill
                     if (fi.IsHit(_torpedo))
                     {
                         ResetTorpedo();
-                        //TODO: Verifiser denne
+                        labelHitpoints.Text = $"Treff!! {fi.Points} poeng!";
+
+                        _labelStatusTicker = 0;
+
                         _score += fi.Points;
                         labelPoengSum.Text = _score.ToString();
                         fi.IsActive = false;
@@ -209,21 +213,24 @@ namespace ubåtspill
             else
             {
                 //sjekk om noen av fiendene er i live
-                if (_fiender.All(x => x.IsActive == false)) NyttLevel();
+                if (_fiender.All(x => x.IsActive == false))
+                {
+                    labelHitpoints.Text = "";
+                    NyttLevel();
+                }
             }
 
 
+            //Gameover!
             if (_gameOver)
             {
                 ShowHighscoreForm(true);
 
-                //TODO: This doesn't work!
                 if (MessageBox.Show(@"Ønsker du å starte et nytt spill?",
                         @"Game over",
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Information) == DialogResult.Yes)
                 {
-                    //TODO: Add save highscore
                     labelHighscore.Text = _score.ToString();
                     ResetGame();
                 }
@@ -234,12 +241,24 @@ namespace ubåtspill
                 }
             }
 
+
+            //Flytter fienden
             foreach (var fi in _fiender)
             {
                 if (fi.IsActive)
                 {
                     fi.Move();
                 }
+            }
+
+            if (_labelStatusTicker > 25)
+            {
+                labelHitpoints.Text = "";
+                _labelStatusTicker++;
+            }
+            else
+            {
+                _labelStatusTicker++;
             }
 
             Refresh();

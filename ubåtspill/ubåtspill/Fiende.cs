@@ -6,20 +6,21 @@ namespace ubåtspill
     {
         public Fiende()
         {
-            //lager en ny tilfeldig Y verdi for utbåt
             var random = new Random();
 
             var newY = random.Next(0, 250);           
             Y = newY;
 
-            var newX = random.Next(-500, 0);
+            //Fienden starter på utsiden av panelet og flytter seg inn fra høyre, derfor random fra -350(en type delay)
+            var newX = random.Next(-350, 0); 
             X = newX;
-
-            IsActive = true;
-
+            
             //lager ny tilfeldig point
             Length = random.Next(10,40);
-            Points = 100-Length;
+
+            IsActive = true;
+            //Utregning av poengsum baseres på hvor liten fienden er og hvor langt unna den er. 
+            Points = (100 - Length) + (25 - Y/10);
             Height = 20;
         }
 
