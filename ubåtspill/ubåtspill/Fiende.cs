@@ -4,8 +4,10 @@ namespace ubåtspill
 {
     public class Fiende
     {
-        public Fiende()
+        public Fiende(int speed)
         {
+            this.Speed = (Speed)speed;
+
             var random = new Random();
 
             var newY = random.Next(0, 250);           
@@ -35,6 +37,7 @@ namespace ubåtspill
         public bool IsActive { get; set; }
         public int Length { get; private set; }
         public int Height { get; private set; }
+        public Speed Speed { get; private set; }
 
         internal bool IsHit(Torpedo torpedo)
         {
@@ -67,5 +70,10 @@ namespace ubåtspill
             
             return false;
         }
+    }
+
+    public enum Speed
+    {
+        Slow,Mid,Fast
     }
 }

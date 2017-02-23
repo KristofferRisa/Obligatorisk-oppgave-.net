@@ -32,13 +32,9 @@ namespace ubåtspill
         #region events
         private void Form1_Load(object sender, EventArgs e)
         {
-            _gameOver = false;
             _ubåt = new Ubåt();
             _torpedo = new Torpedo();
-
-            timerBåter.Start();
-            _life = 3;
-            _level = 1;
+            NyttSpill();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -113,7 +109,7 @@ namespace ubåtspill
             if (_gameOver == false)
             {
                 //Løkke for å loope gjennom alle fiender
-                foreach (var fi in _fiender)
+                foreach (var fi in _fiender.Where(x => x.IsActive))
                 {
                     // TREFF!!
                     if (fi.IsHit(_torpedo))
@@ -131,7 +127,7 @@ namespace ubåtspill
                     }
 
                     //Fiende is out of bounce
-                    if (fi.X > pictureBox1.Width && fi.IsActive)
+                    if (fi.X > pictureBox1.Width)
                     {
                         if (_life > 1)
                         {
@@ -148,11 +144,8 @@ namespace ubåtspill
                     }
 
                     //tegner fi
-                    if (fi.IsActive)
-                    {
-                        Brush b1 = new SolidBrush(Color.AliceBlue);
-                        g.FillEllipse(b1, fi.X, fi.Y, fi.Length, fi.Height);
-                    }
+                    Brush b1 = new SolidBrush(Color.AliceBlue);
+                    g.FillEllipse(b1, fi.X, fi.Y, fi.Length, fi.Height);
                 }
                 
             }
@@ -185,30 +178,21 @@ namespace ubåtspill
         }
 
         #region ticks
-
-        private void timerTorpedo_Tick(object sender, EventArgs e)
-        {
-            if (_torpedo != null && _torpedo.isActive)
-            {
-                _torpedo.Move();
-                Refresh();
-            }
-            else
-            {
-                if (powerBar.Value != 100)
-                {
-                    powerBar.PerformStep();
-                    //timerTorpedo.Interval--;
-                    //Console.WriteLine($@"Torpedo interval = {timerTorpedo.Interval}");
-                }
-            }
-        }
-
-        private void timerBåter_Tick(object sender, EventArgs e)
+        
+        private void timerGame_Tick(object sender, EventArgs e)
         {
             if (_fiender.Count() < _level + 3)
             {
-                _fiender.Add(new Fiende());
+                //if (_level < 3)
+                //{
+                //    //Legger bare til slow fiender på nivå lavere enn 3
+                //    _fiender.Add(new Fiende(0));
+                //}
+                //else
+                //{
+                var speed = new Random();
+                _fiender.Add(new Fiende(speed.Next(0, 2)));
+                //}
             }
             else
             {
@@ -219,8 +203,6 @@ namespace ubåtspill
                     NyttLevel();
                 }
             }
-
-
             //Gameover!
             if (_gameOver)
             {
@@ -241,16 +223,6 @@ namespace ubåtspill
                 }
             }
 
-
-            //Flytter fienden
-            foreach (var fi in _fiender)
-            {
-                if (fi.IsActive)
-                {
-                    fi.Move();
-                }
-            }
-
             if (_labelStatusTicker > 25)
             {
                 labelHitpoints.Text = "";
@@ -260,8 +232,61 @@ namespace ubåtspill
             {
                 _labelStatusTicker++;
             }
-
             Refresh();
+        }
+
+        private void timerTorpedo_Tick(object sender, EventArgs e)
+        {
+            if (_torpedo != null && _torpedo.isActive)
+            {
+                _torpedo.Move();
+            }
+            else
+            {
+                if (powerBar.Value < 100)
+                {
+                    powerBar.PerformStep();
+                    if (powerBar.Value % 20 == 0)
+                    {
+                          timerTorpedo.Interval--;
+                    }
+                }
+            }
+        }
+
+        private void timerSlow_Tick(object sender, EventArgs e)
+        {
+            
+            //Flytter fienden
+            foreach (var fi in _fiender)
+            {
+                if (fi.IsActive && fi.Speed == Speed.Slow)
+                {
+                    fi.Move();
+                }
+            }
+        }
+
+        private void timerMid_Tick(object sender, EventArgs e)
+        {
+            foreach (var fi in _fiender)
+            {
+                if (fi.IsActive && fi.Speed == Speed.Mid)
+                {
+                    fi.Move();
+                }
+            }
+        }
+
+        private void timerFast_Tick(object sender, EventArgs e)
+        {
+            foreach (var fi in _fiender)
+            {
+                if (fi.IsActive && fi.Speed == Speed.Fast)
+                {
+                    fi.Move();
+                }
+            }
         }
 
         #endregion
@@ -272,7 +297,7 @@ namespace ubåtspill
 
         private void avsluttToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            timerBåter.Stop();
+            timerSlow.Stop();
             Application.Exit();
         }
 
@@ -341,13 +366,19 @@ namespace ubåtspill
 
         private void Pause()
         {
-            timerBåter.Stop();
+            timerGame.Stop();
+            timerMid.Stop();
+            timerSlow.Stop();
+            timerFast.Stop();
             timerTorpedo.Stop();
         }
 
         private void UnPause()
         {
-            timerBåter.Start();
+            timerGame.Start();
+            timerSlow.Start();
+            timerMid.Start();
+            timerFast.Start();
             if (_torpedo.isActive)
             {
                 timerTorpedo.Start();
@@ -362,12 +393,6 @@ namespace ubåtspill
         private void NyttLevel()
         {
             _level++;
-
-            //Setter opp farten på fiender hver andre gangs
-            if (timerBåter.Interval > 1 && _level % 2 == 0)
-            {
-                timerBåter.Interval--;
-            }
 
             Pause();
 
@@ -411,7 +436,10 @@ namespace ubåtspill
 
             _life = 3;
 
-            timerBåter.Start();
+            timerGame.Start();
+            timerSlow.Start();
+            timerMid.Start();
+            timerFast.Start();
 
         }
 
@@ -438,5 +466,6 @@ namespace ubåtspill
             OmForm om = new OmForm();
             om.Show();
         }
+
     }
 }
