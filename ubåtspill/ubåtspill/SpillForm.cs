@@ -19,6 +19,7 @@ namespace ubåtspill
         private int _level;
         private bool _gameOver;
         private int _labelStatusTicker;
+        private int _hitCount;
 
         #endregion
 
@@ -34,6 +35,7 @@ namespace ubåtspill
         {
             _ubåt = new Ubåt();
             _torpedo = new Torpedo();
+            _hitCount = 0;
             NyttSpill();
         }
 
@@ -120,6 +122,8 @@ namespace ubåtspill
                         _labelStatusTicker = 0;
 
                         _score += fi.Points;
+                        _hitCount++;
+                        labelTreffSum.Text = _hitCount.ToString();
                         labelPoengSum.Text = _score.ToString();
                         fi.IsActive = false;
 
@@ -143,9 +147,14 @@ namespace ubåtspill
                         }
                     }
 
-                    //tegner fi
-                    Brush b1 = new SolidBrush(Color.AliceBlue);
-                    g.FillEllipse(b1, fi.X, fi.Y, fi.Length, fi.Height);
+                    //tegner fienden
+                    g.FillEllipse(fi.Brush, fi.X, fi.Y, fi.Length, fi.Height);
+                    //tegner kanonen
+                    //g.FillEllipse(fi.Brush
+                    //    , fi.X + (fi.Length / 4)// X
+                    //    , fi.Y -5 // Y
+                    //    , fi.Length - (fi.Length / 2)  // Lengde
+                    //    , fi.Height); // Høyde
                 }
                 
             }
@@ -199,7 +208,6 @@ namespace ubåtspill
                 //sjekk om noen av fiendene er i live
                 if (_fiender.All(x => x.IsActive == false))
                 {
-                    labelHitpoints.Text = "";
                     NyttLevel();
                 }
             }
@@ -223,7 +231,7 @@ namespace ubåtspill
                 }
             }
 
-            if (_labelStatusTicker > 25)
+            if (_labelStatusTicker > 45)
             {
                 labelHitpoints.Text = "";
                 _labelStatusTicker++;
@@ -350,6 +358,8 @@ namespace ubåtspill
 
             _level = 1;
             labelLevel.Text = $@"{_level}";
+            labelTreffSum.Text = "0";
+            labelPoengSum.Text = "0";
             Refresh();
 
             ResetTorpedo();
@@ -394,6 +404,8 @@ namespace ubåtspill
         {
             _level++;
 
+            labelHitpoints.Text = "";
+
             Pause();
 
             labelStatus.Text = $@"Ny level!";
@@ -404,15 +416,15 @@ namespace ubåtspill
             Refresh();
             Wait(1000);
 
-            labelStatus.Text = @"starter om 3";
+            labelStatus.Text = @"Starter om 3";
             Refresh();
             Wait(1000);
 
-            labelStatus.Text = @"starter om 2";
+            labelStatus.Text = @"Starter om 2";
             Refresh();
             Wait(1000);
 
-            labelStatus.Text = @"starter om 1";
+            labelStatus.Text = @"Starter om 1";
             Refresh();
             Wait(1000);
 

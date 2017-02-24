@@ -12,7 +12,7 @@ namespace ubåtspill
             isActive = false;
             Height = 20;
             Length = 20;
-            Brush = new SolidBrush(System.Drawing.Color.Red);
+            Brush = new SolidBrush(System.Drawing.Color.Black);
         }
 
         //Spill brett er 1300 x 600 (X = 1300, Y = 600)
