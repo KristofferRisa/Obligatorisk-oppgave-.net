@@ -345,7 +345,7 @@ namespace ubåtspill
         private void ShowHighscoreForm(bool active)
         {
             Pause();
-            HighscoreForm form = new HighscoreForm(_score, active);
+            HighscoreForm form = new HighscoreForm(_score, _level, active);
             this.Hide();
             form.ShowDialog();
             this.Show();
