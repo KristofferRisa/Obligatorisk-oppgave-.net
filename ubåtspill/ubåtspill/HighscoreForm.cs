@@ -16,14 +16,17 @@ namespace ubåtspill
         private readonly int _score;
         private string _name;
         private List<Highscore> _data;
+        private readonly int _level;
+
         #endregion
 
-        public HighscoreForm(int score,bool active)
+        public HighscoreForm(int score, int level, bool active)
         {
             InitializeComponent();
 
             labelPoengsum.Text = score.ToString();
             _score = score;
+            _level = level;
 
             groupBoxRegScore.Visible = active;
             labelPoengsum.Visible = active;
@@ -111,7 +114,14 @@ namespace ubåtspill
 
         private void SaveXmlData()
         {
-            _data.Add(new Highscore(){ Name = _name, Score = _score, Date = DateTime.Now});
+            _data.Add(
+                new Highscore()
+                {
+                        Name = _name
+                        , Score = _score
+                        , Level = _level
+                        , Date = DateTime.Now
+                });
             HelperClass.SkrivXmlFile(_data);
         }
     }

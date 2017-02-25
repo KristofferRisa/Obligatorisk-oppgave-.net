@@ -7,7 +7,7 @@ namespace ubåtspill
     {   
         public Ubåt()
         {
-            Brush = new SolidBrush(Color.Black);
+            Brush = new SolidBrush(Color.SteelBlue);
             X = 250;
             Y = 290;
             Length = 120;

@@ -19,6 +19,7 @@ namespace ubåtspill
         private int _level;
         private bool _gameOver;
         private int _labelStatusTicker;
+        private int _hitCount;
 
         #endregion
 
@@ -32,13 +33,10 @@ namespace ubåtspill
         #region events
         private void Form1_Load(object sender, EventArgs e)
         {
-            _gameOver = false;
             _ubåt = new Ubåt();
             _torpedo = new Torpedo();
-
-            timerBåter.Start();
-            _life = 3;
-            _level = 1;
+            _hitCount = 0;
+            NyttSpill();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -113,7 +111,7 @@ namespace ubåtspill
             if (_gameOver == false)
             {
                 //Løkke for å loope gjennom alle fiender
-                foreach (var fi in _fiender)
+                foreach (var fi in _fiender.Where(x => x.IsActive))
                 {
                     // TREFF!!
                     if (fi.IsHit(_torpedo))
@@ -124,6 +122,8 @@ namespace ubåtspill
                         _labelStatusTicker = 0;
 
                         _score += fi.Points;
+                        _hitCount++;
+                        labelTreffSum.Text = _hitCount.ToString();
                         labelPoengSum.Text = _score.ToString();
                         fi.IsActive = false;
 
@@ -131,7 +131,7 @@ namespace ubåtspill
                     }
 
                     //Fiende is out of bounce
-                    if (fi.X > pictureBox1.Width && fi.IsActive)
+                    if (fi.X > pictureBox1.Width)
                     {
                         if (_life > 1)
                         {
@@ -147,12 +147,14 @@ namespace ubåtspill
                         }
                     }
 
-                    //tegner fi
-                    if (fi.IsActive)
-                    {
-                        Brush b1 = new SolidBrush(Color.AliceBlue);
-                        g.FillEllipse(b1, fi.X, fi.Y, fi.Length, fi.Height);
-                    }
+                    //tegner fienden
+                    g.FillEllipse(fi.Brush, fi.X, fi.Y, fi.Length, fi.Height);
+                    //tegner kanonen
+                    //g.FillEllipse(fi.Brush
+                    //    , fi.X + (fi.Length / 4)// X
+                    //    , fi.Y -5 // Y
+                    //    , fi.Length - (fi.Length / 2)  // Lengde
+                    //    , fi.Height); // Høyde
                 }
                 
             }
@@ -185,42 +187,30 @@ namespace ubåtspill
         }
 
         #region ticks
-
-        private void timerTorpedo_Tick(object sender, EventArgs e)
-        {
-            if (_torpedo != null && _torpedo.isActive)
-            {
-                _torpedo.Move();
-                Refresh();
-            }
-            else
-            {
-                if (powerBar.Value != 100)
-                {
-                    powerBar.PerformStep();
-                    //timerTorpedo.Interval--;
-                    //Console.WriteLine($@"Torpedo interval = {timerTorpedo.Interval}");
-                }
-            }
-        }
-
-        private void timerBåter_Tick(object sender, EventArgs e)
+        
+        private void timerGame_Tick(object sender, EventArgs e)
         {
             if (_fiender.Count() < _level + 3)
             {
-                _fiender.Add(new Fiende());
+                //if (_level < 3)
+                //{
+                //    //Legger bare til slow fiender på nivå lavere enn 3
+                //    _fiender.Add(new Fiende(0));
+                //}
+                //else
+                //{
+                var speed = new Random();
+                _fiender.Add(new Fiende(speed.Next(0, 2)));
+                //}
             }
             else
             {
                 //sjekk om noen av fiendene er i live
                 if (_fiender.All(x => x.IsActive == false))
                 {
-                    labelHitpoints.Text = "";
                     NyttLevel();
                 }
             }
-
-
             //Gameover!
             if (_gameOver)
             {
@@ -241,17 +231,7 @@ namespace ubåtspill
                 }
             }
 
-
-            //Flytter fienden
-            foreach (var fi in _fiender)
-            {
-                if (fi.IsActive)
-                {
-                    fi.Move();
-                }
-            }
-
-            if (_labelStatusTicker > 25)
+            if (_labelStatusTicker > 45)
             {
                 labelHitpoints.Text = "";
                 _labelStatusTicker++;
@@ -260,8 +240,61 @@ namespace ubåtspill
             {
                 _labelStatusTicker++;
             }
-
             Refresh();
+        }
+
+        private void timerTorpedo_Tick(object sender, EventArgs e)
+        {
+            if (_torpedo != null && _torpedo.isActive)
+            {
+                _torpedo.Move();
+            }
+            else
+            {
+                if (powerBar.Value < 100)
+                {
+                    powerBar.PerformStep();
+                    if (powerBar.Value % 20 == 0)
+                    {
+                          timerTorpedo.Interval--;
+                    }
+                }
+            }
+        }
+
+        private void timerSlow_Tick(object sender, EventArgs e)
+        {
+            
+            //Flytter fienden
+            foreach (var fi in _fiender)
+            {
+                if (fi.IsActive && fi.Speed == Speed.Slow)
+                {
+                    fi.Move();
+                }
+            }
+        }
+
+        private void timerMid_Tick(object sender, EventArgs e)
+        {
+            foreach (var fi in _fiender)
+            {
+                if (fi.IsActive && fi.Speed == Speed.Mid)
+                {
+                    fi.Move();
+                }
+            }
+        }
+
+        private void timerFast_Tick(object sender, EventArgs e)
+        {
+            foreach (var fi in _fiender)
+            {
+                if (fi.IsActive && fi.Speed == Speed.Fast)
+                {
+                    fi.Move();
+                }
+            }
         }
 
         #endregion
@@ -272,7 +305,7 @@ namespace ubåtspill
 
         private void avsluttToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            timerBåter.Stop();
+            timerSlow.Stop();
             Application.Exit();
         }
 
@@ -312,7 +345,7 @@ namespace ubåtspill
         private void ShowHighscoreForm(bool active)
         {
             Pause();
-            HighscoreForm form = new HighscoreForm(_score, active);
+            HighscoreForm form = new HighscoreForm(_score, _level, active);
             this.Hide();
             form.ShowDialog();
             this.Show();
@@ -325,6 +358,8 @@ namespace ubåtspill
 
             _level = 1;
             labelLevel.Text = $@"{_level}";
+            labelTreffSum.Text = "0";
+            labelPoengSum.Text = "0";
             Refresh();
 
             ResetTorpedo();
@@ -341,13 +376,19 @@ namespace ubåtspill
 
         private void Pause()
         {
-            timerBåter.Stop();
+            timerGame.Stop();
+            timerMid.Stop();
+            timerSlow.Stop();
+            timerFast.Stop();
             timerTorpedo.Stop();
         }
 
         private void UnPause()
         {
-            timerBåter.Start();
+            timerGame.Start();
+            timerSlow.Start();
+            timerMid.Start();
+            timerFast.Start();
             if (_torpedo.isActive)
             {
                 timerTorpedo.Start();
@@ -363,11 +404,7 @@ namespace ubåtspill
         {
             _level++;
 
-            //Setter opp farten på fiender hver andre gangs
-            if (timerBåter.Interval > 1 && _level % 2 == 0)
-            {
-                timerBåter.Interval--;
-            }
+            labelHitpoints.Text = "";
 
             Pause();
 
@@ -379,15 +416,15 @@ namespace ubåtspill
             Refresh();
             Wait(1000);
 
-            labelStatus.Text = @"starter om 3";
+            labelStatus.Text = @"Starter om 3";
             Refresh();
             Wait(1000);
 
-            labelStatus.Text = @"starter om 2";
+            labelStatus.Text = @"Starter om 2";
             Refresh();
             Wait(1000);
 
-            labelStatus.Text = @"starter om 1";
+            labelStatus.Text = @"Starter om 1";
             Refresh();
             Wait(1000);
 
@@ -411,7 +448,10 @@ namespace ubåtspill
 
             _life = 3;
 
-            timerBåter.Start();
+            timerGame.Start();
+            timerSlow.Start();
+            timerMid.Start();
+            timerFast.Start();
 
         }
 
@@ -438,5 +478,6 @@ namespace ubåtspill
             OmForm om = new OmForm();
             om.Show();
         }
+
     }
 }

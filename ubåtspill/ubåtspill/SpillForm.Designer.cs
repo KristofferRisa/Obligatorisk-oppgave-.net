@@ -40,7 +40,7 @@
             this.omToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tipsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.omToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.timerBåter = new System.Windows.Forms.Timer(this.components);
+            this.timerSlow = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.powerBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -62,6 +62,11 @@
             this.labelLevel = new System.Windows.Forms.Label();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelHitpoints = new System.Windows.Forms.Label();
+            this.timerMid = new System.Windows.Forms.Timer(this.components);
+            this.timerFast = new System.Windows.Forms.Timer(this.components);
+            this.timerGame = new System.Windows.Forms.Timer(this.components);
+            this.labelTreff = new System.Windows.Forms.Label();
+            this.labelTreffSum = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -95,28 +100,28 @@
             // nyttSpillToolStripMenuItem
             // 
             this.nyttSpillToolStripMenuItem.Name = "nyttSpillToolStripMenuItem";
-            this.nyttSpillToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
+            this.nyttSpillToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.nyttSpillToolStripMenuItem.Text = "Nytt spill";
             this.nyttSpillToolStripMenuItem.Click += new System.EventHandler(this.nyttSpillToolStripMenuItem_Click);
             // 
             // pauseToolStripMenuItem
             // 
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.pauseToolStripMenuItem.Text = "Pause spill";
             this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
             // 
             // lagreSpillToolStripMenuItem
             // 
             this.lagreSpillToolStripMenuItem.Name = "lagreSpillToolStripMenuItem";
-            this.lagreSpillToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
+            this.lagreSpillToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.lagreSpillToolStripMenuItem.Text = "Fortsett spill";
             this.lagreSpillToolStripMenuItem.Click += new System.EventHandler(this.lagreSpillToolStripMenuItem_Click);
             // 
             // avsluttToolStripMenuItem
             // 
             this.avsluttToolStripMenuItem.Name = "avsluttToolStripMenuItem";
-            this.avsluttToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
+            this.avsluttToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.avsluttToolStripMenuItem.Text = "Avslutt";
             this.avsluttToolStripMenuItem.Click += new System.EventHandler(this.avsluttToolStripMenuItem_Click);
             // 
@@ -131,7 +136,7 @@
             // halOfFameToolStripMenuItem
             // 
             this.halOfFameToolStripMenuItem.Name = "halOfFameToolStripMenuItem";
-            this.halOfFameToolStripMenuItem.Size = new System.Drawing.Size(193, 30);
+            this.halOfFameToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.halOfFameToolStripMenuItem.Text = "Hall of fame";
             this.halOfFameToolStripMenuItem.Click += new System.EventHandler(this.halOfFameToolStripMenuItem_Click);
             // 
@@ -147,21 +152,21 @@
             // tipsToolStripMenuItem
             // 
             this.tipsToolStripMenuItem.Name = "tipsToolStripMenuItem";
-            this.tipsToolStripMenuItem.Size = new System.Drawing.Size(137, 30);
+            this.tipsToolStripMenuItem.Size = new System.Drawing.Size(138, 30);
             this.tipsToolStripMenuItem.Text = "Hjelp";
             this.tipsToolStripMenuItem.Click += new System.EventHandler(this.tipsToolStripMenuItem_Click);
             // 
             // omToolStripMenuItem1
             // 
             this.omToolStripMenuItem1.Name = "omToolStripMenuItem1";
-            this.omToolStripMenuItem1.Size = new System.Drawing.Size(137, 30);
+            this.omToolStripMenuItem1.Size = new System.Drawing.Size(138, 30);
             this.omToolStripMenuItem1.Text = "Om";
             this.omToolStripMenuItem1.Click += new System.EventHandler(this.omToolStripMenuItem1_Click);
             // 
-            // timerBåter
+            // timerSlow
             // 
-            this.timerBåter.Interval = 40;
-            this.timerBåter.Tick += new System.EventHandler(this.timerBåter_Tick);
+            this.timerSlow.Interval = 40;
+            this.timerSlow.Tick += new System.EventHandler(this.timerSlow_Tick);
             // 
             // statusStrip1
             // 
@@ -217,7 +222,7 @@
             // 
             // timerTorpedo
             // 
-            this.timerTorpedo.Interval = 1;
+            this.timerTorpedo.Interval = 15;
             this.timerTorpedo.Tick += new System.EventHandler(this.timerTorpedo_Tick);
             // 
             // labelPoeng
@@ -235,7 +240,7 @@
             // 
             this.labelPoengSum.AutoSize = true;
             this.labelPoengSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPoengSum.Location = new System.Drawing.Point(186, 54);
+            this.labelPoengSum.Location = new System.Drawing.Point(211, 54);
             this.labelPoengSum.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPoengSum.Name = "labelPoengSum";
             this.labelPoengSum.Size = new System.Drawing.Size(32, 36);
@@ -344,7 +349,7 @@
             this.labelStatus.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelStatus.ForeColor = System.Drawing.Color.Red;
-            this.labelStatus.Location = new System.Drawing.Point(414, 320);
+            this.labelStatus.Location = new System.Drawing.Point(380, 320);
             this.labelStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(0, 36);
@@ -356,17 +361,56 @@
             this.labelHitpoints.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.labelHitpoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelHitpoints.ForeColor = System.Drawing.Color.Red;
-            this.labelHitpoints.Location = new System.Drawing.Point(400, 355);
+            this.labelHitpoints.Location = new System.Drawing.Point(380, 355);
             this.labelHitpoints.Margin = new System.Windows.Forms.Padding(0);
             this.labelHitpoints.Name = "labelHitpoints";
             this.labelHitpoints.Size = new System.Drawing.Size(0, 36);
             this.labelHitpoints.TabIndex = 15;
+            // 
+            // timerMid
+            // 
+            this.timerMid.Interval = 25;
+            this.timerMid.Tick += new System.EventHandler(this.timerMid_Tick);
+            // 
+            // timerFast
+            // 
+            this.timerFast.Interval = 10;
+            this.timerFast.Tick += new System.EventHandler(this.timerFast_Tick);
+            // 
+            // timerGame
+            // 
+            this.timerGame.Interval = 10;
+            this.timerGame.Tick += new System.EventHandler(this.timerGame_Tick);
+            // 
+            // labelTreff
+            // 
+            this.labelTreff.AutoSize = true;
+            this.labelTreff.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTreff.Location = new System.Drawing.Point(9, 91);
+            this.labelTreff.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelTreff.Name = "labelTreff";
+            this.labelTreff.Size = new System.Drawing.Size(83, 36);
+            this.labelTreff.TabIndex = 16;
+            this.labelTreff.Text = "Treff:";
+            // 
+            // labelTreffSum
+            // 
+            this.labelTreffSum.AutoSize = true;
+            this.labelTreffSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTreffSum.Location = new System.Drawing.Point(211, 90);
+            this.labelTreffSum.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelTreffSum.Name = "labelTreffSum";
+            this.labelTreffSum.Size = new System.Drawing.Size(32, 36);
+            this.labelTreffSum.TabIndex = 17;
+            this.labelTreffSum.Text = "0";
             // 
             // Spill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(980, 658);
+            this.Controls.Add(this.labelTreffSum);
+            this.Controls.Add(this.labelTreff);
             this.Controls.Add(this.labelHitpoints);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.labelLevel);
@@ -416,7 +460,7 @@
         private System.Windows.Forms.ToolStripMenuItem omToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tipsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem omToolStripMenuItem1;
-        private System.Windows.Forms.Timer timerBåter;
+        private System.Windows.Forms.Timer timerSlow;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripProgressBar powerBar;
         private System.Windows.Forms.Timer timerTorpedo;
@@ -438,6 +482,11 @@
         private System.Windows.Forms.Label labelLevel;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Label labelHitpoints;
+        private System.Windows.Forms.Timer timerMid;
+        private System.Windows.Forms.Timer timerFast;
+        private System.Windows.Forms.Timer timerGame;
+        private System.Windows.Forms.Label labelTreff;
+        private System.Windows.Forms.Label labelTreffSum;
     }
 }
 
