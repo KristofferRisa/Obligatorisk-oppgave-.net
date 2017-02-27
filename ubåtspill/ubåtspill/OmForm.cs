@@ -29,5 +29,15 @@ namespace ubåtspill
         {
             System.Diagnostics.Process.Start(@"https://github.com/KristofferRisa/Obligatorisk-oppgave-.net");
         }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"https://xn--ubt-vla.azurewebsites.net/");
+        }
+
+        private void button2_Click(object sender, System.EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }
