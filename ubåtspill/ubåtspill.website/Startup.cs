@@ -29,6 +29,7 @@ namespace ubåtspill.website
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<HighscoreContext>(opt => opt.UseSqlServer(@"Server=tcp:highscore.database.windows.net,1433;Initial Catalog=ubåt;Persist Security Info=False;User ID=user;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
             // Add framework services.
             services.AddMvc();
             //services.AddSingleton<IHighscoreRepository, HighscoreRepository>();
