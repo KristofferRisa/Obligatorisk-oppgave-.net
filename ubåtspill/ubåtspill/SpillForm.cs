@@ -44,7 +44,7 @@ namespace ubåtspill
             switch (e.KeyData)
             {
                 case Keys.Space:
-                    {
+                                {
                         if (!_torpedo.isActive)
                         {
                             timerTorpedo.Start();
@@ -56,6 +56,7 @@ namespace ubåtspill
                         if(_ubåt.X > 0)
                         {
                             _ubåt.MoveLeft();
+                            if (timerGame.Enabled == false) Refresh();
                         }
                         break;
                     }
@@ -64,6 +65,7 @@ namespace ubåtspill
                         if(_ubåt.X < (pictureBox1.Width - _ubåt.Length))
                         {
                             _ubåt.MoveRight();
+                            if(timerGame.Enabled == false) Refresh();
                         }
                         break;
                     }
@@ -97,7 +99,7 @@ namespace ubåtspill
         {
             if (e.KeyData == Keys.Space)
             {
-                if (!_torpedo.isActive)
+                 if (!_torpedo.isActive)
                 {
                     _torpedo.Shoot(_ubåt.X + 50, _ubåt.Y - 10);
                 }
@@ -356,6 +358,8 @@ namespace ubåtspill
             ResetLife();
             _gameOver = false;
 
+            _score = 0;
+            _hitCount = 0;
             _level = 1;
             labelLevel.Text = $@"{_level}";
             labelTreffSum.Text = "0";

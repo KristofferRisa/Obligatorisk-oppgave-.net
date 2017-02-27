@@ -4,6 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,7 +20,7 @@ namespace ubåtspill
         private string _name;
         private List<Highscore> _data;
         private readonly int _level;
-
+        private string _url = "http://localhost:54109/Highscores/Create"; //"https://xn--ubt-vla.azurewebsites.net/Highscores/Create"; 
         #endregion
 
         public HighscoreForm(int score, int level, bool active)
@@ -34,17 +37,60 @@ namespace ubåtspill
             
             LoadXmlData();
 
-            this.ClientSize = new Size(groupBoxRegScore.Bottom + 25, groupBoxRegScore.Right + 100);
+            if (active)
+            {
+                this.ClientSize = new Size(groupBoxRegScore.Right + 100, groupBoxRegScore.Bottom + 35);
+            }
+            else
+            {
+                this.ClientSize = new Size(this.Right + 35,linkLabel1.Bottom + 35);
+            }
 
         }
        
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(textBoxUserName.Text))
             {
                 //Lagrer data
                 _name = textBoxUserName.Text;
                 SaveXmlData();
+
+                var result = MessageBox.Show(
+                    "Send inn din poeng sum til ubåt online nå!"
+                    , "Send inn!"
+                    , MessageBoxButtons.YesNo
+                    , MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+
+                    using (var client = new HttpClient())
+                    {
+                        var data = new List<KeyValuePair<string, string>>
+                        {
+                            new KeyValuePair<string, string>("Name", _name),
+                            new KeyValuePair<string, string>("Score", _score.ToString()),
+                            new KeyValuePair<string, string>("Level", _level.ToString()),
+                            new KeyValuePair<string, string>("Date", DateTime.Now.ToString("yyyy-MM-dd"))
+                        };
+                        var content = new FormUrlEncodedContent(data);
+
+                        //content.Headers.Add("Token","");
+                        //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", "124141414124141");
+                        client.DefaultRequestHeaders.Add("Token","12414141414");
+                        var response = client.PostAsync(_url, content).Result;
+
+                        if (response.StatusCode != HttpStatusCode.OK)
+                        {
+                            MessageBox.Show("Klarte ikke sende inn data."
+                                , "Feilet"
+                                , MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                        }
+                        //var responseString = response.Content.ReadAsStringAsync().Result;
+                    }
+                }
+
                 this.Hide();
             }
             else
@@ -124,5 +170,16 @@ namespace ubåtspill
                 });
             HelperClass.SkrivXmlFile(_data);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"https://xn--ubt-vla.azurewebsites.net/");
+        }
+        
     }
 }

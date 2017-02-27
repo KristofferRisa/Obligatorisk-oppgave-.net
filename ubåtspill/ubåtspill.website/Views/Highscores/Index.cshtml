@@ -1,0 +1,57 @@
+@model IEnumerable<ubåtspill.website.Models.Highscore>
+
+
+<div class="text-center">
+    <h1>Hall of fame</h1>
+    <h3>Ubåt online</h3>    
+</div>
+<div style="" class="">
+    <table class="table" style="margin: auto; width: 70%; ">
+        <thead>
+            <tr>
+                <th>
+                    Rank
+                </th>
+                <th>
+                    Alias
+                </th>
+                <th>
+                    Score
+                </th>
+                <th>
+                    Level
+                </th>
+                @*<th>
+                    Date
+                </th>*@
+            </tr>
+        </thead>
+        <tbody>
+        @{var rank = 0;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{ rank++;}
+                    @rank
+                </td>
+                <td class="">
+
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Level)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>*@
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+
