@@ -58,6 +58,7 @@ namespace ubåtspill.website
             {
                 routes.MapRoute(
                     name: "default",
+
                     template: "{controller=Highscores}/{action=Index}/{id?}");
             });
         }
