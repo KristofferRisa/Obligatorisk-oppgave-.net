@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ubåtspill.Models;
 
-namespace ubåtspill
+namespace ubåtspill.Views
 {
     public partial class HighscoreForm : Form
     {
@@ -20,7 +16,7 @@ namespace ubåtspill
         private string _name;
         private List<Highscore> _data;
         private readonly int _level;
-        private string _url = "http://localhost:54109/Highscores/Create"; //"https://xn--ubt-vla.azurewebsites.net/Highscores/Create"; 
+        private string _url = "https://xn--ubt-vla.azurewebsites.net/Highscores/Create";  //"http://localhost:54109/Highscores/Create"; 
         #endregion
 
         public HighscoreForm(int score, int level, bool active)
@@ -63,32 +59,43 @@ namespace ubåtspill
                     , MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-
-                    using (var client = new HttpClient())
+                    try
                     {
-                        var data = new List<KeyValuePair<string, string>>
+                        this.Enabled = false;
+                        using (var client = new HttpClient())
+                        {
+                            var data = new List<KeyValuePair<string, string>>
                         {
                             new KeyValuePair<string, string>("Name", _name),
                             new KeyValuePair<string, string>("Score", _score.ToString()),
                             new KeyValuePair<string, string>("Level", _level.ToString()),
                             new KeyValuePair<string, string>("Date", DateTime.Now.ToString("yyyy-MM-dd"))
                         };
-                        var content = new FormUrlEncodedContent(data);
+                            var content = new FormUrlEncodedContent(data);
 
-                        //content.Headers.Add("Token","");
-                        //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", "124141414124141");
-                        client.DefaultRequestHeaders.Add("Token","12414141414");
-                        var response = client.PostAsync(_url, content).Result;
+                            client.DefaultRequestHeaders.Add("Token", "12414141414");
 
-                        if (response.StatusCode != HttpStatusCode.OK)
-                        {
-                            MessageBox.Show("Klarte ikke sende inn data."
-                                , "Feilet"
-                                , MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                            var response = client.PostAsync(_url, content).Result;
+
+                            if (response.StatusCode != HttpStatusCode.OK)
+                            {
+                                MessageBox.Show("Klarte ikke sende inn data."
+                                    , "Feilet"
+                                    , MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                            }
+
                         }
-                        //var responseString = response.Content.ReadAsStringAsync().Result;
+                        this.Enabled = true;
+
                     }
+                    catch (Exception exception)
+                    {
+                        Console.WriteLine(exception);
+                        MessageBox.Show("Klarte ikke å sende inn data.", "Error", MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                    }
+                   
                 }
 
                 this.Hide();
@@ -171,10 +178,6 @@ namespace ubåtspill
             HelperClass.SkrivXmlFile(_data);
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-        }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

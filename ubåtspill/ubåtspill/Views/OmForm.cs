@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace ubåtspill
+namespace ubåtspill.Views
 {
     public partial class OmForm : Form
     {

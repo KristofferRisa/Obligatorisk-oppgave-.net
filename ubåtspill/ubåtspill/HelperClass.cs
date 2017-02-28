@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using ubåtspill.Models;
 
 namespace ubåtspill
 {
@@ -61,9 +62,6 @@ namespace ubåtspill
         {
             get
             {
-                //string path = Directory.
-                //    GetParent(Environment.
-                //    GetFolderPath(Environment.SpecialFolder.ApplicationData)).;
                 string mappe = Path.Combine(Environment.GetFolderPath(
                     Environment.SpecialFolder.ApplicationData), "ubåt");
 

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
-namespace ubåtspill
+namespace ubåtspill.Models
 {
     internal class Torpedo
-    {
-        internal bool isActive;
-
+    { 
         public Torpedo()
         {
-            isActive = false;
+            IsActive = false;
             Height = 20;
             Length = 20;
             Brush = new SolidBrush(System.Drawing.Color.Black);
@@ -22,15 +19,15 @@ namespace ubåtspill
         public float Height { get; internal set; }
         public float Length { get; internal set; }
         public Brush Brush { get; internal set; }
-
+        internal bool IsActive;
         public void Shoot(int x, int y)
         {
-            isActive = true;
+            IsActive = true;
             X = x;
             Y = y;
         }
 
-        internal void Move()
+        public void Move()
         {
             Y--;
         }

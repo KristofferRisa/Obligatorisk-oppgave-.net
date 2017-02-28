@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ubåtspill
+namespace ubåtspill.Models
 {
     [Serializable]
     public class Highscore

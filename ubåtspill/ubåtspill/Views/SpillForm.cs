@@ -4,8 +4,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ubåtspill.Models;
 
-namespace ubåtspill
+namespace ubåtspill.Views
 {
     public partial class Spill : Form
     {
@@ -20,6 +21,7 @@ namespace ubåtspill
         private bool _gameOver;
         private int _labelStatusTicker;
         private int _hitCount;
+        private int? _fallbackTorpedo;
 
         #endregion
 
@@ -99,7 +101,8 @@ namespace ubåtspill
         {
             if (e.KeyData == Keys.Space)
             {
-                 if (!_torpedo.isActive)
+                _fallbackTorpedo = 0;
+                if (!_torpedo.isActive)
                 {
                     _torpedo.Shoot(_ubåt.X + 50, _ubåt.Y - 10);
                 }
@@ -223,7 +226,6 @@ namespace ubåtspill
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Information) == DialogResult.Yes)
                 {
-                    labelHighscore.Text = _score.ToString();
                     ResetGame();
                 }
                 else
@@ -242,6 +244,18 @@ namespace ubåtspill
             {
                 _labelStatusTicker++;
             }
+
+            //En fallback sjekk om torpedo har hengt seg opp (skjedd noen gang hvis man trykker for raskt på space flere ganger)
+            if (_fallbackTorpedo != null && _fallbackTorpedo > 400)
+            {
+                ResetTorpedo();
+                _fallbackTorpedo = null;
+            }
+            if (_fallbackTorpedo != null)
+            {
+                _fallbackTorpedo++;
+            }
+
             Refresh();
         }
 

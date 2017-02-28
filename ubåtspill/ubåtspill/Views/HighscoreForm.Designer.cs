@@ -1,4 +1,4 @@
-﻿namespace ubåtspill
+﻿namespace ubåtspill.Views
 {
     partial class HighscoreForm
     {

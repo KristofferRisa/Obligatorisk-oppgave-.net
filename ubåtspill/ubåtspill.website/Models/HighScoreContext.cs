@@ -12,7 +12,6 @@ namespace ubåtspill.website.Models
 
         public DbSet<Highscore> Highscores { get; set; }
 
-
     }
 
     public class Highscore

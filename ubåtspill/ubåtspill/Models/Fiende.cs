@@ -1,40 +1,46 @@
 ﻿using System;
 using System.Drawing;
 
-namespace ubåtspill
+namespace ubåtspill.Models
 {
     public class Fiende
-    {
+    { 
+        #region ctor
         public Fiende(int speed)
-        {
-            this.Speed = (Speed)speed;
+            {
+                //Setter hastighet på båten.
+                Speed = (Speed)speed;
 
-            var random = new Random();
+                var random = new Random();
 
-            var newY = random.Next(0, 250);           
-            Y = newY;
+                var newY = random.Next(0, 250);           
+                Y = newY;
 
-            //Fienden starter på utsiden av panelet og flytter seg inn fra høyre, derfor random fra -350(en type delay)
-            var newX = random.Next(-350, 0); 
-            X = newX;
+                //Fienden starter på utsiden av panelet og flytter seg inn fra høyre, derfor random fra -350(en type delay)
+                var newX = random.Next(-350, 0); 
+                X = newX;
             
-            //lager ny tilfeldig point
-            Length = random.Next(10,40);
+                //lager ny tilfeldig point
+                Length = random.Next(10,40);
 
-            IsActive = true;
-            //Utregning av poengsum baseres på hvor liten fienden er og hvor langt unna den er. 
-            //Lagt til ekstra poeng sum bassert på hastighet slow 0 + 1 * 10 = 10, medium = 1 + 1 * 10 = 20, fast = 2 + 1 * 10 = 30 
-            Points = (100 - Length) + (25 - Y/10) + (speed + 1*10); 
-            Height = 20;
+                IsActive = true;
+                //Utregning av poengsum baseres på hvor liten fienden er og hvor langt unna den er. 
+                //Lagt til ekstra poeng sum bassert på hastighet slow 0 + 1 * 10 = 10, medium = 1 + 1 * 10 = 20, fast = 2 + 1 * 10 = 30 
+                Points = (100 - Length) + (25 - Y/10) + (speed + 1*10); 
+                Height = 20;
 
-            Brush = new SolidBrush(Color.DarkRed);
-        }
+                Brush = new SolidBrush(Color.DarkRed);
+            }
+        #endregion
 
+        #region methods
         public void Move()
         {
             X++;
-        }        
-
+        }
+        #endregion
+        
+        #region public fields
         public int X { get; private set; }
         public int Y { get; private set; }
         public int Points { get; private set; }
@@ -73,8 +79,8 @@ namespace ubåtspill
             
             return false;
         }
-        
         public Brush Brush { get; set; }
+        #endregion
     }
 
     public enum Speed

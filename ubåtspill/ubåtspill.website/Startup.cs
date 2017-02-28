@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,10 +26,7 @@ namespace ubåtspill.website
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<HighscoreContext>(opt => opt.UseSqlServer(@"Server=tcp:highscore.database.windows.net,1433;Initial Catalog=ubåt;Persist Security Info=False;User ID=user;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
-            // Add framework services.
             services.AddMvc();
-            //services.AddSingleton<IHighscoreRepository, HighscoreRepository>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +42,7 @@ namespace ubåtspill.website
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("Highscores/Error");
             }
 
             app.UseStaticFiles();

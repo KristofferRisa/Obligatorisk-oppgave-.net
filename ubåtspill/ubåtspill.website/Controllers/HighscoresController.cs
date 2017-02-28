@@ -22,6 +22,10 @@ namespace ubåtspill.website.Controllers
         // GET: Highscores
         public async Task<IActionResult> Index()
         {
+            _context.Highscores.Add(new Highscore());
+            _context.SaveChanges();
+
+
             return View(await _context.Highscores.OrderByDescending(x => x.Score).ToListAsync());
         }
 
@@ -147,6 +151,11 @@ namespace ubåtspill.website.Controllers
             _context.Highscores.Remove(highscore);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        public IActionResult Error()
+        {
+            return View();
         }
 
         private bool HighscoreExists(int id)
