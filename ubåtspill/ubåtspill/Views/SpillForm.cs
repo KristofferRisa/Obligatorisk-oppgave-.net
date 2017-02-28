@@ -47,7 +47,7 @@ namespace ubåtspill.Views
             {
                 case Keys.Space:
                                 {
-                        if (!_torpedo.isActive)
+                        if (!_torpedo.IsActive)
                         {
                             timerTorpedo.Start();
                         }
@@ -102,7 +102,7 @@ namespace ubåtspill.Views
             if (e.KeyData == Keys.Space)
             {
                 _fallbackTorpedo = 0;
-                if (!_torpedo.isActive)
+                if (!_torpedo.IsActive)
                 {
                     _torpedo.Shoot(_ubåt.X + 50, _ubåt.Y - 10);
                 }
@@ -179,7 +179,7 @@ namespace ubåtspill.Views
             }
 
             //tegner torpedo
-            if (_torpedo != null && _torpedo.isActive)
+            if (_torpedo != null && _torpedo.IsActive)
             {
                 g.FillEllipse(_torpedo.Brush, _torpedo.X, _torpedo.Y, _torpedo.Height, _torpedo.Length);
             }
@@ -261,7 +261,7 @@ namespace ubåtspill.Views
 
         private void timerTorpedo_Tick(object sender, EventArgs e)
         {
-            if (_torpedo != null && _torpedo.isActive)
+            if (_torpedo != null && _torpedo.IsActive)
             {
                 _torpedo.Move();
             }
@@ -407,7 +407,7 @@ namespace ubåtspill.Views
             timerSlow.Start();
             timerMid.Start();
             timerFast.Start();
-            if (_torpedo.isActive)
+            if (_torpedo.IsActive)
             {
                 timerTorpedo.Start();
             }
