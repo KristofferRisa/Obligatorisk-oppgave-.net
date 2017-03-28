@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Domain.Models
+namespace admin.Models
 {
-    public class Availability
+    class Availability
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }

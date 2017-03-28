@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hotell.admin", "hotell.admin\hotell.admin.csproj", "{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F7DD64E7-2EDE-4A32-A504-CB6D4982E63A}"
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
@@ -34,18 +32,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74}.Debug|x64.Build.0 = Debug|Any CPU
-		{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74}.Debug|x86.Build.0 = Debug|Any CPU
-		{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74}.Release|x64.ActiveCfg = Release|Any CPU
-		{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74}.Release|x64.Build.0 = Release|Any CPU
-		{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74}.Release|x86.ActiveCfg = Release|Any CPU
-		{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74}.Release|x86.Build.0 = Release|Any CPU
 		{2F293D4B-BBDF-49D7-9A57-F3E7A7EAC8F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2F293D4B-BBDF-49D7-9A57-F3E7A7EAC8F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F293D4B-BBDF-49D7-9A57-F3E7A7EAC8F3}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -87,7 +73,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{7FE94BC7-00A5-4F3E-A719-2BCDF7784E74} = {B96E09A8-6527-4E16-9518-DDF08E2B2F57}
 		{2F293D4B-BBDF-49D7-9A57-F3E7A7EAC8F3} = {82E86EF6-3A09-44A3-9640-1F637DAD3111}
 		{B96E09A8-6527-4E16-9518-DDF08E2B2F57} = {983A2B72-5AF3-4175-8E88-1CCB2BFA5EAE}
 		{C357592D-7E7F-438E-B368-5D7255400200} = {983A2B72-5AF3-4175-8E88-1CCB2BFA5EAE}

@@ -1,0 +1,78 @@
+@model Domain.Models.Booking
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Booking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ReservationCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReservationCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerPhone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerPhone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerAdress)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerAdress)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FromDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FromDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ToDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ToDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsCheckedIn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsCheckedIn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Modified)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Modified)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.BookingId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

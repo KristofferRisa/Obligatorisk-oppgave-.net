@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Domain.Models;
+﻿using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace hotell.web.Models
@@ -16,11 +12,7 @@ namespace hotell.web.Models
 
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Room> Rooms { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=MyDatabase;Trusted_Connection=True;");
-        }
+        public DbSet<Availability> Availabilities { get; set; }
         
     }
 }

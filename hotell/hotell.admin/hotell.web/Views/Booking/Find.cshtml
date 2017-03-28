@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "Finn reservasjon";
+}
+
+<h2>Finn din reservasjon</h2>
+<hr/>
+
+@{
+    if (ViewData["msg"] != null)
+    {
+        <p class="text-warning">@ViewData["msg"] </p>
+    }
+
+}
+<form method="post" >
+    <div class="form-group">
+        <label for="name">Navn</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Jane Doe">
+    </div>
+    <div class="form-group">
+        <label for="bookingcode">Reservasjonskode</label>
+        <input type="text" class="form-control" id="bookingcode" name="bookingcode" placeholder="xdd">
+    </div>
+    <button type="submit" class="btn btn-default">Finn reservasjon</button>
+</form>

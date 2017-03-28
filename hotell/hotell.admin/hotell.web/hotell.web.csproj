@@ -6,8 +6,11 @@
 
   <PropertyGroup>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
+    <ApplicationInsightsResourceId>/subscriptions/c0229226-ce75-4f2b-b895-6d36332f15ee/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/ubåtspill.website</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/c0229226-ce75-4f2b-b895-6d36332f15ee/resourceGroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/ubåtspill.website</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Hashids.net" Version="1.2.2" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.0.2" />
@@ -25,6 +28,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\domain.models\Domain.Models.csproj" />
@@ -33,6 +38,9 @@
     <Reference Include="System.Xml">
       <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Xml.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>

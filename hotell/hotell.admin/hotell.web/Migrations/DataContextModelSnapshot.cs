@@ -16,12 +16,26 @@ namespace hotell.web.Migrations
                 .HasAnnotation("ProductVersion", "1.1.1")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Domain.Models.Availability", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<int>("NumberOfReservations");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Availabilities");
+                });
+
             modelBuilder.Entity("Domain.Models.Booking", b =>
                 {
                     b.Property<int>("BookingId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("BookinDate");
+                    b.Property<DateTime>("Created");
 
                     b.Property<string>("CustomerAdress");
 
@@ -31,15 +45,17 @@ namespace hotell.web.Migrations
                     b.Property<string>("CustomerPhone")
                         .IsRequired();
 
-                    b.Property<DateTime>("Date");
-
-                    b.Property<bool>("IsActive");
+                    b.Property<DateTime>("FromDate");
 
                     b.Property<bool>("IsCheckedIn");
 
                     b.Property<DateTime>("Modified");
 
-                    b.Property<bool>("RoomNumber");
+                    b.Property<string>("ReservationCode");
+
+                    b.Property<int>("RoomNumber");
+
+                    b.Property<DateTime>("ToDate");
 
                     b.HasKey("BookingId");
 
@@ -53,15 +69,13 @@ namespace hotell.web.Migrations
 
                     b.Property<int>("Floor");
 
-                    b.Property<bool>("IsAvaliable");
-
                     b.Property<DateTime>("Modified");
 
                     b.Property<decimal>("Price");
 
-                    b.Property<int>("RomNumber");
+                    b.Property<string>("RoomName");
 
-                    b.Property<string>("RomeName");
+                    b.Property<int>("RoomNumber");
 
                     b.HasKey("RoomId");
 
