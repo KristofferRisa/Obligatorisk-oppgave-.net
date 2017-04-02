@@ -63,7 +63,7 @@ namespace ubåtspill.Models
 
             var minY = Y - radiusY;
             var maxY = Y + radiusY;
-
+            
             if (
                 (torpedo.X + torpedo.Length) <= maxX
                 && 

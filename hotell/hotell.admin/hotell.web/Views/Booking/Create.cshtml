@@ -1,0 +1,65 @@
+@model Domain.Models.Booking
+
+@{
+    ViewData["Title"] = "Reserver rom";
+}
+
+<h2>Ny reservasjon</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>Vennligst benytt skjema under for reserve  et rom</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="FromDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @*<input asp-for="FromDate" class="form-control" />*@
+                <input name="FromDate" id="FromDate" type="text" class="form-control" required="required" data-val-required="The Fra dato field is required." />
+                <span asp-validation-for="FromDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ToDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @*<input asp-for="ToDate" class="form-control" />*@
+                <input name="ToDate" id="ToDate" type="text" class="form-control" required="required" data-val-required="The Til dato field is required."/>
+                <span asp-validation-for="ToDate" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CustomerName" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CustomerName" class="form-control" />
+                <span asp-validation-for="CustomerName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CustomerPhone" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CustomerPhone" class="form-control" />
+                <span asp-validation-for="CustomerPhone" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CustomerAdress" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CustomerAdress" class="form-control" />
+                <span asp-validation-for="CustomerAdress" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Reserver" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

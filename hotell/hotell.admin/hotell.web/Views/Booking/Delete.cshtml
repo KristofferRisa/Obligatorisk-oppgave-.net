@@ -1,0 +1,64 @@
+@model Domain.Models.Booking
+
+@{
+    ViewData["Title"] = "Slett";
+}
+
+<h2>Slett reservasjon</h2>
+
+<h3>Er du helt sikker?</h3>
+<div>
+    <h4>Detaljer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ReservationCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReservationCode)
+        </dd>
+        @*<dt>
+            @Html.DisplayNameFor(model => model.RoomNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoomNumber)
+        </dd>*@
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerPhone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerPhone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerAdress)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CustomerAdress)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FromDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FromDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ToDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ToDate)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Slett" class="btn btn-danger" /> |
+            <a asp-action="Find">Tilbake</a>
+        </div>
+    </form>
+</div>

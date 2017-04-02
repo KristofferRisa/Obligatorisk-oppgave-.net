@@ -6,7 +6,16 @@
 
   <PropertyGroup>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
+    <ApplicationInsightsResourceId>/subscriptions/c0229226-ce75-4f2b-b895-6d36332f15ee/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/ubåtspill.website</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/c0229226-ce75-4f2b-b895-6d36332f15ee/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/ubåtspill.website</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Highscores1\**" />
+    <Content Remove="Views\Highscores1\**" />
+    <EmbeddedResource Remove="Views\Highscores1\**" />
+    <None Remove="Views\Highscores1\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Models\HighscoreRepository.cs" />
@@ -27,6 +36,9 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
