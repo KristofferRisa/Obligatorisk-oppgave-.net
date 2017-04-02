@@ -2,7 +2,7 @@
 
 namespace admin.Models
 {
-    class Booking
+    public class Booking
     {
         public int BookingId { get; set; }
         public string ReservationCode { get; set; }

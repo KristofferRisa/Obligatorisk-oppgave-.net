@@ -30,10 +30,16 @@
         {
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.filToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nyBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oversiktToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.etasjeOversiktToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.avsluttToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.omToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.omHotellBooking10ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabEtasjer = new System.Windows.Forms.TabControl();
             this.tabOversikt = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
-            this.listBox2 = new System.Windows.Forms.ListBox();
             this.label7 = new System.Windows.Forms.Label();
             this.labelTildelt = new System.Windows.Forms.Label();
             this.labelIkkeTildeltRom = new System.Windows.Forms.Label();
@@ -65,13 +71,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
-            this.filToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nyBookingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.oversiktToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.etasjeOversiktToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.avsluttToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.omToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.omHotellBooking10ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
             this.tabEtasjer.SuspendLayout();
             this.tabOversikt.SuspendLayout();
@@ -102,6 +102,60 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // filToolStripMenuItem
+            // 
+            this.filToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nyBookingToolStripMenuItem,
+            this.oversiktToolStripMenuItem,
+            this.etasjeOversiktToolStripMenuItem,
+            this.avsluttToolStripMenuItem});
+            this.filToolStripMenuItem.Name = "filToolStripMenuItem";
+            this.filToolStripMenuItem.Size = new System.Drawing.Size(51, 36);
+            this.filToolStripMenuItem.Text = "Fil";
+            // 
+            // nyBookingToolStripMenuItem
+            // 
+            this.nyBookingToolStripMenuItem.Name = "nyBookingToolStripMenuItem";
+            this.nyBookingToolStripMenuItem.Size = new System.Drawing.Size(265, 38);
+            this.nyBookingToolStripMenuItem.Text = "Ny Booking";
+            this.nyBookingToolStripMenuItem.Click += new System.EventHandler(this.nyBookingToolStripMenuItem_Click);
+            // 
+            // oversiktToolStripMenuItem
+            // 
+            this.oversiktToolStripMenuItem.Name = "oversiktToolStripMenuItem";
+            this.oversiktToolStripMenuItem.Size = new System.Drawing.Size(265, 38);
+            this.oversiktToolStripMenuItem.Text = "Oversikt";
+            this.oversiktToolStripMenuItem.Click += new System.EventHandler(this.oversiktToolStripMenuItem_Click);
+            // 
+            // etasjeOversiktToolStripMenuItem
+            // 
+            this.etasjeOversiktToolStripMenuItem.Name = "etasjeOversiktToolStripMenuItem";
+            this.etasjeOversiktToolStripMenuItem.Size = new System.Drawing.Size(265, 38);
+            this.etasjeOversiktToolStripMenuItem.Text = "Etasje oversikt";
+            this.etasjeOversiktToolStripMenuItem.Click += new System.EventHandler(this.etasjeOversiktToolStripMenuItem_Click);
+            // 
+            // avsluttToolStripMenuItem
+            // 
+            this.avsluttToolStripMenuItem.Name = "avsluttToolStripMenuItem";
+            this.avsluttToolStripMenuItem.Size = new System.Drawing.Size(265, 38);
+            this.avsluttToolStripMenuItem.Text = "Avslutt";
+            this.avsluttToolStripMenuItem.Click += new System.EventHandler(this.avsluttToolStripMenuItem_Click);
+            // 
+            // omToolStripMenuItem
+            // 
+            this.omToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.omHotellBooking10ToolStripMenuItem});
+            this.omToolStripMenuItem.Name = "omToolStripMenuItem";
+            this.omToolStripMenuItem.Size = new System.Drawing.Size(66, 36);
+            this.omToolStripMenuItem.Text = "Om";
+            // 
+            // omHotellBooking10ToolStripMenuItem
+            // 
+            this.omHotellBooking10ToolStripMenuItem.Name = "omHotellBooking10ToolStripMenuItem";
+            this.omHotellBooking10ToolStripMenuItem.Size = new System.Drawing.Size(357, 38);
+            this.omHotellBooking10ToolStripMenuItem.Text = "Om Hotell Booking 1.0";
+            this.omHotellBooking10ToolStripMenuItem.Click += new System.EventHandler(this.omHotellBooking10ToolStripMenuItem_Click);
+            // 
             // tabEtasjer
             // 
             this.tabEtasjer.Controls.Add(this.tabOversikt);
@@ -118,8 +172,8 @@
             // 
             // tabOversikt
             // 
-            this.tabOversikt.Controls.Add(this.label8);
             this.tabOversikt.Controls.Add(this.listBox2);
+            this.tabOversikt.Controls.Add(this.label8);
             this.tabOversikt.Controls.Add(this.label7);
             this.tabOversikt.Controls.Add(this.labelTildelt);
             this.tabOversikt.Controls.Add(this.labelIkkeTildeltRom);
@@ -140,27 +194,18 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(50, 352);
+            this.label8.Location = new System.Drawing.Point(50, 337);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(231, 37);
             this.label8.TabIndex = 20;
             this.label8.Text = "Dagens gjester";
-            // 
-            // listBox2
-            // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 37;
-            this.listBox2.Location = new System.Drawing.Point(57, 412);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(637, 226);
-            this.listBox2.TabIndex = 19;
             // 
             // label7
             // 
             this.label7.AllowDrop = true;
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(616, 278);
+            this.label7.Location = new System.Drawing.Point(616, 263);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(26, 37);
             this.label7.TabIndex = 18;
@@ -171,7 +216,7 @@
             this.labelTildelt.AllowDrop = true;
             this.labelTildelt.AutoSize = true;
             this.labelTildelt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTildelt.Location = new System.Drawing.Point(673, 278);
+            this.labelTildelt.Location = new System.Drawing.Point(673, 263);
             this.labelTildelt.Name = "labelTildelt";
             this.labelTildelt.Size = new System.Drawing.Size(35, 37);
             this.labelTildelt.TabIndex = 17;
@@ -182,7 +227,7 @@
             this.labelIkkeTildeltRom.AllowDrop = true;
             this.labelIkkeTildeltRom.AutoSize = true;
             this.labelIkkeTildeltRom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelIkkeTildeltRom.Location = new System.Drawing.Point(554, 278);
+            this.labelIkkeTildeltRom.Location = new System.Drawing.Point(554, 263);
             this.labelIkkeTildeltRom.Name = "labelIkkeTildeltRom";
             this.labelIkkeTildeltRom.Size = new System.Drawing.Size(35, 37);
             this.labelIkkeTildeltRom.TabIndex = 16;
@@ -193,7 +238,7 @@
             this.labelTotaltAntGjester.AllowDrop = true;
             this.labelTotaltAntGjester.AutoSize = true;
             this.labelTotaltAntGjester.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTotaltAntGjester.Location = new System.Drawing.Point(673, 202);
+            this.labelTotaltAntGjester.Location = new System.Drawing.Point(673, 187);
             this.labelTotaltAntGjester.Name = "labelTotaltAntGjester";
             this.labelTotaltAntGjester.Size = new System.Drawing.Size(35, 37);
             this.labelTotaltAntGjester.TabIndex = 15;
@@ -225,7 +270,7 @@
             this.label6.AllowDrop = true;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(50, 278);
+            this.label6.Location = new System.Drawing.Point(50, 263);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(323, 37);
             this.label6.TabIndex = 12;
@@ -236,7 +281,7 @@
             this.label5.AllowDrop = true;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(50, 202);
+            this.label5.Location = new System.Drawing.Point(50, 187);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(211, 37);
             this.label5.TabIndex = 11;
@@ -479,59 +524,15 @@
             this.monthCalendar1.TabIndex = 9;
             this.monthCalendar1.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar_DateSelected_1);
             // 
-            // filToolStripMenuItem
+            // listBox2
             // 
-            this.filToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nyBookingToolStripMenuItem,
-            this.oversiktToolStripMenuItem,
-            this.etasjeOversiktToolStripMenuItem,
-            this.avsluttToolStripMenuItem});
-            this.filToolStripMenuItem.Name = "filToolStripMenuItem";
-            this.filToolStripMenuItem.Size = new System.Drawing.Size(51, 38);
-            this.filToolStripMenuItem.Text = "Fil";
-            // 
-            // nyBookingToolStripMenuItem
-            // 
-            this.nyBookingToolStripMenuItem.Name = "nyBookingToolStripMenuItem";
-            this.nyBookingToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
-            this.nyBookingToolStripMenuItem.Text = "Ny Booking";
-            this.nyBookingToolStripMenuItem.Click += new System.EventHandler(this.nyBookingToolStripMenuItem_Click);
-            // 
-            // oversiktToolStripMenuItem
-            // 
-            this.oversiktToolStripMenuItem.Name = "oversiktToolStripMenuItem";
-            this.oversiktToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
-            this.oversiktToolStripMenuItem.Text = "Oversikt";
-            this.oversiktToolStripMenuItem.Click += new System.EventHandler(this.oversiktToolStripMenuItem_Click);
-            // 
-            // etasjeOversiktToolStripMenuItem
-            // 
-            this.etasjeOversiktToolStripMenuItem.Name = "etasjeOversiktToolStripMenuItem";
-            this.etasjeOversiktToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
-            this.etasjeOversiktToolStripMenuItem.Text = "Etasje oversikt";
-            this.etasjeOversiktToolStripMenuItem.Click += new System.EventHandler(this.etasjeOversiktToolStripMenuItem_Click);
-            // 
-            // avsluttToolStripMenuItem
-            // 
-            this.avsluttToolStripMenuItem.Name = "avsluttToolStripMenuItem";
-            this.avsluttToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
-            this.avsluttToolStripMenuItem.Text = "Avslutt";
-            this.avsluttToolStripMenuItem.Click += new System.EventHandler(this.avsluttToolStripMenuItem_Click);
-            // 
-            // omToolStripMenuItem
-            // 
-            this.omToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.omHotellBooking10ToolStripMenuItem});
-            this.omToolStripMenuItem.Name = "omToolStripMenuItem";
-            this.omToolStripMenuItem.Size = new System.Drawing.Size(66, 38);
-            this.omToolStripMenuItem.Text = "Om";
-            // 
-            // omHotellBooking10ToolStripMenuItem
-            // 
-            this.omHotellBooking10ToolStripMenuItem.Name = "omHotellBooking10ToolStripMenuItem";
-            this.omHotellBooking10ToolStripMenuItem.Size = new System.Drawing.Size(357, 38);
-            this.omHotellBooking10ToolStripMenuItem.Text = "Om Hotell Booking 1.0";
-            this.omHotellBooking10ToolStripMenuItem.Click += new System.EventHandler(this.omHotellBooking10ToolStripMenuItem_Click);
+            this.listBox2.DisplayMember = "CustomerName";
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 37;
+            this.listBox2.Location = new System.Drawing.Point(54, 396);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(654, 263);
+            this.listBox2.TabIndex = 21;
             // 
             // Form1
             // 
@@ -548,6 +549,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Hotell Booking 1.0";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -605,7 +607,6 @@
         private System.Windows.Forms.TextBox textBoxTelefon;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.ToolStripMenuItem filToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nyBookingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem oversiktToolStripMenuItem;
@@ -613,6 +614,7 @@
         private System.Windows.Forms.ToolStripMenuItem avsluttToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem omToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem omHotellBooking10ToolStripMenuItem;
+        private System.Windows.Forms.ListBox listBox2;
     }
 }
 

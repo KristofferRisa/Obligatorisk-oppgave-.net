@@ -58,7 +58,7 @@ namespace hotell.web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CustomerName,CustomerPhone,CustomerAdress,FromDate,ToDate,IsCheckedIn,Created,Modified")] Booking booking)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && booking.FromDate <= booking.ToDate)
             {
                 _context.Add(booking);
                 await _context.SaveChangesAsync();
@@ -70,7 +70,7 @@ namespace hotell.web.Controllers
                 await _context.SaveChangesAsync();
                 
                 ViewData["msg"] = $"Takk for din reserverasjon.\r\nDin reservasjonskode er {id}.";
-                return View("Find");
+                return RedirectToAction("Find");
                 
             }
             return View(booking);
@@ -186,10 +186,7 @@ namespace hotell.web.Controllers
 
             ViewData["msg"] = "Fant ikke reserverasjon";
             return View();
-
         }
-
-
 
         public IActionResult Error()
         {

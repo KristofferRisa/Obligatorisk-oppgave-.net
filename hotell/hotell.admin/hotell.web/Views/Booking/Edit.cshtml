@@ -43,14 +43,16 @@
         <div class="form-group">
             <label asp-for="FromDate" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="FromDate" class="form-control" />
+                @*<input asp-for="FromDate" class="form-control" />*@
+                <input name="FromDate" id="FromDate" type="text" Value="@Model.FromDate.ToString("yyyy.MM.dd")" class="form-control" required="required" data-val-required="The Fra dato field is required." />
                 <span asp-validation-for="FromDate" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="ToDate" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="ToDate" class="form-control" />
+                @*<input asp-for="ToDate" class="form-control" />*@
+                <input name="ToDate" id="ToDate" type="text" Value="@Model.ToDate.ToString("yyyy.MM.dd")" class="form-control" required="required" data-val-required="The Til dato field is required." />
                 <span asp-validation-for="ToDate" class="text-danger"></span>
             </div>
         </div>

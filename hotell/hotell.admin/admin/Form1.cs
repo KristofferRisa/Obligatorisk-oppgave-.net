@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net;
@@ -30,10 +31,12 @@ namespace admin
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            _ds = HelperClass.ReadFromXmlFile<List<Booking>>().ToDataSet();
             HentRom();
             OpprettRom();
             Oppdater();
             Refresh();
+            _ds = _bookings.ToDataSet();
         }
 
         #region private fields
@@ -41,6 +44,8 @@ namespace admin
         private List<Booking> _bookings;
         private string _valgtDato;
         private readonly List<Label> _roomsLabels; //cache a reference to each label
+        private DataSet _ds;
+
         #endregion
 
         #region private methods
@@ -165,7 +170,10 @@ namespace admin
         #region Events and button clicks
         private void listBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            this.listBox1.DoDragDrop(this.listBox1.SelectedItem, DragDropEffects.All);
+            if (listBox1.Items.Count > 0)
+            {
+                listBox1.DoDragDrop(listBox1.SelectedItem, DragDropEffects.All);
+            }
         }
 
         private void listBox1_DragOver(object sender, DragEventArgs e)
@@ -295,6 +303,11 @@ namespace admin
             MessageBox.Show(
                 "Hotell booking 1.0\r\n\r\nObligatorisk oppgave i .NET på Høyskolen i Sør-Øst Norge 2017\r\n\r\n\r\nLaget av Kristoffer Risa 2017");
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            HelperClass.SkrivXmlFile(_bookings);
+        }
         #endregion
 
         #region REST Web API helper methods
@@ -317,7 +330,8 @@ namespace admin
                     JsonConvert.DeserializeObject<List<Booking>>(
                         client.DownloadString($"https://booking-online.azurewebsites.net/api/Booking?date={_valgtDato}"));
                 listBox1.DataSource = _bookings.Where(x => x.RoomNumber == 0).ToList();
-                listBox2.DataSource = _bookings;
+                _ds = _bookings.ToDataSet();
+                listBox2.DataSource = _ds.Tables[0];
             }
         }
 

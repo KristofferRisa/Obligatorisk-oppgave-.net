@@ -12,7 +12,5 @@ namespace hotell.web.Models
 
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<Availability> Availabilities { get; set; }
-        
     }
 }
