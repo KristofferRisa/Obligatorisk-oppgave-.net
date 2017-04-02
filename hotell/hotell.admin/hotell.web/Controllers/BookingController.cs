@@ -60,13 +60,18 @@ namespace hotell.web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var hashids = new Hashids($"{booking.CustomerName}saltAp!2131");
-                var id = hashids.Encode(booking.CustomerName.Length);
-                booking.ReservationCode = id;
-
                 _context.Add(booking);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                
+                var hashids = new Hashids($"{booking.CustomerName}saltAp!2131");
+                var id = hashids.Encode(booking.CustomerName.Length, booking.BookingId);
+                booking.ReservationCode = id;
+                
+                await _context.SaveChangesAsync();
+                
+                ViewData["msg"] = $"Takk for din reserverasjon.\r\nDin reservasjonskode er {id}.";
+                return View("Find");
+                
             }
             return View(booking);
         }
@@ -162,16 +167,20 @@ namespace hotell.web.Controllers
         {
             if (name != null && bookingcode != null)
             {
+                var booking = await _context.Bookings
+               .SingleOrDefaultAsync(m => m.CustomerName == name && m.ReservationCode == bookingcode);
+                if (booking == null)
+                {
+                    ViewData["msg"] = "Fant ikke reserverasjon";
+                    return View();
+                }
+
                 var hashids = new Hashids($"{name}saltAp!2131");
-                var id = hashids.Encode(name.Length);
+                var id = hashids.Encode(name.Length,booking.BookingId);
 
                 if (id == bookingcode)
                 {
-                    var booking = await _context.Bookings.SingleOrDefaultAsync(x => x.ReservationCode == id);
-                    if (booking != null)
-                    {
-                        return RedirectToAction("Edit", new {id = booking.BookingId});
-                    }
+                    return RedirectToAction("Edit", new { id = booking.BookingId });
                 }
             }
 

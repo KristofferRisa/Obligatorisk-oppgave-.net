@@ -33,120 +33,78 @@ namespace hotell.web.Controllers
         [HttpGet]
         public async Task<List<Booking>> Booking(DateTime date)
         {
-            return await _context.Bookings.Where(x => x.FromDate >= date && x.ToDate < date).ToListAsync();
+            return await _context.Bookings.Where(x => x.FromDate >= date).ToListAsync();
         }
 
+        //API
+        [Route("/api/BookRom")]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutBooking(int id, int roomnumber)
+        {
+            var booking = _context.Bookings.FirstOrDefault(b => b.BookingId == id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+            booking.RoomNumber = roomnumber;
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
 
-        // GET: api/api
+            return NoContent();
+        }
+
+        // POST: api/PostBooking
+        [HttpPost]
+        [Route("/api/PostBooking")]
+        public async Task<IActionResult> PostBooking(string fromdate, string todate,string customername, string customeradress, string customerphone, string ischeckedin)
+        {
+            if (string.IsNullOrEmpty(fromdate) && string.IsNullOrEmpty(todate)
+                && string.IsNullOrEmpty(customername) && string.IsNullOrEmpty(customeradress)
+                && string.IsNullOrEmpty(customeradress) && string.IsNullOrEmpty(ischeckedin))
+            {
+                return BadRequest(ModelState);
+            }
+            var booking = new Booking()
+            {
+                FromDate = Convert.ToDateTime(fromdate),
+                ToDate = Convert.ToDateTime(todate),
+                CustomerName = customername,
+                CustomerPhone = customerphone,
+                CustomerAdress = customeradress,
+                IsCheckedIn = Convert.ToBoolean(ischeckedin)
+            };
+            _context.Bookings.Add(booking);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (BookingExists(booking.BookingId))
+                {
+                    return new StatusCodeResult(StatusCodes.Status409Conflict);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok();
+        }
+
+        // GET: api/GetBookings
         [HttpGet]
         public IEnumerable<Booking> GetBookings()
         {
             return _context.Bookings;
         }
-
-        //// GET: api/api/5
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetBooking([FromRoute] int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var booking = await _context.Bookings.SingleOrDefaultAsync(m => m.BookingId == id);
-
-        //    if (booking == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(booking);
-        //}
-
-        //// PUT: api/api/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutBooking([FromRoute] int id, [FromBody] Booking booking)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (id != booking.BookingId)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(booking).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!BookingExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/api
-        //[HttpPost]
-        //public async Task<IActionResult> PostBooking([FromBody] Booking booking)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    _context.Bookings.Add(booking);
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        if (BookingExists(booking.BookingId))
-        //        {
-        //            return new StatusCodeResult(StatusCodes.Status409Conflict);
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return CreatedAtAction("GetBooking", new { id = booking.BookingId }, booking);
-        //}
-
-        //// DELETE: api/api/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteBooking([FromRoute] int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var booking = await _context.Bookings.SingleOrDefaultAsync(m => m.BookingId == id);
-        //    if (booking == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Bookings.Remove(booking);
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok(booking);
-        //}
 
         private bool BookingExists(int id)
         {

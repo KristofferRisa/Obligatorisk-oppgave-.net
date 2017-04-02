@@ -1,14 +1,11 @@
 @model IEnumerable<Domain.Models.Booking>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Oversikt";
 }
 
-<h2>Index</h2>
+<h2>Booking oversikt</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -32,15 +29,6 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ToDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsCheckedIn)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Created)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Modified)
                 </th>
             <th></th>
         </tr>
@@ -68,15 +56,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ToDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsCheckedIn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modified)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.BookingId">Edit</a> |

@@ -114,4 +114,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Form1_button2_Click_Mangler_brukernavn" xml:space="preserve">
+    <value>Mangler brukernavn</value>
+  </data>
+  <data name="Form1_button2_Click_Feil_input" xml:space="preserve">
+    <value>Feil input</value>
+  </data>
+  <data name="Form1_button2_Click_Mangler_telefon_nr" xml:space="preserve">
+    <value>Mangler telefon nr</value>
+  </data>
+  <data name="Form1_button2_Click_Mangler_adresse" xml:space="preserve">
+    <value>Mangler adresse</value>
+  </data>
+  <data name="Form1_button2_Click_kontakt_support" xml:space="preserve">
+    <value>Klarte ikke å utføre reservasjon, kontakt support.</value>
+  </data>
+  <data name="Form1_button2_Click_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
 </root>
