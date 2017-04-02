@@ -70,7 +70,7 @@ namespace hotell.web.Controllers
                 await _context.SaveChangesAsync();
                 
                 ViewData["msg"] = $"Takk for din reserverasjon.\r\nDin reservasjonskode er {id}.";
-                return RedirectToAction("Find");
+                return View("Find");
                 
             }
             return View(booking);
