@@ -58,6 +58,7 @@ namespace admin
 
         private void OppdaterDagensOversikt()
         {
+            //Oppdaterer dagens oversikt bilde (tab side 1(index = 0))
             labelTotaltAntGjester.Text = _bookings.Count().ToString();
             labelIkkeTildeltRom.Text = _bookings.Count(x => x.RoomNumber == 0).ToString();
             labelTildelt.Text = _bookings.Count(x => x.RoomNumber != 0).ToString();
@@ -73,6 +74,7 @@ namespace admin
      
         private void OpprettRom()
         {
+            //Metode for å lage romene.
             if (_rooms != null)
             {
                 //setup rooms
@@ -170,6 +172,7 @@ namespace admin
         #region Events and button clicks
         private void listBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            //Håndtering av drag and drop av kunder som ikke har rom
             if (listBox1.Items.Count > 0)
             {
                 listBox1.DoDragDrop(listBox1.SelectedItem, DragDropEffects.All);
@@ -193,7 +196,7 @@ namespace admin
 
         private void l_DragDrop(object sender, DragEventArgs e)
         {
-
+            //Håndtering av drag and drop av kunder som ikke har rom når man slipper kunden over rommet
             var booking = (Booking)e.Data.GetData(typeof(Booking));
 
             var l = (Label)sender;
@@ -214,6 +217,7 @@ namespace admin
         
         private void monthCalendar_DateSelected_1(object sender, DateRangeEventArgs e)
         {
+            //Henter data ved valgt dato i kalenderen. 
             _valgtDato = monthCalendar1.SelectionEnd.ToString("yyyy.MM.dd");
             labelValgtDato.Text = monthCalendar1.SelectionEnd.ToLongDateString();
             Oppdater();
@@ -226,7 +230,7 @@ namespace admin
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //Simple input validering
+            //Enkel input validering
             if (string.IsNullOrEmpty(textBoxNavn.Text))
                 MessageBox.Show(Resources.Form1_button2_Click_Mangler_brukernavn
                     , Resources.Form1_button2_Click_Feil_input
@@ -244,6 +248,7 @@ namespace admin
                     , MessageBoxIcon.Error);
             else
             {
+                //Oppretter Booking klassen som sendes til WEBAPI
                 var booking = new Booking()
                 {
                     FromDate = dateTimePickerFradato.Value,
@@ -313,6 +318,7 @@ namespace admin
         #region REST Web API helper methods
         private void HentRom()
         {
+            //Henter rom fra WEB API
             using (var client = new WebClient())
             {
                 _rooms =
@@ -323,6 +329,7 @@ namespace admin
 
         private void HentBookinger()
         {
+            //Henter bookinger fra WEBAPI
             using (var client = new WebClient())
             {
 
@@ -337,6 +344,7 @@ namespace admin
 
         private HttpResponseMessage SendRomBooking(Booking booking)
         {
+            //Sender rom booking til WEBAPI
             using (var client = new HttpClient())
             {
                 var data = new List<KeyValuePair<string, string>>
@@ -353,6 +361,7 @@ namespace admin
 
         private HttpResponseMessage SendNewBooking(Booking booking)
         {
+            //Oppretter ny Booking via WEBAPI
             using (var client = new HttpClient())
             {
                 var data = new List<KeyValuePair<string, string>>

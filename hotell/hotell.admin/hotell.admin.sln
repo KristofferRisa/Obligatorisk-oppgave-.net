@@ -3,14 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F7DD64E7-2EDE-4A32-A504-CB6D4982E63A}"
-	ProjectSection(SolutionItems) = preProject
-		readme.md = readme.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{983A2B72-5AF3-4175-8E88-1CCB2BFA5EAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Models", "domain.models\Domain.Models.csproj", "{2F293D4B-BBDF-49D7-9A57-F3E7A7EAC8F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Models", "domain.models\Domain.Models.csproj", "{2F293D4B-BBDF-49D7-9A57-F3E7A7EAC8F3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "domain", "domain", "{82E86EF6-3A09-44A3-9640-1F637DAD3111}"
 EndProject
@@ -18,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{B96E09A8-652
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{C357592D-7E7F-438E-B368-5D7255400200}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hotell.web", "hotell.web\hotell.web.csproj", "{58D15E2A-A507-43D9-BDEC-F002A11530BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hotell.web", "hotell.web\hotell.web.csproj", "{58D15E2A-A507-43D9-BDEC-F002A11530BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "admin", "admin\admin.csproj", "{03F0E109-23F5-42C3-A4BC-82283337965A}"
 EndProject
