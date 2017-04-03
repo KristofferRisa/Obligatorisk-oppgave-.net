@@ -193,22 +193,31 @@ namespace admin
 
         private void l_DragDrop(object sender, DragEventArgs e)
         {
-
+            
             var booking = (Booking)e.Data.GetData(typeof(Booking));
 
             var l = (Label)sender;
-            booking.RoomNumber = Convert.ToInt32(l.Name);
-
-            if (SendRomBooking(booking).StatusCode == HttpStatusCode.NoContent)
+            if (l.BackColor == Red)
             {
-
-                l.BackColor = Red;
+                MessageBox.Show("Opptatt");
             }
             else
             {
-                l.BackColor = Green;
+                booking.RoomNumber = Convert.ToInt32(l.Name);
+
+                if (SendRomBooking(booking).StatusCode == HttpStatusCode.NoContent)
+                {
+
+                    l.BackColor = Red;
+                }
+                else
+                {
+                    l.BackColor = Green;
+                }
+                Oppdater();
+
             }
-            Oppdater();
+
 
         }
         
