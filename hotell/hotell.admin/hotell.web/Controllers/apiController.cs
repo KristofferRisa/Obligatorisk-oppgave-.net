@@ -33,6 +33,7 @@ namespace hotell.web.Controllers
         [HttpGet]
         public async Task<List<Booking>> Booking(DateTime date)
         {
+            return await _context.Bookings.Where(x => x.FromDate == date ||(x.FromDate < date && x.ToDate >= date)).ToListAsync();
         }
 
         //API
