@@ -21,11 +21,7 @@ namespace ubåtspill.website.Controllers
 
         // GET: Highscores
         public async Task<IActionResult> Index()
-        {
-            _context.Highscores.Add(new Highscore());
-            _context.SaveChanges();
-
-
+        {   
             return View(await _context.Highscores.OrderByDescending(x => x.Score).ToListAsync());
         }
 
