@@ -1,0 +1,84 @@
+@model Trafikkal.web.Models.Question
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Question</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Img)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Img)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Video)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Video)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Alternative1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Alternative1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Alternative2)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Alternative2)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Alternative3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Alternative3)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Alternative4)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Alternative4)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Answer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Answer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

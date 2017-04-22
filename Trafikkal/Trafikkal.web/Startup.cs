@@ -17,6 +17,8 @@ namespace Trafikkal.web
 {
     public class Startup
     {
+        private string ConnectionString;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -28,10 +30,20 @@ namespace Trafikkal.web
             {
                 // For more details on using the user secret store see https://go.microsoft.com/fwlink/?LinkID=532709
                 builder.AddUserSecrets<Startup>();
+                
             }
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            if (env.IsDevelopment())
+            {
+                ConnectionString = Configuration.GetConnectionString("DefaultConnection");
+            }
+            else
+            {
+                ConnectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_ConnectionString");
+            }
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -41,7 +53,7 @@ namespace Trafikkal.web
         {
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(ConnectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -55,7 +67,10 @@ namespace Trafikkal.web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app
+            , IHostingEnvironment env
+            , ILoggerFactory loggerFactory
+            , ApplicationDbContext context)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -79,10 +94,15 @@ namespace Trafikkal.web
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(name: "areaRoute",
+                        template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DbInitializer.Initialize(context);
         }
     }
 }

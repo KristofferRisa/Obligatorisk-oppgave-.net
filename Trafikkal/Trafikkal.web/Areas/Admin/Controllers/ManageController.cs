@@ -13,6 +13,7 @@ using Trafikkal.web.Services;
 
 namespace Trafikkal.web.Controllers
 {
+    [Area("Admin")]
     [Authorize]
     public class ManageController : Controller
     {

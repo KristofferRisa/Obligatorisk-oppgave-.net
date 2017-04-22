@@ -15,8 +15,8 @@ namespace Trafikkal.web.Data
         {
         }
 
-        public DbSet<Quiz> Quizzes { get; set; }
-
+        public DbSet<Quiz> Quiz { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -24,5 +24,7 @@ namespace Trafikkal.web.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+        
+        public DbSet<Trafikkal.web.Models.Question> Question { get; set; }
     }
 }
