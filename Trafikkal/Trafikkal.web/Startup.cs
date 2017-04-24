@@ -17,7 +17,7 @@ namespace Trafikkal.web
 {
     public class Startup
     {
-        private string ConnectionString;
+        private readonly string _connectionString;
 
         public Startup(IHostingEnvironment env)
         {
@@ -38,11 +38,11 @@ namespace Trafikkal.web
 
             if (env.IsDevelopment())
             {
-                ConnectionString = Configuration.GetConnectionString("DefaultConnection");
+                _connectionString = Configuration.GetConnectionString("DefaultConnection");
             }
             else
             {
-                ConnectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_ConnectionString");
+                _connectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_ConnectionString");
             }
         }
 
@@ -53,7 +53,7 @@ namespace Trafikkal.web
         {
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(ConnectionString));
+                options.UseSqlServer(_connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

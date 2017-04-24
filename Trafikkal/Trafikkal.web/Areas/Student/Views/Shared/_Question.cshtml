@@ -1,0 +1,51 @@
+@model Trafikkal.web.Models.Question
+
+<style>
+    /*TODO gjør ferdig styling på input text*/
+    label > input {
+        font-size: 1.1em;
+    }
+</style>
+<br />
+<h3>@Model.Text</h3>
+@{
+    if (Model.Img != null)
+    {
+        <img class="img-responsive" src="@Model.Img" />
+    }
+    if (Model.Video != null)
+    {
+        <video src="@Model.Video"></video>
+    }
+}
+
+<hr/>
+
+<input name="questionNumber" readonly="readonly" value="@Model.Number" hidden="" />
+<div class="radio-inline">
+    <label>s
+        <input type="radio" id="Alternative1" name="alternative" value="@Model.Alternative1" required> @Model.Alternative1
+    </label>
+</div>
+<div class="radio-inline">
+    <label>
+        <input type="radio" id="Alternative2" name="alternative" value="@Model.Alternative2"> @Model.Alternative2
+    </label>
+</div>
+<div class="radio-inline">
+    <label>
+        <input type="radio" id="Alternative3" name="alternative" value="@Model.Alternative3"> @Model.Alternative3
+    </label>
+</div>
+<div class="radio-inline">
+    <label>
+        <input type="radio" id="Alternative4" name="alternative" value="@Model.Alternative4"> @Model.Alternative4
+    </label>
+</div>
+
+
+<br/>
+<div class="col-md-offset-11">
+    <input type="submit" class="btn btn-default" value="Svar"/>
+</div>
+

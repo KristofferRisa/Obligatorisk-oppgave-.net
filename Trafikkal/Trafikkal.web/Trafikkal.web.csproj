@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Student\Controllers\" />
-    <Folder Include="Areas\Student\Views\Test\" />
+    <Folder Include="Areas\Student\Views\Me\" />
   </ItemGroup>
 
 </Project>

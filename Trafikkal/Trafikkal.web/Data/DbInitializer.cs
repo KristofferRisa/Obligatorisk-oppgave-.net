@@ -24,10 +24,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 1,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -36,10 +36,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 2,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -48,10 +48,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 3,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -60,10 +60,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 4,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -72,10 +72,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 5,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -84,10 +84,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 6,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -96,10 +96,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 7,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -108,10 +108,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 8,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -120,10 +120,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 9,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -132,10 +132,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 10,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -144,10 +144,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 11,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -156,10 +156,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 12,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -168,10 +168,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 13,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -180,10 +180,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 14,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -192,10 +192,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 15,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -204,10 +204,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 16,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -216,10 +216,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 17,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -228,10 +228,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 18,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -240,10 +240,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 19,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now
@@ -252,10 +252,10 @@ namespace Trafikkal.web.Data
                 {
                     Number = 20,
                     Text = "Hva er ",
-                    Alternative1 = "",
-                    Alternative2 = "",
-                    Alternative3 = "",
-                    Alternative4 = "",
+                    Alternative1 = "1",
+                    Alternative2 = "2",
+                    Alternative3 = "3",
+                    Alternative4 = "4",
                     Answer = "4",
                     Active = true,
                     Created = DateTime.Now

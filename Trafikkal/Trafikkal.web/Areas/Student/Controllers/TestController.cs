@@ -4,9 +4,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Antiforgery.Internal;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Trafikkal.web.Data;
 using Trafikkal.web.Models;
 
@@ -30,41 +32,85 @@ namespace Trafikkal.web.Areas.Student.Controllers
         }
 
         /// <summary>
-        /// GET: /Quiz/Step/1
+        /// GET: /Student/Test/Step
         /// </summary>
         public ActionResult Step()
         {
-            //var usedQuestion = new List<int>();
-            //ViewBag["question"] = usedQuestion;
-            //var cookie = Request.Cookies["q"];
-            //if (cookie != null && Convert.ToInt32(cookie) > id)
-            //{
-            //    return RedirectToAction("Step", new { id = Convert.ToInt32(cookie) });
-            //}
-
             var userId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             if (userId != null)
             {
                 var answers = _db.Answers.Where(x => x.UserId == userId).Select(x => x.QuestionNumber).ToList();
-                if (answers.Count >= 0 || answers.Count < 21)
+                if (answers.Count >= 0 && answers.Count < 21)
                 {
                     //next question
                     var random = new Random();
 
                     var questionNumber = random.Next(1, 20);
-                    
-                    while (answers.Contains(questionNumber))
+                    int fallback = 0;
+
+                    while (answers.Contains(questionNumber) && fallback<21)
                     {
-                        questionNumber = random.Next();
+                        fallback++;
+                        questionNumber = random.Next(1,20);
                     }
 
                     var question = _db.Question.FirstOrDefault(x => x.Number == questionNumber);
                     return View(question);
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Result", "Test");
         }
 
+        /// <summary>
+        /// POST: /Student/Test/Step
+        /// </summary>
+        /// <param name="answer"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Step([Bind("QuestionNumber", "Alternative")]Answer answer)
+        {
+            if(ModelState.IsValid)
+            {
+                answer.UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                answer.Created = DateTime.Now;
+                _db.Answers.Add(answer);
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Step");
+        }
+
+
+        /// <summary>
+        /// GET: /Student/Test/Result
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Result()
+        {
+            var userId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var correctAnswers = from a in _db.Answers.Where(x => x.UserId == userId)
+                join q in _db.Question on a.QuestionNumber equals q.Number
+                where (a.Alternative == q.Answer)
+                select new {a.QuestionNumber, a.Alternative};
+
+            var numberOfCorretAnswers = correctAnswers.ToList().Count();
+            var allQuestion = _db.Answers.Count(x => x.UserId == userId);
+
+            decimal prosent = Convert.ToDecimal(numberOfCorretAnswers) / Convert.ToDecimal(allQuestion) * 100;
+            ViewData["prosent"] = prosent.ToString();
+            return View();
+        }
+
+
+        public ActionResult Reset()
+        {
+            var userId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            _db.Database.ExecuteSqlCommand($@"delete from Answers  where userid = '{userId}'");
+            _db.SaveChanges();
+
+            return RedirectToAction("Index", "Me");
+        }
     }
 }
