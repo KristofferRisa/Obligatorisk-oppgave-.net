@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +9,7 @@ using Trafikkal.web.Models;
 using Trafikkal.web.Models.ManageViewModels;
 using Trafikkal.web.Services;
 
-namespace Trafikkal.web.Controllers
+namespace Trafikkal.web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize]

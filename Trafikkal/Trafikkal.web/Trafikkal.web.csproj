@@ -11,6 +11,13 @@
   <PropertyGroup>
     <UserSecretsId>aspnet-Trafikkal.web-77058d3a-e7f0-48cd-bc42-69ec3901d07a</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Student\Views\Quiz\**" />
+    <Content Remove="Areas\Student\Views\Quiz\**" />
+    <EmbeddedResource Remove="Areas\Student\Views\Quiz\**" />
+    <None Remove="Areas\Student\Views\Quiz\**" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
@@ -32,10 +39,11 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+    <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Student\Controllers\" />
-    <Folder Include="Areas\Student\Views\Quiz\" />
+    <Folder Include="Areas\Student\Views\" />
   </ItemGroup>
 
 </Project>
