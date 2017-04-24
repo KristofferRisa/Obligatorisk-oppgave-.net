@@ -1,13 +1,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Trafikkal.web.Data;
+using Trafikkal.web.Models;
 
 namespace Trafikkal.web.Areas.Student.Controllers
 {
+    [Area("Student")]
+    [Authorize]
     public class TestController : Controller
     {
+        private ApplicationDbContext _db;
+        private IHttpContextAccessor _httpContext;
+
+        public TestController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+        {
+            _db = context;
+            _httpContext = httpContextAccessor;
+        }
         public IActionResult Index()
         {
             return View();
@@ -16,39 +32,38 @@ namespace Trafikkal.web.Areas.Student.Controllers
         /// <summary>
         /// GET: /Quiz/Step/1
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ActionResult Step(int? id)
+        public ActionResult Step()
         {
-            var cookie = Request.Cookies.Where(x => x.Key == "q").Select(x => x.Value);
-            if (cookie != null && Convert.ToInt32(cookie) > id)
+            //var usedQuestion = new List<int>();
+            //ViewBag["question"] = usedQuestion;
+            //var cookie = Request.Cookies["q"];
+            //if (cookie != null && Convert.ToInt32(cookie) > id)
+            //{
+            //    return RedirectToAction("Step", new { id = Convert.ToInt32(cookie) });
+            //}
+
+            var userId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (userId != null)
             {
-                return RedirectToAction("Step", new { id = Convert.ToInt32(cookie) });
-            }
-            if (id != null)
-            {
-                //Checking cookie for Groupname value
-                var httpCookie = Request.Cookies.Where(x => x.Key == "team").Select(x => x.Value);
-                if (httpCookie != null)
+                var answers = _db.Answers.Where(x => x.UserId == userId).Select(x => x.QuestionNumber).ToList();
+                if (answers.Count >= 0 || answers.Count < 21)
                 {
-                    //cookie = httpCookie.Value;
-                    ////Getting the question fromo the database
-                    //var q = _db.Quizzes.SingleOrDefault(x => x.Number == question && x.Active);
+                    //next question
+                    var random = new Random();
 
-                    //Response.Cookies["q"].Value = (question + 1).ToString();
-                    //Response.Cookies["q"].Expires = DateTime.Now.AddDays(1);
+                    var questionNumber = random.Next(1, 20);
+                    
+                    while (answers.Contains(questionNumber))
+                    {
+                        questionNumber = random.Next();
+                    }
 
-                    //if (q == null)
-                    //{
-                    //    return View("Ferdig");
-                    //}
-                    //return cookie != null ? View(q) : View("Error");
-
-                    return View();
+                    var question = _db.Question.FirstOrDefault(x => x.Number == questionNumber);
+                    return View(question);
                 }
-
             }
-            return View("Error");
+            return RedirectToAction("Index", "Home");
         }
 
     }
