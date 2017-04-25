@@ -12,7 +12,20 @@ namespace Trafikkal.web.Data
         {
             context.Database.EnsureCreated();
 
-            // Look for any students.
+            if (!context.Quiz.Any())
+            {
+                var quiz = new Quiz()
+                {
+                    Id = 1,
+                    Name = "Main",
+                    MinScoreToPass = 70
+                };
+
+                context.Quiz.Add(quiz);
+                context.SaveChanges();
+            }
+
+            // Look for any question.
             if (context.Question.Any())
             {
                 return;   // DB has been seeded
@@ -23,14 +36,19 @@ namespace Trafikkal.web.Data
                 new Question()
                 {
                     Number = 1,
-                    Text = "Hva er ",
+                    Text = "Hva er 1 +1 ",
                     Alternative1 = "1",
                     Alternative2 = "2",
                     Alternative3 = "3",
                     Alternative4 = "4",
-                    Answer = "4",
+                    IsMultipleChoice = true,
+                   IsAlternative1Correct = false,
+                   IsAlternative2Correct = false,
+                   IsAlternative3Correct = true,
+                   IsAlternative4Correct = true,
                     Active = true,
-                    Created = DateTime.Now
+                    Created = DateTime.Now,
+                    QuizId = 1
                 },
                 new Question()
                 {
@@ -40,9 +58,11 @@ namespace Trafikkal.web.Data
                     Alternative2 = "2",
                     Alternative3 = "3",
                     Alternative4 = "4",
-                    Answer = "4",
+                    IsMultipleChoice = false,
+                    IsAlternative1Correct = true,
                     Active = true,
-                    Created = DateTime.Now
+                    Created = DateTime.Now,
+                    QuizId = 1
                 },
                 new Question()
                 {
@@ -52,9 +72,11 @@ namespace Trafikkal.web.Data
                     Alternative2 = "2",
                     Alternative3 = "3",
                     Alternative4 = "4",
-                    Answer = "4",
+                    IsMultipleChoice = false,
+                    IsAlternative1Correct = true,
                     Active = true,
-                    Created = DateTime.Now
+                    Created = DateTime.Now,
+                    QuizId = 1
                 },
                 new Question()
                 {
@@ -64,9 +86,11 @@ namespace Trafikkal.web.Data
                     Alternative2 = "2",
                     Alternative3 = "3",
                     Alternative4 = "4",
-                    Answer = "4",
+                    IsMultipleChoice = false,
+                    IsAlternative1Correct = true,
                     Active = true,
-                    Created = DateTime.Now
+                    Created = DateTime.Now,
+                    QuizId = 1
                 },
                 new Question()
                 {
@@ -76,9 +100,11 @@ namespace Trafikkal.web.Data
                     Alternative2 = "2",
                     Alternative3 = "3",
                     Alternative4 = "4",
-                    Answer = "4",
+                    IsMultipleChoice = false,
+                    IsAlternative1Correct = true,
                     Active = true,
-                    Created = DateTime.Now
+                    Created = DateTime.Now,
+                    QuizId = 1
                 },
                 new Question()
                 {
@@ -88,9 +114,11 @@ namespace Trafikkal.web.Data
                     Alternative2 = "2",
                     Alternative3 = "3",
                     Alternative4 = "4",
-                    Answer = "4",
+                    IsMultipleChoice = false,
+                    IsAlternative1Correct = true,
                     Active = true,
-                    Created = DateTime.Now
+                    Created = DateTime.Now,
+                    QuizId = 1
                 },
                 new Question()
                 {
@@ -100,9 +128,11 @@ namespace Trafikkal.web.Data
                     Alternative2 = "2",
                     Alternative3 = "3",
                     Alternative4 = "4",
-                    Answer = "4",
+                    IsMultipleChoice = false,
+                    IsAlternative1Correct = true,
                     Active = true,
-                    Created = DateTime.Now
+                    Created = DateTime.Now,
+                    QuizId = 1
                 },
                 new Question()
                 {
@@ -112,9 +142,11 @@ namespace Trafikkal.web.Data
                     Alternative2 = "2",
                     Alternative3 = "3",
                     Alternative4 = "4",
-                    Answer = "4",
+                    IsMultipleChoice = false,
+                    IsAlternative1Correct = true,
                     Active = true,
-                    Created = DateTime.Now
+                    Created = DateTime.Now,
+                    QuizId = 1
                 },
                 new Question()
                 {
@@ -124,9 +156,11 @@ namespace Trafikkal.web.Data
                     Alternative2 = "2",
                     Alternative3 = "3",
                     Alternative4 = "4",
-                    Answer = "4",
+                    IsMultipleChoice = false,
+                    IsAlternative1Correct = true,
                     Active = true,
-                    Created = DateTime.Now
+                    Created = DateTime.Now,
+                    QuizId = 1
                 },
                 new Question()
                 {
@@ -136,132 +170,14 @@ namespace Trafikkal.web.Data
                     Alternative2 = "2",
                     Alternative3 = "3",
                     Alternative4 = "4",
-                    Answer = "4",
+                    IsMultipleChoice = false,
+                    IsAlternative1Correct = true,
                     Active = true,
-                    Created = DateTime.Now
-                },
-                new Question()
-                {
-                    Number = 11,
-                    Text = "Hva er ",
-                    Alternative1 = "1",
-                    Alternative2 = "2",
-                    Alternative3 = "3",
-                    Alternative4 = "4",
-                    Answer = "4",
-                    Active = true,
-                    Created = DateTime.Now
-                },
-                new Question()
-                {
-                    Number = 12,
-                    Text = "Hva er ",
-                    Alternative1 = "1",
-                    Alternative2 = "2",
-                    Alternative3 = "3",
-                    Alternative4 = "4",
-                    Answer = "4",
-                    Active = true,
-                    Created = DateTime.Now
-                },
-                new Question()
-                {
-                    Number = 13,
-                    Text = "Hva er ",
-                    Alternative1 = "1",
-                    Alternative2 = "2",
-                    Alternative3 = "3",
-                    Alternative4 = "4",
-                    Answer = "4",
-                    Active = true,
-                    Created = DateTime.Now
-                },
-                new Question()
-                {
-                    Number = 14,
-                    Text = "Hva er ",
-                    Alternative1 = "1",
-                    Alternative2 = "2",
-                    Alternative3 = "3",
-                    Alternative4 = "4",
-                    Answer = "4",
-                    Active = true,
-                    Created = DateTime.Now
-                },
-                new Question()
-                {
-                    Number = 15,
-                    Text = "Hva er ",
-                    Alternative1 = "1",
-                    Alternative2 = "2",
-                    Alternative3 = "3",
-                    Alternative4 = "4",
-                    Answer = "4",
-                    Active = true,
-                    Created = DateTime.Now
-                },
-                new Question()
-                {
-                    Number = 16,
-                    Text = "Hva er ",
-                    Alternative1 = "1",
-                    Alternative2 = "2",
-                    Alternative3 = "3",
-                    Alternative4 = "4",
-                    Answer = "4",
-                    Active = true,
-                    Created = DateTime.Now
-                },
-                new Question()
-                {
-                    Number = 17,
-                    Text = "Hva er ",
-                    Alternative1 = "1",
-                    Alternative2 = "2",
-                    Alternative3 = "3",
-                    Alternative4 = "4",
-                    Answer = "4",
-                    Active = true,
-                    Created = DateTime.Now
-                },
-                new Question()
-                {
-                    Number = 18,
-                    Text = "Hva er ",
-                    Alternative1 = "1",
-                    Alternative2 = "2",
-                    Alternative3 = "3",
-                    Alternative4 = "4",
-                    Answer = "4",
-                    Active = true,
-                    Created = DateTime.Now
-                },
-                new Question()
-                {
-                    Number = 19,
-                    Text = "Hva er ",
-                    Alternative1 = "1",
-                    Alternative2 = "2",
-                    Alternative3 = "3",
-                    Alternative4 = "4",
-                    Answer = "4",
-                    Active = true,
-                    Created = DateTime.Now
-                },
-                new Question()
-                {
-                    Number = 20,
-                    Text = "Hva er ",
-                    Alternative1 = "1",
-                    Alternative2 = "2",
-                    Alternative3 = "3",
-                    Alternative4 = "4",
-                    Answer = "4",
-                    Active = true,
-                    Created = DateTime.Now
+                    Created = DateTime.Now,
+                    QuizId = 1
                 }
             };
-            
+
             foreach (var question in questions)
             {
                 context.Question.Add(question);

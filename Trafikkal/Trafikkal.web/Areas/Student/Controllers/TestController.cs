@@ -26,10 +26,6 @@ namespace Trafikkal.web.Areas.Student.Controllers
             _db = context;
             _httpContext = httpContextAccessor;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         /// <summary>
         /// GET: /Student/Test/Step
@@ -41,18 +37,19 @@ namespace Trafikkal.web.Areas.Student.Controllers
             if (userId != null)
             {
                 var answers = _db.Answers.Where(x => x.UserId == userId).Select(x => x.QuestionNumber).ToList();
-                if (answers.Count >= 0 && answers.Count < 21)
+                var numberOfQuestions = _db.Question.Count();
+                if (answers.Count >= 0 && answers.Count < numberOfQuestions+1)
                 {
                     //next question
                     var random = new Random();
 
-                    var questionNumber = random.Next(1, 20);
+                    var questionNumber = random.Next(1, numberOfQuestions);
                     int fallback = 0;
 
-                    while (answers.Contains(questionNumber) && fallback<21)
+                    while (answers.Contains(questionNumber) && fallback <= numberOfQuestions)
                     {
                         fallback++;
-                        questionNumber = random.Next(1,20);
+                        questionNumber = random.Next(1,numberOfQuestions);
                     }
 
                     var question = _db.Question.FirstOrDefault(x => x.Number == questionNumber);
@@ -90,16 +87,16 @@ namespace Trafikkal.web.Areas.Student.Controllers
         {
             var userId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var correctAnswers = from a in _db.Answers.Where(x => x.UserId == userId)
-                join q in _db.Question on a.QuestionNumber equals q.Number
-                where (a.Alternative == q.Answer)
-                select new {a.QuestionNumber, a.Alternative};
+            //var correctAnswers = from a in _db.Answers.Where(x => x.UserId == userId)
+            //    join q in _db.Question on a.QuestionNumber equals q.Number
+            //    where (a.Alternative == q.Answer)
+            //    select new {a.QuestionNumber, a.Alternative};
 
-            var numberOfCorretAnswers = correctAnswers.ToList().Count();
-            var allQuestion = _db.Answers.Count(x => x.UserId == userId);
+            //var numberOfCorretAnswers = correctAnswers.ToList().Count();
+            //var allQuestion = _db.Answers.Count(x => x.UserId == userId);
 
-            decimal prosent = Convert.ToDecimal(numberOfCorretAnswers) / Convert.ToDecimal(allQuestion) * 100;
-            ViewData["prosent"] = prosent.ToString();
+            //decimal prosent = Convert.ToDecimal(numberOfCorretAnswers) / Convert.ToDecimal(allQuestion) * 100;
+            //ViewData["prosent"] = prosent.ToString();
             return View();
         }
 
