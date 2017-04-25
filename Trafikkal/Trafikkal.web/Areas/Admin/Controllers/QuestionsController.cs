@@ -13,22 +13,22 @@ namespace Trafikkal.web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class QuestionController : Controller
+    public class QuestionsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public QuestionController(ApplicationDbContext context)
+        public QuestionsController(ApplicationDbContext context)
         {
             _context = context;    
         }
 
-        // GET: Admin/Question
+        // GET: Admin/Questions
         public async Task<IActionResult> Index()
         {
             return View(await _context.Question.ToListAsync());
         }
 
-        // GET: Admin/Question/Details/5
+        // GET: Admin/Questions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,23 +42,28 @@ namespace Trafikkal.web.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
-            return View(question);
+            var viewModel = new QuestionViewModel()
+            {
+                Question = question,
+                Quizzes = await _context.Quiz.ToListAsync()
+            };
+            return View(viewModel);
         }
 
-        // GET: Admin/Question/Create
+        // GET: Admin/Questions/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Question/Create
+        // POST: Admin/Questions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,Text,Img,Video,Alternative1,Alternative2,Alternative3,Alternative4,Answer,Active,Created")] Question question)
+        public async Task<IActionResult> Create([Bind("Id,QuizId,Number,Text,Img,Video,Alternative1,Alternative2,Alternative3,Alternative4,Alternative5,IsAlternative1Correct,IsAlternative2Correct,IsAlternative3Correct,IsAlternative4Correct,IsAlternative5Correct,IsMultipleChoice,Active,Created")] Question question)
         {
+            //TODO: Oppadtere med ViewModel modell
             if (ModelState.IsValid)
             {
                 _context.Add(question);
@@ -68,7 +73,7 @@ namespace Trafikkal.web.Areas.Admin.Controllers
             return View(question);
         }
 
-        // GET: Admin/Question/Edit/5
+        // GET: Admin/Questions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,21 +81,29 @@ namespace Trafikkal.web.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            
             var question = await _context.Question.SingleOrDefaultAsync(m => m.Id == id);
             if (question == null)
             {
                 return NotFound();
             }
-            return View(question);
+ 
+            var viewModel = new QuestionViewModel()
+            {
+                Question = question,
+                Quizzes = await _context.Quiz.ToListAsync()
+            };
+            return View(viewModel);
         }
 
-        // POST: Admin/Question/Edit/5
+        // POST: Admin/Questions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Text,Img,Video,Alternative1,Alternative2,Alternative3,Alternative4,Answer,Active,Created")] Question question)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,QuizId,Number,Text,Img,Video,Alternative1,Alternative2,Alternative3,Alternative4,Alternative5,IsAlternative1Correct,IsAlternative2Correct,IsAlternative3Correct,IsAlternative4Correct,IsAlternative5Correct,IsMultipleChoice,Active,Created")] Question question)
         {
+            //TODO: bind to ViewModel modell
             if (id != question.Id)
             {
                 return NotFound();
@@ -119,7 +132,7 @@ namespace Trafikkal.web.Areas.Admin.Controllers
             return View(question);
         }
 
-        // GET: Admin/Question/Delete/5
+        // GET: Admin/Questions/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,7 +150,7 @@ namespace Trafikkal.web.Areas.Admin.Controllers
             return View(question);
         }
 
-        // POST: Admin/Question/Delete/5
+        // POST: Admin/Questions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

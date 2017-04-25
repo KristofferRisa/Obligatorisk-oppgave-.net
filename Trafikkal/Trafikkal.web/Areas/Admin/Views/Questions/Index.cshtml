@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Areas/Student/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -37,7 +38,25 @@
                     @Html.DisplayNameFor(model => model.Alternative4)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Answer)
+                    @Html.DisplayNameFor(model => model.Alternative5)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAlternative1Correct)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAlternative2Correct)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAlternative3Correct)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAlternative4Correct)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAlternative5Correct)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsMultipleChoice)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Active)
@@ -76,7 +95,25 @@
                 @Html.DisplayFor(modelItem => item.Alternative4)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Answer)
+                @Html.DisplayFor(modelItem => item.Alternative5)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAlternative1Correct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAlternative2Correct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAlternative3Correct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAlternative4Correct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAlternative5Correct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsMultipleChoice)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Active)

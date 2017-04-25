@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Student/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Delete</h2>
@@ -61,10 +62,46 @@
             @Html.DisplayFor(model => model.Alternative4)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Answer)
+            @Html.DisplayNameFor(model => model.Alternative5)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Answer)
+            @Html.DisplayFor(model => model.Alternative5)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAlternative1Correct)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsAlternative1Correct)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAlternative2Correct)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsAlternative2Correct)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAlternative3Correct)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsAlternative3Correct)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAlternative4Correct)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsAlternative4Correct)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsAlternative5Correct)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsAlternative5Correct)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsMultipleChoice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsMultipleChoice)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Active)
