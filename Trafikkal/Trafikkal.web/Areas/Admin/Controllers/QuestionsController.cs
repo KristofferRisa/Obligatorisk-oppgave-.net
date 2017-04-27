@@ -60,7 +60,6 @@ namespace Trafikkal.web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,QuizId,Number,Text,Img,Video,Alternative1,Alternative2,Alternative3,Alternative4,Alternative5,IsAlternative1Correct,IsAlternative2Correct,IsAlternative3Correct,IsAlternative4Correct,IsAlternative5Correct,IsMultipleChoice,Active,Created")] Question question)
         {
-            //TODO: Oppdatere med å "binde" mot ViewModel modell
             if (ModelState.IsValid)
             {
                 _context.Add(question);
@@ -105,7 +104,6 @@ namespace Trafikkal.web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,QuizId,Number,Text,Img,Video,Alternative1,Alternative2,Alternative3,Alternative4,Alternative5,IsAlternative1Correct,IsAlternative2Correct,IsAlternative3Correct,IsAlternative4Correct,IsAlternative5Correct,IsMultipleChoice,Active")] Question question)
         {
-            //TODO: bind to ViewModel modell
             if (id != question.Id)
             {
                 return NotFound();

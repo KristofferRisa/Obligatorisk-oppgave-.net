@@ -22,20 +22,19 @@ namespace Trafikkal.web.Models
         
         public string Video { get; set; }
 
-        [Required]
         public string Alternative1 { get; set; }
-
-        [Required]
+        
         public string Alternative2 { get; set; }
+
         public string Alternative3 { get; set; }
+
         public string Alternative4 { get; set; }
+
         public string Alternative5 { get; set; }
         
-        [Required]
         [DisplayName("Is correct")]
         public bool IsAlternative1Correct { get; set; }
-
-        [Required]
+        
         [DisplayName("Is correct")]
         public bool IsAlternative2Correct { get; set; }
 

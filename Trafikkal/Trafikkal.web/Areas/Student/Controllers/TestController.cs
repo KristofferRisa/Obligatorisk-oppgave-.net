@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Antiforgery.Internal;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters.Internal;
 using Microsoft.EntityFrameworkCore;
 using Trafikkal.web.Data;
 using Trafikkal.web.Models;
@@ -18,8 +19,8 @@ namespace Trafikkal.web.Areas.Student.Controllers
     [Authorize]
     public class TestController : Controller
     {
-        private ApplicationDbContext _db;
-        private IHttpContextAccessor _httpContext;
+        private readonly ApplicationDbContext _db;
+        private readonly IHttpContextAccessor _httpContext;
 
         public TestController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
@@ -65,13 +66,81 @@ namespace Trafikkal.web.Areas.Student.Controllers
         /// <param name="answer"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Step([Bind("QuestionNumber", "Alternative")]Answer answer)
+        public ActionResult Step([Bind("QuestionNumber", "Alternative", "Alternative1", "Alternative2", "Alternative3", "Alternative4", "Alternative5")]AnswerViewModel answerViewmodel)
         {
             if(ModelState.IsValid)
             {
-                answer.UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                answer.Created = DateTime.Now;
-                _db.Answers.Add(answer);
+                if (!string.IsNullOrEmpty(answerViewmodel.Alternative))
+                {
+                    var answer = new Answer()
+                    {
+                        QuestionNumber = answerViewmodel.QuestionNumber,
+                        Alternative = Convert.ToInt32(answerViewmodel.Alternative),
+                        UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                        Created = DateTime.Now
+                    };
+                    _db.Answers.Add(answer);
+                }
+                else
+                {
+                    //Spørsmål er multiple choice - legger inn rad for hvert alternativ som er valgt
+                    //dersom et alternativ ikke er valgt blir det null\blankt
+                    if (string.IsNullOrEmpty(answerViewmodel.Alternative1))
+                    {
+                        var answer = new Answer()
+                        {
+                            QuestionNumber = answerViewmodel.QuestionNumber,
+                            Alternative = 1,
+                            UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                            Created = DateTime.Now
+                        };
+                        _db.Answers.Add(answer);
+                    }
+                    if (string.IsNullOrEmpty(answerViewmodel.Alternative2))
+                    {
+                        var answer = new Answer()
+                        {
+                            QuestionNumber = answerViewmodel.QuestionNumber,
+                            Alternative = 2,
+                            UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                            Created = DateTime.Now
+                        };
+                        _db.Answers.Add(answer);
+                    }
+                    if (string.IsNullOrEmpty(answerViewmodel.Alternative3))
+                    {
+                        var answer = new Answer()
+                        {
+                            QuestionNumber = answerViewmodel.QuestionNumber,
+                            Alternative = 3,
+                            UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                            Created = DateTime.Now
+                        };
+                        _db.Answers.Add(answer);
+                    }
+                    if (string.IsNullOrEmpty(answerViewmodel.Alternative4))
+                    {
+                        var answer = new Answer()
+                        {
+                            QuestionNumber = answerViewmodel.QuestionNumber,
+                            Alternative = 4,
+                            UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                            Created = DateTime.Now
+                        };
+                        _db.Answers.Add(answer);
+                    }
+                    if (string.IsNullOrEmpty(answerViewmodel.Alternative5))
+                    {
+                        var answer = new Answer()
+                        {
+                            QuestionNumber = answerViewmodel.QuestionNumber,
+                            Alternative = 5,
+                            UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                            Created = DateTime.Now
+                        };
+                        _db.Answers.Add(answer);
+                    }
+                }
                 _db.SaveChanges();
             }
             return RedirectToAction("Step");
@@ -87,16 +156,87 @@ namespace Trafikkal.web.Areas.Student.Controllers
         {
             var userId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            //var correctAnswers = from a in _db.Answers.Where(x => x.UserId == userId)
-            //    join q in _db.Question on a.QuestionNumber equals q.Number
-            //    where (a.Alternative == q.Answer)
-            //    select new {a.QuestionNumber, a.Alternative};
+            var answers = _db.Answers.Where(x => x.UserId == userId).ToList();
+            var questions = _db.Question.ToList();
+            int numberOfCorrectAnswers = 0;
+            
+            foreach (var answer in answers)
+            {
+                switch (answer.Alternative)
+                {
+                    case 1:
+                        if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative1Correct))
+                        {
+                            numberOfCorrectAnswers++;
+                            break;
+                        }
+                        else
+                        {
+                            numberOfCorrectAnswers--;
+                            break;
+                        }
+                    case 2:
+                        if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative2Correct))
+                        {
+                            numberOfCorrectAnswers++;
+                        
+                            break;
+                        }
+                        else
+                        {
+                            numberOfCorrectAnswers--;
+                            break;
+                        }
+                    case 3:
+                        if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative3Correct))
+                        {
+                            numberOfCorrectAnswers++;
+                            break;
+                        }
+                        else
+                        {
+                            numberOfCorrectAnswers--;
+                            break;
+                        }
+                    case 4:
+                        if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative4Correct))
+                        {
+                            numberOfCorrectAnswers++;
+                            break;
+                        }
+                        else
+                        {
+                            numberOfCorrectAnswers--;
+                            break;
+                        }
+                    case 5:
+                        if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative5Correct))
+                        {
+                            numberOfCorrectAnswers++;
+                            break;
+                        }
+                        else
+                        {
+                            numberOfCorrectAnswers--;
+                            break;
+                        }
+                }
+                
+            }
 
-            //var numberOfCorretAnswers = correctAnswers.ToList().Count();
-            //var allQuestion = _db.Answers.Count(x => x.UserId == userId);
-
-            //decimal prosent = Convert.ToDecimal(numberOfCorretAnswers) / Convert.ToDecimal(allQuestion) * 100;
-            //ViewData["prosent"] = prosent.ToString();
+            
+            decimal prosent = Convert.ToDecimal(numberOfCorrectAnswers) / Convert.ToDecimal(questions.Count) * 100;
+            ViewData["prosent"] = prosent.ToString();
+            if (_db.Quiz.FirstOrDefault().MinScoreToPass <= prosent)
+            {
+                ViewData["bestatt_tekst"] = "Gratulerer du har bestått";
+                ViewData["bestatt"] = true;
+            }else
+            {
+                ViewData["bestatt_tekst"] = "Du bestå ikke prøven!";
+                ViewData["bestatt"] = false;
+            }
+            
             return View();
         }
 

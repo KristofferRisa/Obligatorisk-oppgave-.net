@@ -4,9 +4,24 @@
     Layout = "_Layout";
 }
 
-<h2>Du klarte :</h2>
-<h3>@ViewData["prosent"]% riktig</h3>
+<div class="jumbotron">
+        @if ((bool)ViewData["bestatt"])
+        {
+            <h1 class="text-success">
+                @ViewData["bestatt_tekst"]
+            </h1>
 
+        } else {
+            <h1 class="text-danger">
+                @ViewData["bestatt_tekst"]
+            </h1>   
+        }
+            
+</div>
+<div class="container">
+    <h2>Du klarte :</h2>
+    <h3>@ViewData["prosent"]% riktig</h3>    
+</div>
 <hr/>
 <br/>
 

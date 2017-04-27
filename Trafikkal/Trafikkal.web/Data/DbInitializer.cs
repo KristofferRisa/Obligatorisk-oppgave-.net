@@ -16,7 +16,6 @@ namespace Trafikkal.web.Data
             {
                 var quiz = new Quiz()
                 {
-                    Id = 1,
                     Name = "Main",
                     MinScoreToPass = 70
                 };

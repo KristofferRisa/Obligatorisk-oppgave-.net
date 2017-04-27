@@ -25,17 +25,26 @@
 @if (Model.IsMultipleChoice)
 {
     <label>
-        <input type="checkbox" id="Alternative1" name="alternative" value="@Model.Alternative1" required> @Model.Alternative1
+        <input type="checkbox" id="Alternative1" name="alternative1" value="@Model.Alternative1" > @Model.Alternative1
     </label>
     <label>
-        <input type="checkbox" id="Alternative2" name="alternative" value="@Model.Alternative2" required> @Model.Alternative2
+        <input type="checkbox" id="Alternative2" name="alternative2" value="@Model.Alternative2" > @Model.Alternative2
+    </label>
+    <label>
+        <input type="checkbox" id="Alternative3" name="alternative3" value="@Model.Alternative2" > @Model.Alternative2
+    </label>
+    <label>
+        <input type="checkbox" id="Alternative4" name="alternative4" value="@Model.Alternative2" > @Model.Alternative2
+    </label>
+    <label>
+        <input type="checkbox" id="Alternative5" name="alternative5" value="@Model.Alternative2" > @Model.Alternative2
     </label>
 }
 else
 {
     <div class="radio-inline">
         <label>
-            <input type="radio" id="Alternative1" name="alternative" value="@Model.Alternative1" required> @Model.Alternative1
+            <input type="radio" id="Alternative1" name="alternative" value="@Model.Alternative1" > @Model.Alternative1
         </label>
     </div>
     <div class="radio-inline">
@@ -58,17 +67,13 @@ else
             <input type="radio" id="Alternative5" name="alternative" value="@Model.Alternative4"> @Model.Alternative4
         </label>
     </div>
-
-    <div class="radio-inline">
-        <label>
-            <input type="radio" id="Alternative6" name="alternative" value="@Model.Alternative4"> @Model.Alternative4
-        </label>
-    </div>    
 }
 
 
 <br/>
-<div class="col-md-offset-11">
-    <input type="submit" class="btn btn-default" value="Svar"/>
+<br/>
+<div class="">
+    <input type="submit" class="btn btn-default pull-left" value="Svar"/>
+    <br/>
 </div>
 
