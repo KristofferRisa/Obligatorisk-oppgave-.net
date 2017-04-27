@@ -35,6 +35,14 @@
             </div>
         </div>
         <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="Question.IsMultipleChoice" />
+                    <label asp-for="Question.IsMultipleChoice"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
             <label asp-for="Question.Text" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="Question.Text" class="form-control" />
@@ -57,49 +65,25 @@
         </div>
         <div class="form-group">
             <label asp-for="Question.Alternative1" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
+            <div class="col-md-4">
                 <input asp-for="Question.Alternative1" class="form-control" />
                 <span asp-validation-for="Question.Alternative1" class="text-danger"></span>
             </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Question.Alternative2" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Question.Alternative2" class="form-control" />
-                <span asp-validation-for="Question.Alternative2" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Question.Alternative3" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Question.Alternative3" class="form-control" />
-                <span asp-validation-for="Question.Alternative3" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Question.Alternative4" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Question.Alternative4" class="form-control" />
-                <span asp-validation-for="Question.Alternative4" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Question.Alternative5" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Question.Alternative5" class="form-control" />
-                <span asp-validation-for="Question.Alternative5" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-2 pull-left">
                 <div class="checkbox">
                     <input asp-for="Question.IsAlternative1Correct" />
                     <label asp-for="Question.IsAlternative1Correct"></label>
                 </div>
             </div>
+
         </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <label asp-for="Question.Alternative2" class="col-md-2 control-label"></label>
+            <div class="col-md-4">
+                <input asp-for="Question.Alternative2" class="form-control" />
+                <span asp-validation-for="Question.Alternative2" class="text-danger"></span>
+            </div>
+            <div class="col-md-2 pull-left">
                 <div class="checkbox">
                     <input asp-for="Question.IsAlternative2Correct" />
                     <label asp-for="Question.IsAlternative2Correct"></label>
@@ -107,7 +91,12 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <label asp-for="Question.Alternative3" class="col-md-2 control-label"></label>
+            <div class="col-md-4">
+                <input asp-for="Question.Alternative3" class="form-control" />
+                <span asp-validation-for="Question.Alternative3" class="text-danger"></span>
+            </div>
+            <div class="col-md-2 pull-left">
                 <div class="checkbox">
                     <input asp-for="Question.IsAlternative3Correct" />
                     <label asp-for="Question.IsAlternative3Correct"></label>
@@ -115,7 +104,12 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <label asp-for="Question.Alternative4" class="col-md-2 control-label"></label>
+            <div class="col-md-4">
+                <input asp-for="Question.Alternative4" class="form-control" />
+                <span asp-validation-for="Question.Alternative4" class="text-danger"></span>
+            </div>
+            <div class="col-md-2 pull-left">
                 <div class="checkbox">
                     <input asp-for="Question.IsAlternative4Correct" />
                     <label asp-for="Question.IsAlternative4Correct"></label>
@@ -123,13 +117,19 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <label asp-for="Question.Alternative5" class="col-md-2 control-label"></label>
+            <div class="col-md-4">
+                <input asp-for="Question.Alternative5" class="form-control" />
+                <span asp-validation-for="Question.Alternative5" class="text-danger"></span>
+            </div>
+            <div class="col-md-2 pull-left">
                 <div class="checkbox">
                     <input asp-for="Question.IsAlternative5Correct" />
                     <label asp-for="Question.IsAlternative5Correct"></label>
                 </div>
             </div>
         </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <div class="checkbox">
@@ -146,13 +146,13 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
+        @*<div class="form-group">
             <label asp-for="Question.Created" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 <input asp-for="Question.Created" class="form-control" />
                 <span asp-validation-for="Question.Created" class="text-danger"></span>
             </div>
-        </div>
+        </div>*@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />

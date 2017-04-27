@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Trafikkal.web.Models
@@ -13,8 +14,12 @@ namespace Trafikkal.web.Models
         public int Number { get; set; }
 
         [Required]
+        [DisplayName("Question")]
         public string Text { get; set; }
+
+        [DisplayName("Image")]
         public string Img { get; set; }
+        
         public string Video { get; set; }
 
         [Required]
@@ -27,17 +32,29 @@ namespace Trafikkal.web.Models
         public string Alternative5 { get; set; }
         
         [Required]
+        [DisplayName("Is correct")]
         public bool IsAlternative1Correct { get; set; }
 
         [Required]
+        [DisplayName("Is correct")]
         public bool IsAlternative2Correct { get; set; }
+
+        [DisplayName("Is correct")]
         public bool IsAlternative3Correct { get; set; }
+
+        [DisplayName("Is correct")]
         public bool IsAlternative4Correct { get; set; }
+
+        [DisplayName("Is correct")]
         public bool IsAlternative5Correct { get; set; }
+
         [Required]
+        [DisplayName("Is it multiple choice")]
         public bool IsMultipleChoice { get; set; }
+
         [Required]
         public bool Active { get; set; }
+
         public DateTime Created { get; set; }
     }
 }

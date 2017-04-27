@@ -1,4 +1,4 @@
-@model Trafikkal.web.Models.Question
+@model QuestionViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -12,110 +12,100 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Number)
+            @Html.DisplayNameFor(model => model.Question.Number)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Number)
+            @Html.DisplayFor(model => model.Question.Number)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Text)
+            @Html.DisplayNameFor(model => model.Question.IsMultipleChoice)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Text)
+            @Html.DisplayFor(model => model.Question.IsMultipleChoice)
+        </dd>
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Text)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Text)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Img)
+            @Html.DisplayNameFor(model => model.Question.Img)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Img)
+            @Html.DisplayFor(model => model.Question.Img)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Video)
+            @Html.DisplayNameFor(model => model.Question.Video)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Video)
+            @Html.DisplayFor(model => model.Question.Video)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Alternative1)
+            @Html.DisplayNameFor(model => model.Question.Alternative1)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Alternative1)
+            @Html.DisplayFor(model => model.Question.Alternative1)
+            (
+            @Html.DisplayFor(model => model.Question.IsAlternative1Correct)
+            @Html.DisplayNameFor(model => model.Question.IsAlternative1Correct))
+            
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Alternative2)
+            @Html.DisplayNameFor(model => model.Question.Alternative2)
+
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Alternative2)
+            @Html.DisplayFor(model => model.Question.Alternative2)
+            (
+            @Html.DisplayFor(model => model.Question.IsAlternative2Correct)
+            @Html.DisplayNameFor(model => model.Question.IsAlternative2Correct))
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Alternative3)
+            @Html.DisplayNameFor(model => model.Question.Alternative3)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Alternative3)
+            @Html.DisplayFor(model => model.Question.Alternative3)
+            (
+            @Html.DisplayFor(model => model.Question.IsAlternative3Correct)
+            @Html.DisplayNameFor(model => model.Question.IsAlternative3Correct))
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Alternative4)
+            @Html.DisplayNameFor(model => model.Question.Alternative4)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Alternative4)
+            @Html.DisplayFor(model => model.Question.Alternative4)
+            (
+            @Html.DisplayFor(model => model.Question.IsAlternative4Correct)
+            @Html.DisplayNameFor(model => model.Question.IsAlternative4Correct))
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Alternative5)
+            @Html.DisplayNameFor(model => model.Question.Alternative5)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Alternative5)
+            @Html.DisplayFor(model => model.Question.Alternative5)
+            (
+            @Html.DisplayFor(model => model.Question.IsAlternative5Correct)
+            @Html.DisplayNameFor(model => model.Question.IsAlternative5Correct))
+        </dd>
+
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Active)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Active)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.IsAlternative1Correct)
+            @Html.DisplayNameFor(model => model.Question.Created)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.IsAlternative1Correct)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsAlternative2Correct)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsAlternative2Correct)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsAlternative3Correct)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsAlternative3Correct)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsAlternative4Correct)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsAlternative4Correct)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsAlternative5Correct)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsAlternative5Correct)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsMultipleChoice)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsMultipleChoice)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Created)
+            @Html.DisplayFor(model => model.Question.Created)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Question.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

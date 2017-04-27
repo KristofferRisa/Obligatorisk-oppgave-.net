@@ -22,26 +22,49 @@
 <hr/>
 
 <input name="questionNumber" readonly="readonly" value="@Model.Number" hidden="" />
-<div class="radio-inline">
-    <label>s
-        <input type="radio" id="Alternative1" name="alternative" value="@Model.Alternative1" required> @Model.Alternative1
-    </label>
-</div>
-<div class="radio-inline">
+@if (Model.IsMultipleChoice)
+{
     <label>
-        <input type="radio" id="Alternative2" name="alternative" value="@Model.Alternative2"> @Model.Alternative2
+        <input type="checkbox" id="Alternative1" name="alternative" value="@Model.Alternative1" required> @Model.Alternative1
     </label>
-</div>
-<div class="radio-inline">
     <label>
-        <input type="radio" id="Alternative3" name="alternative" value="@Model.Alternative3"> @Model.Alternative3
+        <input type="checkbox" id="Alternative2" name="alternative" value="@Model.Alternative2" required> @Model.Alternative2
     </label>
-</div>
-<div class="radio-inline">
-    <label>
-        <input type="radio" id="Alternative4" name="alternative" value="@Model.Alternative4"> @Model.Alternative4
-    </label>
-</div>
+}
+else
+{
+    <div class="radio-inline">
+        <label>
+            <input type="radio" id="Alternative1" name="alternative" value="@Model.Alternative1" required> @Model.Alternative1
+        </label>
+    </div>
+    <div class="radio-inline">
+        <label>
+            <input type="radio" id="Alternative2" name="alternative" value="@Model.Alternative2"> @Model.Alternative2
+        </label>
+    </div>
+    <div class="radio-inline">
+        <label>
+            <input type="radio" id="Alternative3" name="alternative" value="@Model.Alternative3"> @Model.Alternative3
+        </label>
+    </div>
+    <div class="radio-inline">
+        <label>
+            <input type="radio" id="Alternative4" name="alternative" value="@Model.Alternative4"> @Model.Alternative4
+        </label>
+    </div>
+    <div class="radio-inline">
+        <label>
+            <input type="radio" id="Alternative5" name="alternative" value="@Model.Alternative4"> @Model.Alternative4
+        </label>
+    </div>
+
+    <div class="radio-inline">
+        <label>
+            <input type="radio" id="Alternative6" name="alternative" value="@Model.Alternative4"> @Model.Alternative4
+        </label>
+    </div>    
+}
 
 
 <br/>

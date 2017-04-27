@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Trafikkal.web.Data;
 using Trafikkal.web.Models;
@@ -63,14 +60,19 @@ namespace Trafikkal.web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,QuizId,Number,Text,Img,Video,Alternative1,Alternative2,Alternative3,Alternative4,Alternative5,IsAlternative1Correct,IsAlternative2Correct,IsAlternative3Correct,IsAlternative4Correct,IsAlternative5Correct,IsMultipleChoice,Active,Created")] Question question)
         {
-            //TODO: Oppadtere med ViewModel modell
+            //TODO: Oppdatere med å "binde" mot ViewModel modell
             if (ModelState.IsValid)
             {
                 _context.Add(question);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(question);
+            var viewModel = new QuestionViewModel()
+            {
+                Question = question,
+                Quizzes = await _context.Quiz.ToListAsync()
+            };
+            return View(viewModel);
         }
 
         // GET: Admin/Questions/Edit/5
@@ -101,7 +103,7 @@ namespace Trafikkal.web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,QuizId,Number,Text,Img,Video,Alternative1,Alternative2,Alternative3,Alternative4,Alternative5,IsAlternative1Correct,IsAlternative2Correct,IsAlternative3Correct,IsAlternative4Correct,IsAlternative5Correct,IsMultipleChoice,Active,Created")] Question question)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,QuizId,Number,Text,Img,Video,Alternative1,Alternative2,Alternative3,Alternative4,Alternative5,IsAlternative1Correct,IsAlternative2Correct,IsAlternative3Correct,IsAlternative4Correct,IsAlternative5Correct,IsMultipleChoice,Active")] Question question)
         {
             //TODO: bind to ViewModel modell
             if (id != question.Id)
@@ -129,7 +131,12 @@ namespace Trafikkal.web.Areas.Admin.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            return View(question);
+            var viewModel = new QuestionViewModel()
+            {
+                Question = question,
+                Quizzes = await _context.Quiz.ToListAsync()
+            };
+            return View(viewModel);
         }
 
         // GET: Admin/Questions/Delete/5
