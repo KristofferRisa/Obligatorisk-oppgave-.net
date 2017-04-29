@@ -13,7 +13,7 @@ namespace Trafikkal.web.Models
         public int QuestionNumber { get; set; }
 
         [Required]
-        public int Alternative { get; set; }
+        public string Alternative { get; set; }
 
         public DateTime Created { get; set; }
     }

@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Principal;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Antiforgery.Internal;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters.Internal;
 using Microsoft.EntityFrameworkCore;
 using Trafikkal.web.Data;
 using Trafikkal.web.Models;
@@ -45,11 +40,9 @@ namespace Trafikkal.web.Areas.Student.Controllers
                     var random = new Random();
 
                     var questionNumber = random.Next(1, numberOfQuestions);
-                    int fallback = 0;
-
-                    while (answers.Contains(questionNumber) && fallback <= numberOfQuestions)
-                    {
-                        fallback++;
+                    
+                    while (answers.Contains(questionNumber))
+                    {   
                         questionNumber = random.Next(1,numberOfQuestions);
                     }
 
@@ -75,7 +68,7 @@ namespace Trafikkal.web.Areas.Student.Controllers
                     var answer = new Answer()
                     {
                         QuestionNumber = answerViewmodel.QuestionNumber,
-                        Alternative = Convert.ToInt32(answerViewmodel.Alternative),
+                        Alternative = answerViewmodel.Alternative,
                         UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
                         Created = DateTime.Now
                     };
@@ -90,7 +83,7 @@ namespace Trafikkal.web.Areas.Student.Controllers
                         var answer = new Answer()
                         {
                             QuestionNumber = answerViewmodel.QuestionNumber,
-                            Alternative = 1,
+                            Alternative = answerViewmodel.Alternative1,
                             UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
                             Created = DateTime.Now
                         };
@@ -101,7 +94,7 @@ namespace Trafikkal.web.Areas.Student.Controllers
                         var answer = new Answer()
                         {
                             QuestionNumber = answerViewmodel.QuestionNumber,
-                            Alternative = 2,
+                            Alternative = answerViewmodel.Alternative2,
                             UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
                             Created = DateTime.Now
                         };
@@ -112,7 +105,7 @@ namespace Trafikkal.web.Areas.Student.Controllers
                         var answer = new Answer()
                         {
                             QuestionNumber = answerViewmodel.QuestionNumber,
-                            Alternative = 3,
+                            Alternative = answerViewmodel.Alternative3,
                             UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
                             Created = DateTime.Now
                         };
@@ -123,7 +116,7 @@ namespace Trafikkal.web.Areas.Student.Controllers
                         var answer = new Answer()
                         {
                             QuestionNumber = answerViewmodel.QuestionNumber,
-                            Alternative = 4,
+                            Alternative = answerViewmodel.Alternative4,
                             UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
                             Created = DateTime.Now
                         };
@@ -134,7 +127,7 @@ namespace Trafikkal.web.Areas.Student.Controllers
                         var answer = new Answer()
                         {
                             QuestionNumber = answerViewmodel.QuestionNumber,
-                            Alternative = 5,
+                            Alternative = answerViewmodel.Alternative5,
                             UserId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
                             Created = DateTime.Now
                         };
@@ -162,69 +155,31 @@ namespace Trafikkal.web.Areas.Student.Controllers
             
             foreach (var answer in answers)
             {
-                switch (answer.Alternative)
+                if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative1Correct))
                 {
-                    case 1:
-                        if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative1Correct))
-                        {
-                            numberOfCorrectAnswers++;
-                            break;
-                        }
-                        else
-                        {
-                            numberOfCorrectAnswers--;
-                            break;
-                        }
-                    case 2:
-                        if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative2Correct))
-                        {
-                            numberOfCorrectAnswers++;
-                        
-                            break;
-                        }
-                        else
-                        {
-                            numberOfCorrectAnswers--;
-                            break;
-                        }
-                    case 3:
-                        if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative3Correct))
-                        {
-                            numberOfCorrectAnswers++;
-                            break;
-                        }
-                        else
-                        {
-                            numberOfCorrectAnswers--;
-                            break;
-                        }
-                    case 4:
-                        if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative4Correct))
-                        {
-                            numberOfCorrectAnswers++;
-                            break;
-                        }
-                        else
-                        {
-                            numberOfCorrectAnswers--;
-                            break;
-                        }
-                    case 5:
-                        if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative5Correct))
-                        {
-                            numberOfCorrectAnswers++;
-                            break;
-                        }
-                        else
-                        {
-                            numberOfCorrectAnswers--;
-                            break;
-                        }
+                    numberOfCorrectAnswers++;
                 }
-                
+                      
+                if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative2Correct))
+                {
+                    numberOfCorrectAnswers++;
+                }
+                if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative3Correct))
+                {
+                    numberOfCorrectAnswers++;
+                }
+                if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative4Correct))
+                {
+                    numberOfCorrectAnswers++;
+
+                }
+                if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative5Correct))
+                {
+                    numberOfCorrectAnswers++;
+                }
+                        
             }
 
-            
             decimal prosent = Convert.ToDecimal(numberOfCorrectAnswers) / Convert.ToDecimal(questions.Count) * 100;
             ViewData["prosent"] = prosent.ToString();
             if (_db.Quiz.FirstOrDefault().MinScoreToPass <= prosent)
