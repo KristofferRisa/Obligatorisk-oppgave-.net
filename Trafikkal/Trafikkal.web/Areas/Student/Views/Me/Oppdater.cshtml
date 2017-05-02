@@ -1,0 +1,30 @@
+﻿@model Student
+
+@{
+    ViewBag.Title = "Oppdater";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Oppdater</h2>
+<hr/>
+<h3>Oppdater kontakt informasjon</h3>
+<form class="form-horizontal" method="post" asp-action="Oppdater" asp-area="Student" asp-controller="Me">
+    <div>
+        <h2>Konto innstillinger</h2>
+        <hr />
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Navn:</label>
+        <input type="text" id="navn" name="navn" class="form-control" value="@Model.Navn" />
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Telefon:</label>
+        <input type="text" id="telefon" name="telefon" class="form-control" value="@Model.Telefon" />
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-10">
+            <button type="submit" class="btn btn-primary">Lagre</button>
+        </div>
+    </div>
+</form>
+<a asp-action="Index">Tilbake</a>

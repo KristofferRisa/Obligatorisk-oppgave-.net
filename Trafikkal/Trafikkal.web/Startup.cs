@@ -44,6 +44,7 @@ namespace Trafikkal.web
             {
                 _connectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_ConnectionString");
             }
+            _connectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_ConnectionString");
         }
 
         public IConfigurationRoot Configuration { get; }

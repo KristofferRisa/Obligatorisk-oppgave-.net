@@ -1,26 +1,23 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Areas/Student/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
-
-<hr/>
-<div>
-    <ul>
-        <li>
-            <h3>
-                <a asp-area="Student" asp-controller="Test" asp-action="Step" title="take the exam">Take the exam</a>
-            </h3>
+<div class="row">
     
-        </li>
-        
-        <li>
-            <h3>
-                <a asp-area="Admin" asp-controller="Manage" asp-action="Index" title="Manage">Endre konto</a>
-            </h3>
-        </li>
-    </ul>
     
+    <hr />
+    <div>
+        <ul class="list-group">
+            <li class="list-group-item">
+
+                <a asp-area="Student" asp-controller="Test" asp-action="Step" title="Eksamen">Ta eksamen</a>
+
+            </li>
+
+            <li class="list-group-item">
+                <a asp-area="Admin" asp-controller="Manage" asp-action="ChangePassword" title="Manage">Endre passord</a>
+            </li>
+        </ul>
+
+    </div>
 </div>

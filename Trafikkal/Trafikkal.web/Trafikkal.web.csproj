@@ -18,6 +18,14 @@
     <EmbeddedResource Remove="Areas\Student\Views\Quiz\**" />
     <None Remove="Areas\Student\Views\Quiz\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\images\1012-area-500x310.png" />
+    <Content Include="wwwroot\images\binary-102629-181982.png" />
+    <Content Include="wwwroot\images\binary-106960-180920.png" />
+    <Content Include="wwwroot\images\binary-74671-46905.png" />
+    <Content Include="wwwroot\images\binary-74678-46934.png" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
@@ -43,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Student\Controllers\" />
-    <Folder Include="Areas\Student\Views\Me\" />
   </ItemGroup>
 
 </Project>

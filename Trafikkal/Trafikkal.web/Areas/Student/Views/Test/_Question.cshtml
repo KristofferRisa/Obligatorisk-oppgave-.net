@@ -30,9 +30,10 @@
 {
     if (!string.IsNullOrEmpty(Model.Alternative1))
     {
-        <label>
-            <input type="checkbox" id="Alternative1" name="alternative1" value="@Model.Alternative1"> @Model.Alternative1
+        <label >
+                <input type="checkbox" id="Alternative1" name="alternative1" value="@Model.Alternative1"> @Model.Alternative1
         </label>
+        
     }
     if (!string.IsNullOrEmpty(Model.Alternative2))
     {
@@ -63,8 +64,8 @@ else
 {
     if (!string.IsNullOrEmpty(Model.Alternative1))
     {
-        <div class="radio-inline">
-            <label>
+        <div  class="radio-inline">
+            <label  >
                 <input type="radio" id="Alternative1" name="alternative" value="@Model.Alternative1"> @Model.Alternative1
             </label>
         </div>
