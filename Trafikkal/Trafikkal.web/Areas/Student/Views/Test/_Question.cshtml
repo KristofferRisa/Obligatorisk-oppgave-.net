@@ -30,41 +30,55 @@
 {
     if (!string.IsNullOrEmpty(Model.Alternative1))
     {
-        <label >
+        <div>
+            <label>
                 <input type="checkbox" id="Alternative1" name="alternative1" value="@Model.Alternative1"> @Model.Alternative1
-        </label>
-        
+            </label>
+        </div>
+
+
     }
     if (!string.IsNullOrEmpty(Model.Alternative2))
     {
-        <label>
-            <input type="checkbox" id="Alternative2" name="alternative2" value="@Model.Alternative2"> @Model.Alternative2
-        </label>
+        <div>
+            <label>
+                <input type="checkbox" id="Alternative2" name="alternative2" value="@Model.Alternative2"> @Model.Alternative2
+            </label>
+        </div>
+
     }
     if (!string.IsNullOrEmpty(Model.Alternative3))
     {
-        <label>
-            <input type="checkbox" id="Alternative3" name="alternative3" value="@Model.Alternative3"> @Model.Alternative3
-        </label>
+        <div>
+            <label>
+                <input type="checkbox" id="Alternative3" name="alternative3" value="@Model.Alternative3"> @Model.Alternative3
+            </label>
+        </div>
+
     }
     if (!string.IsNullOrEmpty(Model.Alternative4))
     {
-        <label>
-            <input type="checkbox" id="Alternative4" name="alternative4" value="@Model.Alternative4"> @Model.Alternative4
-        </label>
+        <div>
+            <label>
+                <input type="checkbox" id="Alternative4" name="alternative4" value="@Model.Alternative4"> @Model.Alternative4
+            </label>
+        </div>
     }
     if (!string.IsNullOrEmpty(Model.Alternative5))
     {
-        <label>
-            <input type="checkbox" id="Alternative5" name="alternative5" value="@Model.Alternative5"> @Model.Alternative5
-        </label>
+        <div>
+            <label>
+                <input type="checkbox" id="Alternative5" name="alternative5" value="@Model.Alternative5"> @Model.Alternative5
+            </label>
+        </div>
+
     }
 }
 else
 {
     if (!string.IsNullOrEmpty(Model.Alternative1))
     {
-        <div  class="radio-inline">
+        <div  >
             <label  >
                 <input type="radio" id="Alternative1" name="alternative" value="@Model.Alternative1"> @Model.Alternative1
             </label>
@@ -72,7 +86,7 @@ else
     }
     if (!string.IsNullOrEmpty(Model.Alternative2))
     {
-        <div class="radio-inline">
+        <div >
             <label>
                 <input type="radio" id="Alternative2" name="alternative" value="@Model.Alternative2"> @Model.Alternative2
             </label>
@@ -80,7 +94,7 @@ else
     }
     if (!string.IsNullOrEmpty(Model.Alternative3))
     {
-        <div class="radio-inline">
+        <div >
             <label>
                 <input type="radio" id="Alternative3" name="alternative" value="@Model.Alternative3"> @Model.Alternative3
             </label>
@@ -88,7 +102,7 @@ else
     }
     if (!string.IsNullOrEmpty(Model.Alternative4))
     {
-        <div class="radio-inline">
+        <div >
             <label>
                 <input type="radio" id="Alternative4" name="alternative" value="@Model.Alternative4"> @Model.Alternative4
             </label>
@@ -96,7 +110,7 @@ else
     }
     if (!string.IsNullOrEmpty(Model.Alternative5))
     {
-         <div class="radio-inline">
+         <div >
              <label>
                  <input type="radio" id="Alternative5" name="alternative" value="@Model.Alternative4"> @Model.Alternative5
              </label>

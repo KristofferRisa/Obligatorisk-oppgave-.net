@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Trafikkal.web.Data;
 using Trafikkal.web.Models;
+using Trafikkal.web.Models.TestViewModels;
 
 namespace Trafikkal.web.Areas.Student.Controllers
 {
@@ -16,11 +18,13 @@ namespace Trafikkal.web.Areas.Student.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly IHttpContextAccessor _httpContext;
+        private readonly string _userId;
 
         public TestController(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _db = context;
             _httpContext = httpContextAccessor;
+            _userId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
         /// <summary>
@@ -28,16 +32,20 @@ namespace Trafikkal.web.Areas.Student.Controllers
         /// </summary>
         public ActionResult Step()
         {
-            var userId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            if (userId != null)
+            if (_userId != null)
             {
-                var answers = _db.Answers.Where(x => x.UserId == userId).Select(x => x.QuestionNumber).ToList();
-                var numberOfQuestions = _db.Question.Count();
-                if (answers.Count >= 0 && answers.Count < numberOfQuestions+1)
+                var answers = _db.Answers.Where(x => x.UserId == _userId).Select(x => x.QuestionNumber).Distinct().ToList();
+                var numberOfQuestions = _db.Question.Select(x => x.Number).Distinct().Count();
+                if (answers.Count > 0 && answers.Count < numberOfQuestions)
                 {
                     //next question
                     var random = new Random();
+                    List<int> numbers = new List<int>();
+                    for (int i = 1; i < numberOfQuestions; i++)
+                    {
+                        //TODO - add an list of numbers and loop through the array and pick questionsnumber,after selection remove it from the list
+                        numbers.Add(i);
+                    }
 
                     var questionNumber = random.Next(1, numberOfQuestions);
                     
@@ -50,6 +58,10 @@ namespace Trafikkal.web.Areas.Student.Controllers
                     return View(question);
                 }
             }
+            //Calculate the result and save it to the database
+            var sqlCommands = new SqlCommands();
+            var result = _db.Question.FromSql(sqlCommands.CalculateScore);
+
             return RedirectToAction("Result", "Test");
         }
 
@@ -78,7 +90,7 @@ namespace Trafikkal.web.Areas.Student.Controllers
                 {
                     //Spørsmål er multiple choice - legger inn rad for hvert alternativ som er valgt
                     //dersom et alternativ ikke er valgt blir det null\blankt
-                    if (string.IsNullOrEmpty(answerViewmodel.Alternative1))
+                    if (!string.IsNullOrEmpty(answerViewmodel.Alternative1))
                     {
                         var answer = new Answer()
                         {
@@ -89,7 +101,7 @@ namespace Trafikkal.web.Areas.Student.Controllers
                         };
                         _db.Answers.Add(answer);
                     }
-                    if (string.IsNullOrEmpty(answerViewmodel.Alternative2))
+                    if (!string.IsNullOrEmpty(answerViewmodel.Alternative2))
                     {
                         var answer = new Answer()
                         {
@@ -100,7 +112,7 @@ namespace Trafikkal.web.Areas.Student.Controllers
                         };
                         _db.Answers.Add(answer);
                     }
-                    if (string.IsNullOrEmpty(answerViewmodel.Alternative3))
+                    if (!string.IsNullOrEmpty(answerViewmodel.Alternative3))
                     {
                         var answer = new Answer()
                         {
@@ -111,7 +123,7 @@ namespace Trafikkal.web.Areas.Student.Controllers
                         };
                         _db.Answers.Add(answer);
                     }
-                    if (string.IsNullOrEmpty(answerViewmodel.Alternative4))
+                    if (!string.IsNullOrEmpty(answerViewmodel.Alternative4))
                     {
                         var answer = new Answer()
                         {
@@ -122,7 +134,7 @@ namespace Trafikkal.web.Areas.Student.Controllers
                         };
                         _db.Answers.Add(answer);
                     }
-                    if (string.IsNullOrEmpty(answerViewmodel.Alternative5))
+                    if (!string.IsNullOrEmpty(answerViewmodel.Alternative5))
                     {
                         var answer = new Answer()
                         {
@@ -139,7 +151,6 @@ namespace Trafikkal.web.Areas.Student.Controllers
             return RedirectToAction("Step");
         }
 
-
         /// <summary>
         /// GET: /Student/Test/Result
         /// </summary>
@@ -147,42 +158,8 @@ namespace Trafikkal.web.Areas.Student.Controllers
         [HttpGet]
         public ActionResult Result()
         {
-            var userId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            var answers = _db.Answers.Where(x => x.UserId == userId).ToList();
-            var questions = _db.Question.ToList();
-            int numberOfCorrectAnswers = 0;
             
-            foreach (var answer in answers)
-            {
-                if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative1Correct))
-                {
-                    numberOfCorrectAnswers++;
-                }
-                      
-                if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative2Correct))
-                {
-                    numberOfCorrectAnswers++;
-                }
-                if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative3Correct))
-                {
-                    numberOfCorrectAnswers++;
-                }
-                if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative4Correct))
-                {
-                    numberOfCorrectAnswers++;
-
-                }
-                if (questions.Exists(x => x.Number == answer.QuestionNumber && x.IsAlternative5Correct))
-                {
-                    numberOfCorrectAnswers++;
-                }
-                        
-            }
-
-            decimal prosent = Convert.ToDecimal(numberOfCorrectAnswers) / Convert.ToDecimal(questions.Count) * 100;
-            ViewData["prosent"] = prosent.ToString();
-            if (_db.Quiz.FirstOrDefault().MinScoreToPass <= prosent)
+            if (_db.Quiz.FirstOrDefault().MinScoreToPass <= 19) // Husk å oppdater prosent!
             {
                 ViewData["bestatt_tekst"] = "Gratulerer du har bestått";
                 ViewData["bestatt"] = true;

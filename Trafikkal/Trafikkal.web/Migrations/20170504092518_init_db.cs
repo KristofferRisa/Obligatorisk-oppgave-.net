@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Trafikkal.web.Data.Migrations
+namespace Trafikkal.web.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class init_db : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,6 +38,22 @@ namespace Trafikkal.web.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Answers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Alternative = table.Column<string>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
+                    QuestionNumber = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Answers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -62,6 +76,35 @@ namespace Trafikkal.web.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Quiz",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    MinScoreToPass = table.Column<decimal>(nullable: false),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Quiz", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Students",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Adresse = table.Column<string>(nullable: true),
+                    Navn = table.Column<string>(nullable: false),
+                    Telefon = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -150,10 +193,47 @@ namespace Trafikkal.web.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Question",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Active = table.Column<bool>(nullable: false),
+                    Alternative1 = table.Column<string>(nullable: true),
+                    Alternative2 = table.Column<string>(nullable: true),
+                    Alternative3 = table.Column<string>(nullable: true),
+                    Alternative4 = table.Column<string>(nullable: true),
+                    Alternative5 = table.Column<string>(nullable: true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Img = table.Column<string>(nullable: true),
+                    IsAlternative1Correct = table.Column<bool>(nullable: false),
+                    IsAlternative2Correct = table.Column<bool>(nullable: false),
+                    IsAlternative3Correct = table.Column<bool>(nullable: false),
+                    IsAlternative4Correct = table.Column<bool>(nullable: false),
+                    IsAlternative5Correct = table.Column<bool>(nullable: false),
+                    IsMultipleChoice = table.Column<bool>(nullable: false),
+                    Number = table.Column<int>(nullable: false),
+                    QuizId = table.Column<int>(nullable: false),
+                    Text = table.Column<string>(nullable: false),
+                    Video = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Question", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Question_Quiz_QuizId",
+                        column: x => x.QuizId,
+                        principalTable: "Quiz",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
-                column: "NormalizedName");
+                column: "NormalizedName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -176,11 +256,6 @@ namespace Trafikkal.web.Data.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserRoles_UserId",
-                table: "AspNetUserRoles",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -190,6 +265,11 @@ namespace Trafikkal.web.Data.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Question_QuizId",
+                table: "Question",
+                column: "QuizId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,10 +290,22 @@ namespace Trafikkal.web.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Answers");
+
+            migrationBuilder.DropTable(
+                name: "Question");
+
+            migrationBuilder.DropTable(
+                name: "Students");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Quiz");
         }
     }
 }

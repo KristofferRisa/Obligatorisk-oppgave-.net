@@ -5,13 +5,12 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Trafikkal.web.Data;
 
-namespace Trafikkal.web.Data.Migrations
+namespace Trafikkal.web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170502204336_student2")]
-    partial class student2
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -268,6 +267,8 @@ namespace Trafikkal.web.Data.Migrations
                         .IsRequired();
 
                     b.Property<string>("Telefon");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 

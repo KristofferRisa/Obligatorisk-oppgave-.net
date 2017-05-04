@@ -1,19 +1,30 @@
-
+@model Trafikkal.web.Models.MeViewModels.MeViewModel
 @{
     ViewData["Title"] = "Index";
 }
 <div class="row">
     
+    @if (Model.Student != null)
+    {
+        <h2>Velkommen tilbake @Model.Student.Navn</h2>
+    }
     
+    @if (Model.Score != null && Model.Score.Points > 0)
+    {
+        <h4>
+            <a href="#">Ekamen</a> poengsum: @Model.Score.Points
+        </h4>
+    }
+
     <hr />
     <div>
         <ul class="list-group">
             <li class="list-group-item">
-
                 <a asp-area="Student" asp-controller="Test" asp-action="Step" title="Eksamen">Ta eksamen</a>
-
             </li>
-
+            <li class="list-group-item">
+                <a asp-area="Student" asp-controller="Me" asp-action="Oppdater" title="Oppdater">Oppdater brukerinformasjon</a>
+            </li>
             <li class="list-group-item">
                 <a asp-area="Admin" asp-controller="Manage" asp-action="ChangePassword" title="Manage">Endre passord</a>
             </li>

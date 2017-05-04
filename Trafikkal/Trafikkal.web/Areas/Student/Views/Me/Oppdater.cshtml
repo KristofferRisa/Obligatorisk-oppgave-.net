@@ -4,27 +4,42 @@
     ViewBag.Title = "Oppdater";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
+@Html.AntiForgeryToken()
+@Html.ValidationSummary("", new { @class = "text-danger" })
+@using (
+    Html.BeginForm(
+        "Oppdater"
+        , "Me"
+        , FormMethod.Post
+        , new {@class = "form-horizontal", role = "form"}))
+{
 
-<h2>Oppdater</h2>
-<hr/>
-<h3>Oppdater kontakt informasjon</h3>
-<form class="form-horizontal" method="post" asp-action="Oppdater" asp-area="Student" asp-controller="Me">
-    <div>
-        <h2>Konto innstillinger</h2>
-        <hr />
+
+    <div class="row">
+        <h2>Oppdater</h2>
+             <div>
+                <h2>Konto innstillinger</h2>
+                <hr/>
+            </div>
+            <input type="hidden" asp-for="@Model.Id"/>
+            <input type="hidden" asp-for="@Model.UserId"/>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Navn:</label>
+                <input type="text" id="Navn" name="Navn" class="form-control" asp-for="@Model.Navn"/>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Telefon:</label>
+                <input type="text" id="Telefon" name="Telefon" class="form-control" asp-for="@Model.Telefon"/>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Adresse:</label>
+                <input type="text" id="Adresse" name="Adresse" class="form-control" asp-for="@Model.Adresse"/>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-10">
+                    <button type="submit" class="btn btn-primary">Lagre</button>
+                </div>
+            </div>
+        <a asp-action="Index">Tilbake</a>
     </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Navn:</label>
-        <input type="text" id="navn" name="navn" class="form-control" value="@Model.Navn" />
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Telefon:</label>
-        <input type="text" id="telefon" name="telefon" class="form-control" value="@Model.Telefon" />
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-10">
-            <button type="submit" class="btn btn-primary">Lagre</button>
-        </div>
-    </div>
-</form>
-<a asp-action="Index">Tilbake</a>
+}

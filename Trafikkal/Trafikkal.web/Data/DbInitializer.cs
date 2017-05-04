@@ -323,6 +323,7 @@ namespace Trafikkal.web.Data
                     Alternative2 = "Kun for bil C.",
                     Alternative3 = "For bil B og C",
                     Alternative4 = "Ingen",
+                    Img = "/images/1012-area-500x310.png",
                     IsMultipleChoice = false,
                     IsAlternative1Correct = false,
                     IsAlternative2Correct = false,

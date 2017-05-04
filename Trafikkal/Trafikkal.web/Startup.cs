@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Trafikkal.web.Data;
 using Trafikkal.web.Models;
-using Trafikkal.web.Services;
 
 namespace Trafikkal.web
 {
@@ -44,7 +43,7 @@ namespace Trafikkal.web
             {
                 _connectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_ConnectionString");
             }
-            _connectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_ConnectionString");
+            //_connectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_ConnectionString");
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -61,10 +60,6 @@ namespace Trafikkal.web
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
-
-            // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
-            services.AddTransient<ISmsSender, AuthMessageSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Trafikkal.web.Data;
 
-namespace Trafikkal.web.Data.Migrations
+namespace Trafikkal.web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170502203334_Student")]
-    partial class Student
+    [Migration("20170504092518_init_db")]
+    partial class init_db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -259,7 +259,7 @@ namespace Trafikkal.web.Data.Migrations
 
             modelBuilder.Entity("Trafikkal.web.Models.Student", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Adresse");
@@ -268,6 +268,8 @@ namespace Trafikkal.web.Data.Migrations
                         .IsRequired();
 
                     b.Property<string>("Telefon");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
