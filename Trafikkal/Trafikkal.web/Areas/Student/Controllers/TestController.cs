@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
@@ -47,11 +48,11 @@ namespace Trafikkal.web.Areas.Student.Controllers
                         numbers.Add(i);
                     }
 
-                    var questionNumber = random.Next(1, numberOfQuestions);
+                    var questionNumber = random.Next(1, numberOfQuestions+1);
                     
                     while (answers.Contains(questionNumber))
                     {   
-                        questionNumber = random.Next(1,numberOfQuestions);
+                        questionNumber = random.Next(1,numberOfQuestions+1);
                     }
 
                     var question = _db.Question.FirstOrDefault(x => x.Number == questionNumber);
@@ -59,8 +60,31 @@ namespace Trafikkal.web.Areas.Student.Controllers
                 }
             }
             //Calculate the result and save it to the database
-            var sqlCommands = new SqlCommands();
-            var result = _db.Question.FromSql(sqlCommands.CalculateScore);
+
+            if (!UserScoreExists(_userId))
+            {
+                using (var con = (SqlConnection) _db.Database.GetDbConnection())
+                {
+                    decimal score = 0;
+                    using (var cmd = new SqlCommand("EXEC dbo.GetScoreByUserId @UserId", con))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", _userId);
+
+                        con.Open();
+                        score = (decimal) cmd.ExecuteScalar();
+                    }
+                    var userScore = new UserScore()
+                    {
+                        Points = score,
+                        UserId = _userId,
+                        QuizId = 1
+                    };
+
+                    //Saving the user score
+                    _db.UserScores.Add(userScore);
+                    _db.SaveChanges();
+                }
+            }
 
             return RedirectToAction("Result", "Test");
         }
@@ -158,28 +182,74 @@ namespace Trafikkal.web.Areas.Student.Controllers
         [HttpGet]
         public ActionResult Result()
         {
-            
-            if (_db.Quiz.FirstOrDefault().MinScoreToPass <= 19) // Husk å oppdater prosent!
+            var viewModel = new ResultViewModel();
+            if (UserScoreExists(_userId))
             {
-                ViewData["bestatt_tekst"] = "Gratulerer du har bestått";
-                ViewData["bestatt"] = true;
-            }else
-            {
-                ViewData["bestatt_tekst"] = "Du bestå ikke prøven!";
-                ViewData["bestatt"] = false;
+                viewModel.UserScore = _db.UserScores.FirstOrDefault(x => x.UserId == _userId);
+
+                if (_db.Quiz.FirstOrDefault().MinScoreToPass <= viewModel.UserScore.Points) 
+                {
+                    ViewData["bestatt_tekst"] = "Gratulerer du har bestått";
+                    ViewData["bestatt"] = true;
+                }
+                else
+                {
+                    ViewData["bestatt_tekst"] = "Du bestå ikke prøven!";
+                    ViewData["bestatt"] = false;
+                }
+
             }
-            
-            return View();
+            else
+            {
+                //Fant ingen score!
+                return RedirectToAction("Index", "Me");
+            }
+            return View(viewModel);
         }
 
+        /// <summary>
+        /// GET: /Student/Test/FullResult
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult FullResult()
+        {
+            var viewModel = new FullResultViewModel()
+            {
+                Questions = _db.Question.ToList(),
+                Answers = _db.Answers.Where(x => x.UserId == _userId).ToList(),
+                UserScore = _db.UserScores.FirstOrDefault(x => x.UserId == _userId)
+            };
+            return View(viewModel);
 
+        }
+
+        /// <summary>
+        /// Method for re-setting the test for a given user
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Reset()
         {
             var userId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            _db.Database.ExecuteSqlCommand($@"delete from Answers  where userid = '{userId}'");
+            _db.Database.ExecuteSqlCommand($@"DELETE FROM Answers  WHERE userid = '{userId}'");
+            _db.Database.ExecuteSqlCommand($@"DELTE FROM UserScores WHERE UserId = '{userId}");
             _db.SaveChanges();
 
             return RedirectToAction("Index", "Me");
         }
+
+        #region helpers
+        /// <summary>
+        /// Helper method for checking if user has saved her/his score for a test based on UserId
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        private bool UserScoreExists(string userId)
+        {
+            return _db.UserScores.Any(x => x.UserId == userId);
+        }
+
+        #endregion
+
     }
 }

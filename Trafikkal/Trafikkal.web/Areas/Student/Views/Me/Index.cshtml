@@ -9,10 +9,10 @@
         <h2>Velkommen tilbake @Model.Student.Navn</h2>
     }
     
-    @if (Model.Score != null && Model.Score.Points > 0)
+    @if (Model.UserScore != null && Model.UserScore.Points > 0)
     {
         <h4>
-            <a href="#">Ekamen</a> poengsum: @Model.Score.Points
+            <a href="#">Ekamen</a> poengsum: @Model.UserScore.Points
         </h4>
     }
 

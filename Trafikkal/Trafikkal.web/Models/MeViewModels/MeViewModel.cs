@@ -3,6 +3,6 @@
     public class MeViewModel
     {
         public Student Student { get; set; }
-        public Score Score { get; set; }
+        public UserScore UserScore { get; set; }
     }
 }

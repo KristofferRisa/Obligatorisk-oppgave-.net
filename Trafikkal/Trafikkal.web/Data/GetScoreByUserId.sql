@@ -1,8 +1,16 @@
-﻿namespace Trafikkal.web.Models
-{
-    public class SqlCommands
-    {
-        public string CalculateScore => @"select 
+﻿use [aspnet-Trafikkal.web]
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE GetScoreByUserId 
+@UserId varchar(max)
+as 
+begin
+
+select 
 		cast(sum(answer1 + answer2) as decimal(18,0)) /*as CorrectAnswers*/ 
 		/ sum(RightAnswerNotMultiple + RightAnswer1Multiple + RightAnswer2Multiple + RightAnswer3Multiple + RightAnswer4Multiple + RightAnswer5Multiple ) * 100 as PercentCorrect
 from (
@@ -16,6 +24,7 @@ from (
 	or (a.Alternative = q.Alternative3 and q.IsAlternative3Correct = 1)
 	or (a.Alternative = q.Alternative4 and q.IsAlternative4Correct = 1)
 	or (a.Alternative = q.Alternative5 and q.IsAlternative5Correct = 1))
+	and a.UserID = @UserId
 
 	union
 
@@ -29,6 +38,7 @@ from (
 	or (a.Alternative = q.Alternative3 and q.IsAlternative3Correct = 1)
 	or (a.Alternative = q.Alternative4 and q.IsAlternative4Correct = 1)
 	or (a.Alternative = q.Alternative5 and q.IsAlternative5Correct = 1))
+	and a.UserID = @UserId
 
 	union
 
@@ -113,6 +123,6 @@ from (
 	from Question 
 	where IsMultipleChoice = 1 and IsAlternative5Correct=1
 
-) t";
-    }
-}
+) t
+
+end

@@ -21,6 +21,8 @@ namespace Trafikkal.web.Data
 
         public DbSet<Answer> Answers { get; set; }
 
+        public DbSet<UserScore> UserScores { get; set; }
+
         public DbSet<Student> Students { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
