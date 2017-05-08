@@ -5,4 +5,158 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Full oversikt</h2>
+<div class="row">
+    <h2>Full oversikt</h2>
+    <h3>Alle spørsmål og svar</h3>
+    <hr/>
+    @foreach (var quesition in Model.Questions)
+    {
+        <div>
+            <h3>Spørsmål nr @quesition.Number</h3>
+            <p>@quesition.Text</p>
+        </div>
+        <div>
+            <ul>
+                @if (!string.IsNullOrEmpty(quesition.Alternative1))
+                {
+                    if (quesition.IsAlternative1Correct)
+                    {
+
+                        <li class="text-success">
+                            @quesition.Alternative1 
+                            @if (Model.Answers.Any(x=> x.QuestionNumber == quesition.Number 
+                                && x.Alternative == quesition.Alternative1))
+                            {
+                                <span class="glyphicon glyphicon-ok"></span>
+                            }
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="">
+                            @quesition.Alternative1
+                            @if (Model.Answers.Any(x => x.QuestionNumber == quesition.Number
+                                                   && x.Alternative == quesition.Alternative1))
+                            {
+                                <span class="glyphicon glyphicon-remove"></span>
+                            }
+                        </li>
+                    }
+                }
+                @if (!string.IsNullOrEmpty(quesition.Alternative2))
+                {
+
+                    if (quesition.IsAlternative2Correct)
+                    {
+
+                        <li class="text-success">
+                            @quesition.Alternative2 
+                            @if (Model.Answers.Any(x=> x.QuestionNumber == quesition.Number 
+                                                       && x.Alternative == quesition.Alternative2))
+                            {
+                                <span class="glyphicon glyphicon-ok"></span>
+                            }
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="">
+                            @quesition.Alternative2
+                            @if (Model.Answers.Any(x => x.QuestionNumber == quesition.Number
+                                                   && x.Alternative == quesition.Alternative2))
+                            {
+                                <span class="glyphicon glyphicon-remove"></span>
+                            }
+                        </li>
+                    }
+                }
+                @if (!string.IsNullOrEmpty(quesition.Alternative3))
+                {
+                    if (quesition.IsAlternative3Correct)
+                    {
+
+                        <li class="text-success">
+                            @quesition.Alternative3 
+                            @if (Model.Answers.Any(x=> x.QuestionNumber == quesition.Number 
+                                                       && x.Alternative == quesition.Alternative3))
+                            {
+                                <span class="glyphicon glyphicon-ok"></span>
+                            }
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="">
+                            @quesition.Alternative3
+                            @if (Model.Answers.Any(x => x.QuestionNumber == quesition.Number
+                                                   && x.Alternative == quesition.Alternative3))
+                            {
+                                <span class="glyphicon glyphicon-remove"></span>
+                            }
+                        </li>
+                    }
+                }
+                @if (!string.IsNullOrEmpty(quesition.Alternative4))
+                {
+                    if (quesition.IsAlternative4Correct)
+                    {
+
+                        <li class="text-success">
+                            @quesition.Alternative4 
+                            @if (Model.Answers.Any(x=> x.QuestionNumber == quesition.Number 
+                                                       && x.Alternative == quesition.Alternative4))
+                            {
+                                <span class="glyphicon glyphicon-ok"></span>
+                            }
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="">
+                            @quesition.Alternative4
+                            @if (Model.Answers.Any(x => x.QuestionNumber == quesition.Number
+                                                   && x.Alternative == quesition.Alternative4))
+                            {
+                                <span class="glyphicon glyphicon-remove"></span>
+                            }
+                        </li>
+                    }
+                }
+                @if (!string.IsNullOrEmpty(quesition.Alternative5))
+                {
+                    if (quesition.IsAlternative5Correct)
+                    {
+
+                        <li class="text-success">
+                            @quesition.Alternative5 
+                            @if (Model.Answers.Any(x=> x.QuestionNumber == quesition.Number 
+                                                       && x.Alternative == quesition.Alternative5))
+                            {
+                                <span class="glyphicon glyphicon-ok"></span>
+                            }
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="">
+                            @quesition.Alternative5
+                            @if (Model.Answers.Any(x=> x.QuestionNumber == quesition.Number 
+                                                       && x.Alternative == quesition.Alternative5))
+                            {
+                                <span class="glyphicon glyphicon-remove"></span>
+                            }
+                        </li>
+                    }
+                }
+            </ul>
+            @*<p>
+                @Model.Answers.FirstOrDefault(x => x.QuestionNumber == quesition.Number).Alternative
+            </p>*@
+        </div>
+        <br/>
+        <hr/>
+    }    
+</div>
+
+
+@*TODO: Loop gjennom spørsmål og vis svar, samt indiker med rød\grønn tekst om svaret er riktig eller ikke*@
