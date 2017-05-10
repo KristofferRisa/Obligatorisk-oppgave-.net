@@ -1,0 +1,53 @@
+﻿@using System.Security.Cryptography.X509Certificates
+@using Trafikkal.web.Models.ScoresViewModels
+@model Trafikkal.web.Models.ScoresViewModels.ScoresViewModel
+
+@{
+    ViewBag.Title = "Oversikt tester";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Oversikt tester</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Brukernavn
+        </th>
+        <th>
+            Poeng
+        </th>
+        <th>
+            Test
+        </th>
+        <th>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.UserScores) {
+        <tr>
+            <td>
+                @if (Model.Students.Any(x => x.UserId == item.UserId))
+                {
+                    @Html.Raw($"for {Model.Students.First(x => x.UserId == item.UserId).Navn}")
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.UserId);
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Points)
+            </td>
+            <td>
+                @(Model.Quizzes.First(x => x.Id ==item.QuizId).Name)
+            </td>
+            <td>
+                <a asp-area="Student" asp-controller="Test" asp-action="FullResult" asp-route-id="@item.Id">Details</a> |
+                <a asp-area="Student" asp-controller="Test" asp-action="Reset" asp-route-id="@item.Id">Reset</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

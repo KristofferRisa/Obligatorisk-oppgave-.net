@@ -1,0 +1,25 @@
+﻿@model object
+
+@{
+    ViewBag.Title = "Admin";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <h2>Administrasjon og oversikt</h2>
+    <hr/>
+    <h3>Funksjoner</h3>
+    <ul>
+        <li>
+        <a asp-area="Admin" asp-controller="Scores" asp-action="Index">Oversikt tester</a>    
+        </li>
+        <li>
+            <a asp-area="Admin" asp-controller="Quiz" asp-action="Index">Se/endre Tester</a>    
+        </li>
+        <li>
+            <a asp-area="Admin" asp-controller="Questions" asp-action="Index">Se/endre spørsmål</a>    
+        </li>
+    </ul>
+        
+    
+</div>

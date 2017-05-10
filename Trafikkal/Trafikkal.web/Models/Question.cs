@@ -11,10 +11,11 @@ namespace Trafikkal.web.Models
         public int QuizId { get; set; }
 
         [Required]
+        [DisplayName("Spørsmål nr*")]
         public int Number { get; set; }
 
         [Required]
-        [DisplayName("Question")]
+        [DisplayName("Question*")]
         public string Text { get; set; }
 
         [DisplayName("Image")]
@@ -32,26 +33,27 @@ namespace Trafikkal.web.Models
 
         public string Alternative5 { get; set; }
         
-        [DisplayName("Is correct")]
+        [DisplayName("Is alternative 1 correct")]
         public bool IsAlternative1Correct { get; set; }
         
-        [DisplayName("Is correct")]
+        [DisplayName("Is alternative 2 correct")]
         public bool IsAlternative2Correct { get; set; }
 
-        [DisplayName("Is correct")]
+        [DisplayName("Is alternative 3 correct")]
         public bool IsAlternative3Correct { get; set; }
 
-        [DisplayName("Is correct")]
+        [DisplayName("Is alternative 2 correct")]
         public bool IsAlternative4Correct { get; set; }
 
-        [DisplayName("Is correct")]
+        [DisplayName("Is alternative 2 correct")]
         public bool IsAlternative5Correct { get; set; }
 
         [Required]
-        [DisplayName("Is it multiple choice")]
+        [DisplayName("Is it multiple choice*")]
         public bool IsMultipleChoice { get; set; }
 
         [Required]
+        [DisplayName("Aktiv*")]
         public bool Active { get; set; }
 
         public DateTime Created { get; set; }

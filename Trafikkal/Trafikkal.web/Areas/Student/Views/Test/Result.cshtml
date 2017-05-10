@@ -5,27 +5,30 @@
 }
 <br/>
 <div class="row">
-    @if ((bool)ViewData["bestatt"])
+    <h1>Resultat</h1>
+    <hr/>
+    @if (Model.Passed)
     {
-        <h1 class="text-success">
-            @ViewData["bestatt_tekst"]
-        </h1>
+        <h2 class="text-success">
+            @Model.Tekst
+        </h2>
 
-    } else {
-        <h1 class="text-danger">
-            @ViewData["bestatt_tekst"]
-        </h1>   
     }
- 
+    else
+    {
+        <h2 class="text-danger">
+            @Model.Tekst
+        </h2>
+    }
 
-    <br />
-    <h3>Score: @Model.UserScore.Points % riktig</h3>    
+
     <br/>
-    <ul class="list-group">
-        <li class="list-group-item"><a asp-area="Student" asp-action="FullResult" asp-controller="Test">See full oversikt over alle spørsmålene</a>
-        </li>
-        <li class="list-group-item"><a asp-area="Student" asp-action="Reset" asp-controller="Test">Null still test</a></li>
-    </ul>
+    <h3>Score: @Model.UserScore.Points % </h3>
+    <h3>Du må ha mer enn @Model.Quiz.MinScoreToPass.ToString("##") % riktig for å bestå</h3>
+    <br/>
+    <a asp-area="Student" asp-action="FullResult" asp-controller="Test">
+        Se detaljer
+    </a>
 </div>
 
 

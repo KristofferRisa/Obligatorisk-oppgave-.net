@@ -37,7 +37,7 @@ namespace Trafikkal.web.Areas.Student.Controllers
             {
                 var answers = _db.Answers.Where(x => x.UserId == _userId).Select(x => x.QuestionNumber).Distinct().ToList();
                 var numberOfQuestions = _db.Question.Select(x => x.Number).Distinct().Count();
-                if (answers.Count > 0 && answers.Count < numberOfQuestions)
+                if (answers.Count >= 0 && answers.Count < numberOfQuestions)
                 {
                     //next question
                     var random = new Random();
@@ -55,8 +55,15 @@ namespace Trafikkal.web.Areas.Student.Controllers
                         questionNumber = random.Next(1,numberOfQuestions+1);
                     }
 
-                    var question = _db.Question.FirstOrDefault(x => x.Number == questionNumber);
-                    return View(question);
+                    var viewModel = new StepViewModel()
+                    {
+                        Question = _db.Question.FirstOrDefault(x => x.Number == questionNumber),
+                        NumberOfQuestions = numberOfQuestions,
+                        Answered = answers.Count+1
+                    };
+
+                    
+                    return View(viewModel);
                 }
             }
             //Calculate the result and save it to the database
@@ -186,18 +193,18 @@ namespace Trafikkal.web.Areas.Student.Controllers
             if (UserScoreExists(_userId))
             {
                 viewModel.UserScore = _db.UserScores.FirstOrDefault(x => x.UserId == _userId);
+                viewModel.Quiz = _db.Quiz.FirstOrDefault(x => x.Id == viewModel.UserScore.QuizId);
 
-                if (_db.Quiz.FirstOrDefault().MinScoreToPass <= viewModel.UserScore.Points) 
+                if (viewModel.Quiz.MinScoreToPass <= viewModel.UserScore.Points) 
                 {
-                    ViewData["bestatt_tekst"] = "Gratulerer du har bestått";
-                    ViewData["bestatt"] = true;
+                    viewModel.Tekst = "Gratulerer du har bestått";
+                    viewModel.Passed = true;
                 }
                 else
                 {
-                    ViewData["bestatt_tekst"] = "Du bestå ikke prøven!";
-                    ViewData["bestatt"] = false;
+                    viewModel.Tekst = "Du bestå ikke prøven!";
+                    viewModel.Passed = false;
                 }
-
             }
             else
             {
@@ -221,21 +228,58 @@ namespace Trafikkal.web.Areas.Student.Controllers
                 UserScore = _db.UserScores.FirstOrDefault(x => x.UserId == _userId)
             };
             return View(viewModel);
-
         }
 
         /// <summary>
-        /// Method for re-setting the test for a given user
+        /// GET: /Student/Test/FullResult/133424-1231241241-411444
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("/Student/Test/FullResult/{id:int}")]
+        public ActionResult FullResult(int id)
+        {
+            var userId = _db.UserScores.FirstOrDefault(x => x.Id == id).UserId;
+            var viewModel = new FullResultViewModel()
+            {
+                Questions = _db.Question.ToList(),
+                Answers = _db.Answers.Where(x => x.UserId == userId).ToList(),
+                UserScore = _db.UserScores.FirstOrDefault(x => x.UserId == userId),
+                UserName = _db.Students.Any(x => x.UserId == userId) ? _db.Students.First(x => x.UserId == userId).Navn : userId
+            };
+            return View(viewModel);
+        }
+
+        /// <summary>
+        /// GET: /Student/Test/Reset
+        /// Method for re-setting the test for this user
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult Reset()
         {
-            var userId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            _db.Database.ExecuteSqlCommand($@"DELETE FROM Answers  WHERE userid = '{userId}'");
-            _db.Database.ExecuteSqlCommand($@"DELTE FROM UserScores WHERE UserId = '{userId}");
+            _db.Database.ExecuteSqlCommand($@"DELETE FROM Answers  WHERE userid = '{_userId}'");
+            _db.Database.ExecuteSqlCommand($@"DELETE FROM UserScores WHERE UserId = '{_userId}'");
             _db.SaveChanges();
 
             return RedirectToAction("Index", "Me");
+        }
+
+        /// <summary>
+        /// GET: /Student/Test/Reset/1
+        /// A method for re-setting the test for a given user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("/Student/Test/Reset/{id:int}")]
+        public ActionResult Reset(int id)
+        {
+            var userId = _db.UserScores.First(x => x.Id == id).UserId;
+
+            _db.Database.ExecuteSqlCommand($@"DELETE FROM Answers  WHERE userid = '{userId}'");
+            _db.Database.ExecuteSqlCommand($@"DELETE FROM UserScores WHERE UserId = '{userId}'");
+            _db.SaveChanges();
+
+            return RedirectToAction("Index", "Scores", new { area="Admin"});
         }
 
         #region helpers

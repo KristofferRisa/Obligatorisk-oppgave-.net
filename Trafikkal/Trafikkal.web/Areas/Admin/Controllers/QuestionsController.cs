@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -13,17 +14,22 @@ namespace Trafikkal.web.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class QuestionsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _db;
 
-        public QuestionsController(ApplicationDbContext context)
+        public QuestionsController(ApplicationDbContext db)
         {
-            _context = context;    
+            _db = db;    
         }
 
         // GET: Admin/Questions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Question.ToListAsync());
+            var viewModel = new QuestionsIndexViewModel()
+            {
+                Questions = await _db.Question.OrderBy(x => x.Number).ToListAsync(),
+                Quizzes = await _db.Quiz.ToListAsync()
+            };
+            return View(viewModel);
         }
 
         // GET: Admin/Questions/Details/5
@@ -34,7 +40,7 @@ namespace Trafikkal.web.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Question
+            var question = await _db.Question
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (question == null)
             {
@@ -43,7 +49,7 @@ namespace Trafikkal.web.Areas.Admin.Controllers
             var viewModel = new QuestionViewModel()
             {
                 Question = question,
-                Quizzes = await _context.Quiz.ToListAsync()
+                Quizzes = await _db.Quiz.ToListAsync()
             };
             return View(viewModel);
         }
@@ -51,7 +57,11 @@ namespace Trafikkal.web.Areas.Admin.Controllers
         // GET: Admin/Questions/Create
         public IActionResult Create()
         {
-            return View();
+            var viewModel = new QuestionViewModel()
+            {
+                Quizzes = _db.Quiz.ToList()
+            };
+            return View(viewModel);
         }
 
         // POST: Admin/Questions/Create
@@ -59,18 +69,19 @@ namespace Trafikkal.web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,QuizId,Number,Text,Img,Video,Alternative1,Alternative2,Alternative3,Alternative4,Alternative5,IsAlternative1Correct,IsAlternative2Correct,IsAlternative3Correct,IsAlternative4Correct,IsAlternative5Correct,IsMultipleChoice,Active,Created")] Question question)
+        public async Task<IActionResult> Create([Bind("Id,QuizId,Number,Text,Img,Video,Alternative1,Alternative2,Alternative3,Alternative4,Alternative5,IsAlternative1Correct,IsAlternative2Correct,IsAlternative3Correct,IsAlternative4Correct,IsAlternative5Correct,IsMultipleChoice,Active")] Question question)
         {
+            question.Created = DateTime.Now;
             if (ModelState.IsValid)
             {
-                _context.Add(question);
-                await _context.SaveChangesAsync();
+                _db.Add(question);
+                await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             var viewModel = new QuestionViewModel()
             {
                 Question = question,
-                Quizzes = await _context.Quiz.ToListAsync()
+                Quizzes = await _db.Quiz.ToListAsync()
             };
             return View(viewModel);
         }
@@ -84,7 +95,7 @@ namespace Trafikkal.web.Areas.Admin.Controllers
             }
 
             
-            var question = await _context.Question.SingleOrDefaultAsync(m => m.Id == id);
+            var question = await _db.Question.SingleOrDefaultAsync(m => m.Id == id);
             if (question == null)
             {
                 return NotFound();
@@ -93,7 +104,7 @@ namespace Trafikkal.web.Areas.Admin.Controllers
             var viewModel = new QuestionViewModel()
             {
                 Question = question,
-                Quizzes = await _context.Quiz.ToListAsync()
+                Quizzes = await _db.Quiz.ToListAsync()
             };
             return View(viewModel);
         }
@@ -114,8 +125,8 @@ namespace Trafikkal.web.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(question);
-                    await _context.SaveChangesAsync();
+                    _db.Update(question);
+                    await _db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -133,7 +144,7 @@ namespace Trafikkal.web.Areas.Admin.Controllers
             var viewModel = new QuestionViewModel()
             {
                 Question = question,
-                Quizzes = await _context.Quiz.ToListAsync()
+                Quizzes = await _db.Quiz.ToListAsync()
             };
             return View(viewModel);
         }
@@ -146,7 +157,7 @@ namespace Trafikkal.web.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Question
+            var question = await _db.Question
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (question == null)
             {
@@ -161,15 +172,15 @@ namespace Trafikkal.web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var question = await _context.Question.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Question.Remove(question);
-            await _context.SaveChangesAsync();
+            var question = await _db.Question.SingleOrDefaultAsync(m => m.Id == id);
+            _db.Question.Remove(question);
+            await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         private bool QuestionExists(int id)
         {
-            return _context.Question.Any(e => e.Id == id);
+            return _db.Question.Any(e => e.Id == id);
         }
     }
 }

@@ -7,7 +7,9 @@
 
 <div class="row">
     <h2>Full oversikt</h2>
-    <h3>Alle spørsmål og svar</h3>
+    <h3>Alle spørsmål og svar @if(Model.UserName != null){ @Html.Raw($"for {Model.UserName}") }
+    </h3>
+    <a asp-area="Student" asp-controller="Me" asp-action="Index" >Tilbake</a>
     <hr/>
     @foreach (var quesition in Model.Questions)
     {
@@ -27,7 +29,7 @@
                             @if (Model.Answers.Any(x=> x.QuestionNumber == quesition.Number 
                                 && x.Alternative == quesition.Alternative1))
                             {
-                                <span class="glyphicon glyphicon-ok"></span>
+                                <span class="glyphicon glyphicon-ok"></span>@Html.Raw("Riktig")
                             }
                         </li>
                     }
@@ -38,7 +40,7 @@
                             @if (Model.Answers.Any(x => x.QuestionNumber == quesition.Number
                                                    && x.Alternative == quesition.Alternative1))
                             {
-                                <span class="glyphicon glyphicon-remove"></span>
+                                <span class="glyphicon glyphicon-remove"></span>@Html.Raw("Feil")
                             }
                         </li>
                     }
@@ -50,11 +52,11 @@
                     {
 
                         <li class="text-success">
-                            @quesition.Alternative2 
+                            <p>@quesition.Alternative2 </p>
                             @if (Model.Answers.Any(x=> x.QuestionNumber == quesition.Number 
                                                        && x.Alternative == quesition.Alternative2))
                             {
-                                <span class="glyphicon glyphicon-ok"></span>
+                                <span class="glyphicon glyphicon-ok"></span> @Html.Raw("Riktig")
                             }
                         </li>
                     }
@@ -65,7 +67,7 @@
                             @if (Model.Answers.Any(x => x.QuestionNumber == quesition.Number
                                                    && x.Alternative == quesition.Alternative2))
                             {
-                                <span class="glyphicon glyphicon-remove"></span>
+                                <span class="glyphicon glyphicon-remove"></span>@Html.Raw("Feil")
                             }
                         </li>
                     }
@@ -80,7 +82,7 @@
                             @if (Model.Answers.Any(x=> x.QuestionNumber == quesition.Number 
                                                        && x.Alternative == quesition.Alternative3))
                             {
-                                <span class="glyphicon glyphicon-ok"></span>
+                                <span class="glyphicon glyphicon-ok"></span>@Html.Raw("Riktig")
                             }
                         </li>
                     }
@@ -91,7 +93,7 @@
                             @if (Model.Answers.Any(x => x.QuestionNumber == quesition.Number
                                                    && x.Alternative == quesition.Alternative3))
                             {
-                                <span class="glyphicon glyphicon-remove"></span>
+                                <span class="glyphicon glyphicon-remove"></span>@Html.Raw("Feil")
                             }
                         </li>
                     }
@@ -106,7 +108,7 @@
                             @if (Model.Answers.Any(x=> x.QuestionNumber == quesition.Number 
                                                        && x.Alternative == quesition.Alternative4))
                             {
-                                <span class="glyphicon glyphicon-ok"></span>
+                                <span class="glyphicon glyphicon-ok"></span>@Html.Raw("Riktig")
                             }
                         </li>
                     }
@@ -117,7 +119,7 @@
                             @if (Model.Answers.Any(x => x.QuestionNumber == quesition.Number
                                                    && x.Alternative == quesition.Alternative4))
                             {
-                                <span class="glyphicon glyphicon-remove"></span>
+                                <span class="glyphicon glyphicon-remove"></span>@Html.Raw("Feil")
                             }
                         </li>
                     }
@@ -132,7 +134,7 @@
                             @if (Model.Answers.Any(x=> x.QuestionNumber == quesition.Number 
                                                        && x.Alternative == quesition.Alternative5))
                             {
-                                <span class="glyphicon glyphicon-ok"></span>
+                                <span class="glyphicon glyphicon-ok"></span>@Html.Raw("Riktig")
                             }
                         </li>
                     }
@@ -143,7 +145,7 @@
                             @if (Model.Answers.Any(x=> x.QuestionNumber == quesition.Number 
                                                        && x.Alternative == quesition.Alternative5))
                             {
-                                <span class="glyphicon glyphicon-remove"></span>
+                                <span class="glyphicon glyphicon-remove"></span>@Html.Raw("Feil")
                             }
                         </li>
                     }

@@ -33,20 +33,31 @@ namespace Trafikkal.web.Areas.Student.Controllers
             {
                 meViewModel.Student = _db.Students.FirstOrDefault(x => x.UserId == _userId);
             }
+            if (_db.UserScores.Any(x => x.UserId == _userId))
+            {
+                meViewModel.UserScore = _db.UserScores.First(x => x.UserId == _userId);
+            }
 
             return View(meViewModel);
+        }
+
+        public IActionResult Admin()
+        {
+            return View();
         }
 
         [HttpGet]
         public ActionResult Oppdater()
         {
             var userId = _httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = new Models.Student();
+            var viewModel = new OppdaterViewModel();
             if (_db.Students.Any(x => x.UserId == userId))
             {
-                user = _db.Students.FirstOrDefault(x => x.UserId == userId);
+                viewModel.Student = _db.Students.FirstOrDefault(x => x.UserId == userId);
             }
-            return View(user);
+            viewModel.Email = _db.Users.FirstOrDefault(x => x.Id == _userId).Email;
+            
+            return View(viewModel);
         }
 
         [HttpPost]

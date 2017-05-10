@@ -1,74 +1,69 @@
-@model Trafikkal.web.Models.Question
+@model Trafikkal.web.Models.TestViewModels.StepViewModel
 
-<style>
-    /*TODO gjør ferdig styling på input text*/
-    label > input {
-        font-size: 1.1em;
-    }
-</style>
 <br />
-<h3>@Model.Text</h3>
+<h1>Nr @Model.Answered av @Model.NumberOfQuestions</h1>
+<h3>@Model.Question.Text</h3>
 @{
-    if (Model.Img != null)
+    if (Model.Question.Img != null)
     {
         <div >
-            <img style="height: 180px" class="img-responsive" src="@Model.Img" />
+            <img style="height: 180px" class="img-responsive" src="@Model.Question.Img" />
         </div>
     }
-    if (Model.Video != null)
+    if (Model.Question.Video != null)
     {
         <div>
-            <video src="@Model.Video"></video>
+            <video src="@Model.Question.Video"></video>
         </div>
     }
 }
 
 <hr/>
 
-<input name="questionNumber" readonly="readonly" value="@Model.Number" hidden="" />
-@if (Model.IsMultipleChoice)
+<input name="questionNumber" readonly="readonly" value="@Model.Question.Number" hidden="" />
+@if (Model.Question.IsMultipleChoice)
 {
-    if (!string.IsNullOrEmpty(Model.Alternative1))
+    if (!string.IsNullOrEmpty(Model.Question.Alternative1))
     {
         <div>
             <label>
-                <input type="checkbox" id="Alternative1" name="alternative1" value="@Model.Alternative1"> @Model.Alternative1
+                <input type="checkbox" id="Alternative1" name="alternative1" value="@Model.Question.Alternative1"> @Model.Question.Alternative1
             </label>
         </div>
 
 
     }
-    if (!string.IsNullOrEmpty(Model.Alternative2))
+    if (!string.IsNullOrEmpty(Model.Question.Alternative2))
     {
         <div>
             <label>
-                <input type="checkbox" id="Alternative2" name="alternative2" value="@Model.Alternative2"> @Model.Alternative2
+                <input type="checkbox" id="Alternative2" name="alternative2" value="@Model.Question.Alternative2"> @Model.Question.Alternative2
             </label>
         </div>
 
     }
-    if (!string.IsNullOrEmpty(Model.Alternative3))
+    if (!string.IsNullOrEmpty(Model.Question.Alternative3))
     {
         <div>
             <label>
-                <input type="checkbox" id="Alternative3" name="alternative3" value="@Model.Alternative3"> @Model.Alternative3
+                <input type="checkbox" id="Alternative3" name="alternative3" value="@Model.Question.Alternative3"> @Model.Question.Alternative3
             </label>
         </div>
 
     }
-    if (!string.IsNullOrEmpty(Model.Alternative4))
+    if (!string.IsNullOrEmpty(Model.Question.Alternative4))
     {
         <div>
             <label>
-                <input type="checkbox" id="Alternative4" name="alternative4" value="@Model.Alternative4"> @Model.Alternative4
+                <input type="checkbox" id="Alternative4" name="alternative4" value="@Model.Question.Alternative4"> @Model.Question.Alternative4
             </label>
         </div>
     }
-    if (!string.IsNullOrEmpty(Model.Alternative5))
+    if (!string.IsNullOrEmpty(Model.Question.Alternative5))
     {
         <div>
             <label>
-                <input type="checkbox" id="Alternative5" name="alternative5" value="@Model.Alternative5"> @Model.Alternative5
+                <input type="checkbox" id="Alternative5" name="alternative5" value="@Model.Question.Alternative5"> @Model.Question.Alternative5
             </label>
         </div>
 
@@ -76,43 +71,43 @@
 }
 else
 {
-    if (!string.IsNullOrEmpty(Model.Alternative1))
+    if (!string.IsNullOrEmpty(Model.Question.Alternative1))
     {
         <div  >
             <label  >
-                <input type="radio" id="Alternative1" name="alternative" value="@Model.Alternative1"> @Model.Alternative1
+                <input type="radio" id="Alternative1" name="alternative" value="@Model.Question.Alternative1"> @Model.Question.Alternative1
             </label>
         </div>
     }
-    if (!string.IsNullOrEmpty(Model.Alternative2))
+    if (!string.IsNullOrEmpty(Model.Question.Alternative2))
     {
         <div >
             <label>
-                <input type="radio" id="Alternative2" name="alternative" value="@Model.Alternative2"> @Model.Alternative2
+                <input type="radio" id="Alternative2" name="alternative" value="@Model.Question.Alternative2"> @Model.Question.Alternative2
             </label>
         </div>
     }
-    if (!string.IsNullOrEmpty(Model.Alternative3))
+    if (!string.IsNullOrEmpty(Model.Question.Alternative3))
     {
         <div >
             <label>
-                <input type="radio" id="Alternative3" name="alternative" value="@Model.Alternative3"> @Model.Alternative3
+                <input type="radio" id="Alternative3" name="alternative" value="@Model.Question.Alternative3"> @Model.Question.Alternative3
             </label>
         </div>
     }
-    if (!string.IsNullOrEmpty(Model.Alternative4))
+    if (!string.IsNullOrEmpty(Model.Question.Alternative4))
     {
         <div >
             <label>
-                <input type="radio" id="Alternative4" name="alternative" value="@Model.Alternative4"> @Model.Alternative4
+                <input type="radio" id="Alternative4" name="alternative" value="@Model.Question.Alternative4"> @Model.Question.Alternative4
             </label>
         </div>
     }
-    if (!string.IsNullOrEmpty(Model.Alternative5))
+    if (!string.IsNullOrEmpty(Model.Question.Alternative5))
     {
          <div >
              <label>
-                 <input type="radio" id="Alternative5" name="alternative" value="@Model.Alternative4"> @Model.Alternative5
+                 <input type="radio" id="Alternative5" name="alternative" value="@Model.Question.Alternative4"> @Model.Question.Alternative5
              </label>
          </div> 
      }
