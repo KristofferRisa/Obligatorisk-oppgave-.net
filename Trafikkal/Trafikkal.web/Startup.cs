@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -43,7 +40,6 @@ namespace Trafikkal.web
             {
                 _connectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_ConnectionString");
             }
-            _connectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_ConnectionString");
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -85,9 +81,7 @@ namespace Trafikkal.web
             app.UseStaticFiles();
 
             app.UseIdentity();
-
-            // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(name: "areaRoute",
