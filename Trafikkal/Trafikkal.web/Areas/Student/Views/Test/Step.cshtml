@@ -1,0 +1,13 @@
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary("", new { @class = "text-danger" })
+@using (
+    Html.BeginForm(
+        "Step"
+        , "Test"
+        , FormMethod.Post
+        , new {@class = "form-horizontal", role = "form"})){
+
+        
+    @Html.Partial("_Question")
+}

@@ -1,0 +1,34 @@
+﻿@model Trafikkal.web.Models.TestViewModels.ResultViewModel
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+<br/>
+<div class="row">
+    <h1>Resultat</h1>
+    <hr/>
+    @if (Model.Passed)
+    {
+        <h2 class="text-success">
+            @Model.Tekst
+        </h2>
+
+    }
+    else
+    {
+        <h2 class="text-danger">
+            @Model.Tekst
+        </h2>
+    }
+
+
+    <br/>
+    <h3>Score: @Model.UserScore.Points % </h3>
+    <h3>Du må ha mer enn @Model.Quiz.MinScoreToPass.ToString("##") % riktig for å bestå</h3>
+    <br/>
+    <a asp-area="Student" asp-action="FullResult" asp-controller="Test">
+        Se detaljer
+    </a>
+</div>
+
+

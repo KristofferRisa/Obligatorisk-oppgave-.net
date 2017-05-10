@@ -1,0 +1,66 @@
+@model Trafikkal.web.Models.TestViewModels.QuestionsIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Oversikt spørsmål</h2>
+
+<p>
+    <a asp-action="Create">Opprett ny</a>
+</p>
+<p>
+    <a asp-area="Student" asp-controller="Me" asp-action="Admin">Tilbake</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Test
+        </th>
+        <th>
+           Nr
+        </th>
+        <th>
+            Spørsmål
+        </th>
+        <th>
+           Er multiple choice
+        </th>
+        <th>
+            Aktiv
+        </th>
+        @*<th>
+                    @Html.DisplayNameFor(model => model.Created)
+                </th>*@
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Questions) {
+    <tr>
+        <td>
+            @Model.Quizzes.FirstOrDefault(x => x.Id == item.QuizId).Name
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsMultipleChoice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.Id">Endre</a> |
+            <a asp-action="Details" asp-route-id="@item.Id">Se</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">Slett</a>
+        </td>
+    </tr>
+}
+    </tbody>
+</table>

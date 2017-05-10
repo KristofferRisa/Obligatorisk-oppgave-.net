@@ -1,0 +1,156 @@
+@model Trafikkal.web.Models.TestViewModels.QuestionViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>Question</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="@Model.Question.QuizId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="@Model.Question.QuizId" class="form-control" asp-items="@ViewBag.QuizId">
+                    @foreach (var item in Model.Quizzes)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Question.Number" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.Question.Number" class="form-control" />
+                <span asp-validation-for="@Model.Question.Number" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Question.Text" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.Question.Text" class="form-control" />
+                <span asp-validation-for="@Model.Question.Text" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Question.Img" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.Question.Img" class="form-control" />
+                <span asp-validation-for="@Model.Question.Img" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Question.Video" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.Question.Video" class="form-control" />
+                <span asp-validation-for="@Model.Question.Video" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Question.Alternative1" class="col-md-2 control-label"></label>
+            <div class="col-md-4">
+                <input asp-for="@Model.Question.Alternative1" class="form-control" />
+                <span asp-validation-for="@Model.Question.Alternative1" class="text-danger"></span>
+            </div>
+            
+            <div class="col-md-6 pull-left">
+                <div class="checkbox-inline">
+                    <input asp-for="@Model.Question.IsAlternative1Correct"/>
+                    <label asp-for="@Model.Question.IsAlternative1Correct"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Question.Alternative2" class="col-md-2 control-label"></label>
+            <div class="col-md-4">
+                <input asp-for="@Model.Question.Alternative2" class="form-control" />
+                <span asp-validation-for="@Model.Question.Alternative2" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 pull-left">
+                <div class="checkbox-inline">
+                    <input asp-for="@Model.Question.IsAlternative2Correct"/>
+                    <label asp-for="@Model.Question.IsAlternative2Correct"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" >
+            <label asp-for="Question.Alternative3" class="col-md-2 control-label"></label>
+            <div class="col-md-4">
+                <input asp-for="Question.Alternative3" class="form-control" />
+                <span asp-validation-for="Question.Alternative3" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 pull-left">
+                <div class="checkbox-inline">
+                    <input asp-for="@Model.Question.IsAlternative3Correct"/>
+                    <label asp-for="@Model.Question.IsAlternative3Correct"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Question.Alternative4" class="col-md-2 control-label"></label>
+            <div class="col-md-4">
+                <input asp-for="@Model.Question.Alternative4" class="form-control" />
+                <span asp-validation-for="@Model.Question.Alternative4" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 pull-left">
+                <div class="checkbox-inline">
+                    <input asp-for="@Model.Question.IsAlternative4Correct"/>
+                    <label asp-for="@Model.Question.IsAlternative4Correct"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Question.Alternative5" class="col-md-2 control-label"></label>
+            <div class="col-md-4">
+                <input asp-for="@Model.Question.Alternative5" class="form-control" />
+                <span asp-validation-for="@Model.Question.Alternative5" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 pull-left">
+                <div class="checkbox-inline">
+                    <input asp-for="@Model.Question.IsAlternative5Correct"/>
+                    <label asp-for="@Model.Question.IsAlternative5Correct"></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="@Model.Question.IsMultipleChoice" />
+                    <label asp-for="@Model.Question.IsMultipleChoice"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="@Model.Question.Active" />
+                    <label asp-for="@Model.Question.Active"></label>
+                </div>
+            </div>
+        </div>
+        @*<div class="form-group">
+            <label asp-for="@Model.Question.Created" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.Question.Created" class="form-control" />
+                <span asp-validation-for="@Model.Question.Created" class="text-danger"></span>
+            </div>
+        </div>*@
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Opprett" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

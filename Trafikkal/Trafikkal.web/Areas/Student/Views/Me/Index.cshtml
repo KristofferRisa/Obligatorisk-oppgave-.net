@@ -1,0 +1,34 @@
+@model Trafikkal.web.Models.MeViewModels.MeViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    
+    @if (Model.Student != null)
+    {
+        <h2>Velkommen tilbake @Model.Student.Navn</h2>
+    }
+
+    <hr />    
+    @if (Model.UserScore != null && Model.UserScore.Points > 0)
+    {
+        <h3>
+            <a asp-area="Student" asp-controller="Test" asp-action="FullResult" asp-route-id="@Model.UserScore.Id" >Ekamen</a> poengsum: @Model.UserScore.Points
+        </h3>
+    }
+<br/>
+        <h3>Funksjoner</h3>
+        <ul >
+            <li >
+                <a asp-area="Student" asp-controller="Test" asp-action="Step" title="Eksamen">Ta eksamen</a>
+            </li>
+            <li >
+                <a asp-area="Student" asp-controller="Me" asp-action="Oppdater" title="Oppdater">Oppdater brukerinformasjon</a>
+            </li>
+            <li >
+                <a asp-area="Admin" asp-controller="Manage" asp-action="ChangePassword" title="Manage">Endre passord</a>
+            </li>
+        </ul>
+
+    </div>

@@ -1,0 +1,49 @@
+﻿@model Trafikkal.web.Models.MeViewModels.OppdaterViewModel
+
+@{
+    ViewBag.Title = "Oppdater";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+@Html.AntiForgeryToken()
+@Html.ValidationSummary("", new { @class = "text-danger" })
+@using (
+    Html.BeginForm(
+        "Oppdater"
+        , "Me"
+        , FormMethod.Post
+        , new {@class = "form-horizontal", role = "form"}))
+{
+
+
+    <div class="row">
+        <h2>Oppdater</h2>
+             <div>
+                <h2>Konto innstillinger</h2>
+                <hr/>
+            </div>
+           
+        @*<input type="hidden" asp-for="@Model.Student.UserId"/>*@
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Email:</label>
+            <input type="text" readonly="readonly" class="form-control" value="@Model.Email"/>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Navn:</label>
+            <input type="text" id="Navn" name="Navn" class="form-control" asp-for="Student.Navn"/>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Telefon:</label>
+            <input type="text" id="Telefon" name="Telefon" class="form-control" asp-for="Student.Telefon"/>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Adresse:</label>
+            <input type="text" id="Adresse" name="Adresse" class="form-control" asp-for="Student.Adresse"/>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button type="submit" class="btn btn-primary">Lagre</button>
+            </div>
+        </div>
+        <a asp-action="Index">Tilbake</a>
+    </div>
+}

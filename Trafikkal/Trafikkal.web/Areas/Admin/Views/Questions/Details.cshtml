@@ -1,0 +1,111 @@
+@model Trafikkal.web.Models.TestViewModels.QuestionViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Question</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Number)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Number)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.IsMultipleChoice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.IsMultipleChoice)
+        </dd>
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Text)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Text)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Img)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Img)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Video)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Video)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Alternative1)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Alternative1)
+            (
+            @Html.DisplayFor(model => model.Question.IsAlternative1Correct)
+            @Html.DisplayNameFor(model => model.Question.IsAlternative1Correct))
+            
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Alternative2)
+
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Alternative2)
+            (
+            @Html.DisplayFor(model => model.Question.IsAlternative2Correct)
+            @Html.DisplayNameFor(model => model.Question.IsAlternative2Correct))
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Alternative3)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Alternative3)
+            (
+            @Html.DisplayFor(model => model.Question.IsAlternative3Correct)
+            @Html.DisplayNameFor(model => model.Question.IsAlternative3Correct))
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Alternative4)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Alternative4)
+            (
+            @Html.DisplayFor(model => model.Question.IsAlternative4Correct)
+            @Html.DisplayNameFor(model => model.Question.IsAlternative4Correct))
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Alternative5)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Alternative5)
+            (
+            @Html.DisplayFor(model => model.Question.IsAlternative5Correct)
+            @Html.DisplayNameFor(model => model.Question.IsAlternative5Correct))
+        </dd>
+
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Active)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Active)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Created)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Question.Created)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Question.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
