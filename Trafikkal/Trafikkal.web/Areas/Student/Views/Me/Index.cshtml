@@ -19,16 +19,12 @@
     }
 <br/>
         <h3>Funksjoner</h3>
-        <ul >
-            <li >
-                <a asp-area="Student" asp-controller="Test" asp-action="Step" title="Eksamen">Ta eksamen</a>
-            </li>
-            <li >
-                <a asp-area="Student" asp-controller="Me" asp-action="Oppdater" title="Oppdater">Oppdater brukerinformasjon</a>
-            </li>
-            <li >
-                <a asp-area="Admin" asp-controller="Manage" asp-action="ChangePassword" title="Manage">Endre passord</a>
-            </li>
-        </ul>
+        <div class="list-group" >
+            
+                @*<a class="list-group-item" asp-area="Student" asp-controller="Test" asp-action="Step" title="Eksamen">Ta Quiz</a>*@
+                <a class="list-group-item" asp-area="Student" asp-controller="Me" asp-action="Oppdater" title="Oppdater">Oppdater brukerinformasjon</a>
+                <a class="list-group-item" asp-area="Admin" asp-controller="Manage" asp-action="ChangePassword" title="Manage">Endre passord</a>
+        
+        </div>
 
     </div>

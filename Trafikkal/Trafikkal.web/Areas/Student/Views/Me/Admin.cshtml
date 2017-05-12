@@ -9,17 +9,14 @@
     <h2>Administrasjon og oversikt</h2>
     <hr/>
     <h3>Funksjoner</h3>
-    <ul>
-        <li>
-        <a asp-area="Admin" asp-controller="Scores" asp-action="Index">Oversikt tester</a>    
-        </li>
-        <li>
-            <a asp-area="Admin" asp-controller="Quiz" asp-action="Index">Se/endre Tester</a>    
-        </li>
-        <li>
-            <a asp-area="Admin" asp-controller="Questions" asp-action="Index">Se/endre spørsmål</a>    
-        </li>
-    </ul>
+    
+
+
+    <div class="list-group">
+        <a class="list-group-item" asp-area="Admin" asp-controller="Scores" asp-action="Index">Se utførte Quiz</a>
+        <a class="list-group-item" asp-area="Admin" asp-controller="Quiz" asp-action="Index">Se/endre alle Quiz</a>
+        <a class="list-group-item" on asp-area="Admin" asp-controller="Questions" asp-action="Index">Se/endre spørsmål</a>
+    </div>
         
     
 </div>

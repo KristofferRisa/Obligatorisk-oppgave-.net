@@ -8,11 +8,14 @@
 }
 
 <h2>Oversikt tester</h2>
+<p>
+    <a asp-area="Student" asp-controller="Me" asp-action="Admin">Tilbake</a>
+</p>
 <table class="table">
     <thead>
     <tr>
         <th>
-            Brukernavn
+            Brukernavn / UserId
         </th>
         <th>
             Poeng
@@ -30,7 +33,7 @@
             <td>
                 @if (Model.Students.Any(x => x.UserId == item.UserId))
                 {
-                    @Html.Raw($"for {Model.Students.First(x => x.UserId == item.UserId).Navn}")
+                    @Model.Students.First(x => x.UserId == item.UserId).Navn
                 }
                 else
                 {
@@ -44,8 +47,8 @@
                 @(Model.Quizzes.First(x => x.Id ==item.QuizId).Name)
             </td>
             <td>
-                <a asp-area="Student" asp-controller="Test" asp-action="FullResult" asp-route-id="@item.Id">Details</a> |
-                <a asp-area="Student" asp-controller="Test" asp-action="Reset" asp-route-id="@item.Id">Reset</a>
+                <a asp-area="Student" asp-controller="Test" asp-action="FullResult" asp-route-id="@item.Id">Detaljer</a> |
+                <a asp-area="Student" asp-controller="Test" asp-action="Reset" asp-route-id="@item.Id">Nullstill</a>
             </td>
         </tr>
     }
