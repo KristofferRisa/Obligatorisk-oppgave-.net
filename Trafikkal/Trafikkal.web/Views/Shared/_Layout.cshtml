@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
@@ -44,7 +44,7 @@
                    @if (SignInManager.IsSignedIn(User))
                    {
                        <li class=" navbar-nav">
-                           <a asp-area="Student" asp-controller="Test" asp-action="Step">Ta testen</a>
+                           <a asp-area="Student" asp-controller="Test" asp-action="Step">Ta Quiz</a>
                        </li>
                    }
                 </ul>

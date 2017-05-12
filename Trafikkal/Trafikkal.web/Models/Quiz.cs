@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Trafikkal.web.Models
 {
@@ -12,7 +11,9 @@ namespace Trafikkal.web.Models
         [Required]
         public string Name { get; set; }
         [Required]
+        [DisplayName("Minimum score to pass")]
         public decimal MinScoreToPass { get; set; }
+        [DisplayName("Spørsmål")]
         public virtual List<Question> Questions { get; set; }
     }
 }
