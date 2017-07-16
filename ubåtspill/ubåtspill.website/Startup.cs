@@ -44,10 +44,6 @@ namespace ubåtspill.website
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
             }
-            else
-            {
-                app.UseExceptionHandler("Highscores/Error");
-            }
 
             app.UseStaticFiles();
 
